@@ -51,6 +51,13 @@
 }
 
 .icon {
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
+  /*padding-left: 50px;*/
+}
+
+.iconHolder {
+  padding-left: 90px;
+  /*padding-top: -10px;*/
+  /*padding-right: 30px;*/
 }

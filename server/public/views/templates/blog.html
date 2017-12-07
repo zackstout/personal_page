@@ -77,7 +77,7 @@ We can apply the same principle to draw a circle, or an ellipse, from scratch (a
 <div layout layout-align="center center">
   <canvas id="polygon" width="400" height="400"></canvas>
 </div>
-<md-slider ng-model="bc.n.n"></md-slider>
+<md-slider ng-model="bc.n" ng-change="bc.drawPolygon(bc.n)"></md-slider>
 
 <!-- parabola defn  -->
 

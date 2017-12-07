@@ -33,16 +33,35 @@
       </div>
 
       <div layout="column" flex="40">
-        <div class="myPicContainer">
-          <img class="myPic" src="styles/zack.jpg">
-          Email:<br>
-          LinkedIn:<br>
-          Github:<br>
-        </div>
+        <div class="myPicContainer" layout layout-align="center center">
+          <!-- <div layout="row"> -->
+            <img class="myPic" src="styles/zack.jpg">
+          </div>
+
+          <div layout="row" layout layout-align="center center">
+            <div class="iconHolder">
+              <a href="http://github.com/zackstout">
+                <img class="icon" src="styles/github_icon.svg"></a>
+            </div>
+
+            <div class="iconHolder">
+              <a href="https://www.linkedin.com/in/zack-stout-001/">
+                <img class="icon" src="styles/linkedin_icon.png"></a>
+            </div>
+
+
+            <canvas width="100" height="100"></canvas>
+          </div>
+
+          <div layout="row">
+            <img class="icon" src="styles/gmail_icon2.ico"> zackstout.gmail.com
+          </div>
+
+        <!-- </div> -->
       </div>
     </div>
 
-    <div layout="row">
+    <div layout="column">
 
           <p>
             These two quotes encapsulate my view of coding. On the one hand, a program is a carefully constructed list of instructions designed to achieve some end -- one has a goal in mind, and plans out the best way of achieving it.

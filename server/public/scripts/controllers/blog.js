@@ -17,7 +17,7 @@ app.controller('BlogController', function($location) {
 
   vm.x6 = 0;
 
-  vm.n = { n: 3 };
+  vm.n = 3;
 
 
 //ball throw:
@@ -83,22 +83,22 @@ app.controller('BlogController', function($location) {
 
 console.log(vm.n);
 //odd that if i set min to 3, it will only go back to square, but if to 2, then it will render straight line....
-  drawPolygon = function() {
+  vm.drawPolygon = function(n) {
     console.log('hi', vm.n);
-    var n = vm.n.n;
+    // var n = vm.n;
     ctx7.clearRect(0,0,500,500);
     ctx7.translate(200, 200);
     circle2(1, 1, n, 100);
     ctx7.translate(-200,-200);
   };
 
-  drawPolygon();
+  vm.drawPolygon(3);
 
   function whatIsN() {
     console.log(vm.n);
   }
 
-  setInterval(whatIsN, 50);
+  // setInterval(whatIsN, 50);
 
 
   //parabola defn:
