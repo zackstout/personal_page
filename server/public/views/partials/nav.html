@@ -1,8 +1,15 @@
 
 <div ng-controller="NavController as nc">
-  <h2>NAVBAR</h2>
+<div  class="navbar" layout="column" flex="15">
 
-  <button ng-click="nc.goPort()">Portfolio</button>
-  <button ng-click="nc.goHome()">About Me</button>
-  <button ng-click="nc.goBlog()">Blog</button>
+  <div class="sideNav">
+    <button ng-click="nc.goHome()">About Me</button>
+  </div>
+  <div class="sideNav">
+    <button ng-click="nc.goBlog()">Blog</button>
+  </div>
+  <div class="sideNav">
+    <button ng-click="nc.goPort()">Portfolio</button>
+  </div>
+</div>
 </div>
