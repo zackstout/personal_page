@@ -1,41 +1,80 @@
 
 <!-- <div ng-include="'views/partials/nav.html'"></div> -->
 <div layout="row">
-        <div layout="column" flex="15" ng-controller="NavController as nc">
+  <div layout="column" flex="15" ng-controller="NavController as nc">
 
-          <div >
-            <button ng-click="nc.goHome()">About Me</button>
-          </div>
-          <div >
-            <button ng-click="nc.goBlog()">Blog</button>
-          </div>
-          <div >
-            <button ng-click="nc.goPort()">Portfolio</button>
-          </div>
+    <div class="sideNav">
+      <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+    </div>
+    <div class="sideNav">
+      <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
+    </div>
+    <div class="sideNav">
+      <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
+    </div>
+  </div>
+
+
+  <div layout="column" flex="80">
+    <h2>about</h2>
+
+
+
+    <div layout="row">
+
+      <div layout="column" flex="50">
+        <p>
+          "A program is crystallized thought." -- Marijn Haverbeke, <emph>Eloquent Javascript</emph>, Ch. 8
+        </p>
+
+        <p>
+          "In imagining that there is a machine whose construction would enable it to think, to sense, and to have perception, one could conceive it enlarged while retaining the same proportions, so that one could enter into it, just like into a windmill. Supposing this, one should, when visiting within it, find only parts pushing one another, and never anything by which to explain a perception." --G. F. Leibniz
+        </p>
+      </div>
+
+      <div layout="column" flex="40">
+        <div class="myPicContainer">
+          <img class="myPic" src="styles/zack.jpg">
+          Email:<br>
+          LinkedIn:<br>
+          Github:<br>
         </div>
+      </div>
+    </div>
+
+    <div layout="row">
+
+          <p>
+            These two quotes encapsulate my view of coding. On the one hand, a program is a carefully constructed list of instructions designed to achieve some end -- one has a goal in mind, and plans out the best way of achieving it.
+          </p>
+
+          <p>
+            On the other hand, a programmer must also decide which goals are worth pursuing. She must perceive, analyze and ultimately understand what she values, and consequencly which projects deserve her attention.
+          </p>
+
+          <p>
+            Github: <a href="http://github.com/zackstout">
+              <img class="icon" src="styles/github_icon.svg"></a>
+
+            </p>
+
+            <p>
+              LinkedIn: <a href="https://www.linkedin.com/in/zack-stout-001/">
+                <img class="icon" src="styles/linkedin_icon.png"></a>
 
 
-<div layout="column" flex="80">
-<h2>about</h2>
+              </p>
 
-<p>
-  "A program is crystallized thought." -- Marijn Haverbeke, <emph>Eloquent Javascript</emph>, Ch. 8
-</p>
+              <p>
+                Email: zackstout@gmail.com
+                <img class="icon" src="styles/gmail_icon2.ico">
+              </p>
 
-<p>
-  Github: <a href="http://github.com/zackstout">Me again!</a>
-</p>
+              <p>
+                My other activities. A pitch. Quirky...?
+              </p>
+    </div>
 
-<p>
-  LinkedIn: <a href="https://www.linkedin.com/in/zack-stout-001/">Me!</a>
-</p>
 
-<p>
-  Email: zackstout@gmail.com
-</p>
-
-<p>
-
-</p>
-</div>
-</div>
+      </div>
+    </div>

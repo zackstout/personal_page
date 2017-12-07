@@ -1,20 +1,86 @@
 
 <div layout="row">
-        <div layout="column" flex="15" ng-controller="NavController as nc">
+  <div layout="column" flex="15" ng-controller="NavController as nc">
 
-          <div >
-            <button ng-click="nc.goHome()">About Me</button>
-          </div>
-          <div >
-            <button ng-click="nc.goBlog()">Blog</button>
-          </div>
-          <div >
-            <button ng-click="nc.goPort()">Portfolio</button>
-          </div>
-        </div>
-        <div layout="column">
-<h2>blog</h2>
+    <div class="sideNav">
+      <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+    </div>
+    <div class="sideNav">
+      <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
+    </div>
+    <div class="sideNav">
+      <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
+    </div>
+  </div>
 
-<canvas id="parabola" width="400" height="400"></canvas>
+  <div layout="column" flex="70">
+    <h1>blog</h1>
+
+    <h2>Getting Started with HTML Canvas Animations:</h2>
+<div class="head">Fun with Conic Sections</div>
+
+
+<p>
+  Being something of a math/physics nerd, I was delighted to discover that with nothing but the HTML canvas element, vanilla JavaScript, and a bit of math, one can easily render pleasing visual illustrations of mathematical relationships.
+</p>
+
+<!-- ball throw -->
+
+<p>
+ For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation (f(x) = a*x <sup>2</sup> + b*x + c). Canvas has a built-in coordinate system. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
+</p>
+
+<div layout layout-align="center center">
+  <canvas id="parabolaBall" width="400" height="400"></canvas>
+
 </div>
+<button ng-click="bc.throwBall()">Throw</button>
+
+
+<!-- parabola  -->
+<p>
+To draw a parabolic curve onto the canvas requires a bit more thought. Canvas has built-in functions to draw circular and elliptical arcs, but if you want to draw a specific curve, you need to break things down into small intervals (borrowing an idea from calculus) and connect the dots with straight lines. When the intervals are small enough, the concatentation of straight lines will appear curve-like.
+
+</p>
+
+<pre><code >
+  function parabola(x, l, a, b, c, dir) {
+    for (var i = 0; i < x; i++) {
+      ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+      ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+      ctx.stroke();
+    }
+  }
+</code></pre>
+
+<div layout layout-align="center center">
+  <canvas id="parabola" width="400" height="400"></canvas>
+
+</div>
+
+<!-- circle -->
+
+
+<!-- parabola defn  -->
+
+
+<!-- ellipse defn  -->
+
+
+
+<!-- parabola tangent -->
+
+
+<!-- parabola orthogonal -->
+
+
+
+
+  </div>
+
+  <div layout="column" flex="10">
+    <p>post 1</p>
+    <p>post 2</p>
+    <p>post 3</p>
+  </div>
 </div>

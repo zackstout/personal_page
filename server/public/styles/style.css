@@ -5,12 +5,34 @@
 }
 
 .sideNav {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  /*padding-top: 60px;
+  padding-bottom: 60px;*/
+  /*background-color: blue;*/
+}
+
+.clickMe {
+  height: 130px;
+  background-color: blue;
+}
+
+.clickMe:hover {
+  background-color: teal;
 }
 
 .projectInfoContainer {
 
+}
+
+.head {
+  font-family: monospace;
+  font-size: 22px;
+}
+
+.myPic {
+  height: auto;
+  width: 250px;
+  border-radius: 30px;
+  float: right;
 }
 
 .projContainer {
@@ -21,4 +43,14 @@
 .imageContainer {
   height: 75px;
   width: 75px;
+}
+
+#parabola, #parabolaBall {
+  width: 400px;
+  height: 400px;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
 }
