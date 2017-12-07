@@ -45,9 +45,9 @@
   width: 75px;
 }
 
-#parabola, #parabolaBall {
-  width: 400px;
-  height: 400px;
+#parabola, #parabolaBall, #polygon {
+  width: 350px;
+  height: 350px;
 }
 
 .icon {

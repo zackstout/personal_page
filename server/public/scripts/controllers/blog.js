@@ -1,4 +1,5 @@
 
+
 app.controller('BlogController', function($location) {
   console.log('BlogController created');
 
@@ -11,7 +12,12 @@ app.controller('BlogController', function($location) {
   var canvas6 = document.getElementById('parabolaBall');
   var ctx6 = canvas6.getContext('2d');
 
+  var canvas7 = document.getElementById('polygon');
+  var ctx7 = canvas7.getContext('2d');
+
   vm.x6 = 0;
+
+  vm.n = { n: 3 };
 
 
 //ball throw:
@@ -65,8 +71,34 @@ app.controller('BlogController', function($location) {
     }
   }
 
-  //circle:
+  //polygon:
+  function circle2(a, b, x, r) {
+    ctx7.beginPath();
+    for (var i = 0; i < x; i++) {
+      ctx7.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+      ctx7.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+      ctx7.stroke();
+    }
+  }
 
+console.log(vm.n);
+//odd that if i set min to 3, it will only go back to square, but if to 2, then it will render straight line....
+  drawPolygon = function() {
+    console.log('hi', vm.n);
+    var n = vm.n.n;
+    ctx7.clearRect(0,0,500,500);
+    ctx7.translate(200, 200);
+    circle2(1, 1, n, 100);
+    ctx7.translate(-200,-200);
+  };
+
+  drawPolygon();
+
+  function whatIsN() {
+    console.log(vm.n);
+  }
+
+  setInterval(whatIsN, 50);
 
 
   //parabola defn:

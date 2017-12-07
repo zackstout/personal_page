@@ -58,8 +58,26 @@ To draw a parabolic curve onto the canvas requires a bit more thought. Canvas ha
 
 </div>
 
-<!-- circle -->
+<!-- polygon -->
+<p>
+We can apply the same principle to draw a circle, or an ellipse, from scratch (as well as any regular polygon!).
+</p>
 
+<pre><code>
+  function circle(a, b, x, r) {
+    ctx3.beginPath();
+    for (var i = 0; i < x; i++) {
+      ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+      ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+      ctx3.stroke();
+    }
+  }
+</code></pre>
+
+<div layout layout-align="center center">
+  <canvas id="polygon" width="400" height="400"></canvas>
+</div>
+<md-slider ng-model="bc.n.n"></md-slider>
 
 <!-- parabola defn  -->
 
