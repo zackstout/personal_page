@@ -9,6 +9,9 @@ app.controller('BlogController', function($location) {
   var canvas2 = document.getElementById('parabola');
   var ctx2 = canvas2.getContext('2d');
 
+  var canvas = document.getElementById('ball');
+  var ctx = canvas.getContext('2d');
+
   var canvas6 = document.getElementById('parabolaBall');
   var ctx6 = canvas6.getContext('2d');
 
@@ -81,10 +84,8 @@ app.controller('BlogController', function($location) {
     }
   }
 
-console.log(vm.n);
-//odd that if i set min to 3, it will only go back to square, but if to 2, then it will render straight line....
   vm.drawPolygon = function(n) {
-    console.log('hi', vm.n);
+    // console.log('hi', vm.n);
     // var n = vm.n;
     ctx7.clearRect(0,0,500,500);
     ctx7.translate(200, 200);
@@ -94,15 +95,73 @@ console.log(vm.n);
 
   vm.drawPolygon(3);
 
-  function whatIsN() {
-    console.log(vm.n);
-  }
-
-  // setInterval(whatIsN, 50);
-
 
   //parabola defn:
 
+  function parabola(x, l, a, b, c, dir) {
+  for (var i = 0; i < x; i++) {
+    ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+    ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+    ctx.stroke();
+  }
+}
+
+vm.x = 270;
+
+  vm.drawBall = function(x) {
+    ctx.clearRect(0,0,1000,1000);
+    //path of the ball:
+    ctx.beginPath();
+    // console.log(vm.x);
+
+    // var x = 250 + iteration*2;
+
+    // var xNow = (x-500)/100;
+    var xNow = (x - 500)/100;
+    // console.log(xNow);
+
+    //draw moving ball:
+    ctx.arc(x, 250 + xNow*xNow*100/(1), 6, 0, 2*Math.PI);
+    ctx.stroke();
+    ctx.fillStyle = 'green';
+    ctx.fill();
+    //re-draw parabola:
+    ctx.translate(300, 0);
+    parabola(200, 4, 1/(1), 0, 2.5, 1);
+    ctx.transform(-1, 0, 0, 1, 0, 0);
+    parabola(200, 4, 1/(1), 0, 2.5, -1);
+    ctx.transform(-1, 0, 0, 1, 0, 0);
+    ctx.translate(-300, 0);
+    //redraw grid:
+    ctx.moveTo(500, 0);
+    ctx.lineTo(500, 1000);
+    ctx.stroke();
+    ctx.moveTo(0, 250);
+    ctx.lineTo(1000, 250);
+    ctx.stroke();
+
+    //redraw in focus:
+    ctx.beginPath();
+    ctx.arc(500, 250+25, 5, 0, 2*Math.PI);
+    ctx.stroke();
+    ctx.fillStyle = 'blue';
+    ctx.fill();
+    //redraw in directrix (dotted line):
+    for (var i=0; i<50; i++) {
+      ctx.moveTo(i*20, 250-25);
+      ctx.lineTo(i*20+10, 250-25);
+      ctx.stroke();
+
+    }
+
+    //draw circle around point:
+    ctx.beginPath();
+    ctx.arc(x, 250 + xNow*xNow*100/(1), 25 + xNow*xNow*100/(1), 0, 2*Math.PI);
+    ctx.stroke();
+
+  }; //end of drawBall
+
+  vm.drawBall(vm.x);
 
 
   //ellipse:

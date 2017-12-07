@@ -50,6 +50,11 @@
   height: 350px;
 }
 
+#ball {
+  width: 700px;
+  height: 700px;
+}
+
 .icon {
   height: 30px;
   width: 30px;

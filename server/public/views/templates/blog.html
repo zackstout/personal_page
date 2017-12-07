@@ -17,79 +17,136 @@
     <h1>blog</h1>
 
     <h2>Getting Started with HTML Canvas Animations:</h2>
-<div class="head">Fun with Conic Sections</div>
+    <div class="head">Fun with Conic Sections</div>
 
 
-<p>
-  Being something of a math/physics nerd, I was delighted to discover that with nothing but the HTML canvas element, vanilla JavaScript, and a bit of math, one can easily render pleasing visual illustrations of mathematical relationships.
-</p>
+    <p>
+      Being something of a math/physics nerd, I was delighted to discover that with nothing but the HTML canvas element, vanilla JavaScript, and a bit of math, one can easily render pleasing visual illustrations of mathematical relationships.
+    </p>
 
-<!-- ball throw -->
+    <!-- ball throw -->
 
-<p>
- For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation (f(x) = a*x <sup>2</sup> + b*x + c). Canvas has a built-in coordinate system. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
-</p>
+    <p>
+      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation (f(x) = a*x <sup>2</sup> + b*x + c). Canvas has a built-in coordinate system. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
+    </p>
+
+    <div layout layout-align="center center">
+      <canvas id="parabolaBall" width="400" height="400"></canvas>
+
+    </div>
+    <button ng-click="bc.throwBall()">Throw</button>
+
+
+    <!-- parabola  -->
+    <p>
+      To draw a parabolic curve onto the canvas requires a bit more thought. Canvas has built-in functions to draw circular and elliptical arcs, but if you want to draw a specific curve, you need to break things down into small intervals (borrowing an idea from calculus) and connect the dots with straight lines. When the intervals are small enough, the concatentation of straight lines will appear curve-like.
+
+    </p>
+
+    <pre><code >
+      function parabola(x, l, a, b, c, dir) {
+        for (var i = 0; i < x; i++) {
+          ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+          ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+          ctx.stroke();
+        }
+      }
+    </code></pre>
+
+    <div layout layout-align="center center">
+      <canvas id="parabola" width="400" height="400"></canvas>
+
+    </div>
+
+    <!-- polygon -->
+    <p>
+      We can apply the same principle to draw a circle, or an ellipse, from scratch (as well as any regular polygon!).
+    </p>
+
+    <pre><code>
+      function circle(a, b, x, r) {
+        ctx3.beginPath();
+        for (var i = 0; i < x; i++) {
+          ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+          ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+          ctx3.stroke();
+        }
+      }
+    </code></pre>
+
+    <div layout layout-align="center center">
+      <canvas id="polygon" width="400" height="400"></canvas>
+    </div>
+
+    <md-slider ng-model="bc.n" min="2" max="25" ng-change="bc.drawPolygon(bc.n)" aria-label="polygon"></md-slider>
+
+
+    <!-- parabola defn  -->
+    <p>
+      Now we can start to get fancier. What if we want a nice visual representation of the defining properties of a parabola? Every parabola has a focus and a directrix, and obeys the rule that every point on the parabola is equidistant from the parabola's focus and its directrix.
+    </p>
+
+    <pre><code>
+      //redraw in directrix (dotted line):
+      for (var i=0; i<50; i++) {
+        ctx5.moveTo(i*20, 250-vm.params.p*100);
+        ctx5.lineTo(i*20+10, 250-vm.params.p*100);
+        ctx5.stroke();
+
+      }
+    </code></pre>
+
+    <pre><code>
+      ctx5.clearRect(0,0,1000,1000);
+      //path of the ball:
+      ctx5.beginPath();
+      // console.log(vm.x);
+
+      // var x = 250 + iteration*2;
+
+      //for standardizing the units:
+      var xNow = (vm.x3 - 500)/100;
+      // console.log(xNow);
+
+      //draw moving ball:
+      ctx5.arc(vm.x3, 250 + xNow*xNow*100/(4*vm.params.p), 6, 0, 2*Math.PI);
+      ctx5.stroke();
+      ctx5.fillStyle = 'green';
+      ctx5.fill();
+    </code></pre>
 
 <div layout layout-align="center center">
-  <canvas id="parabolaBall" width="400" height="400"></canvas>
-
-</div>
-<button ng-click="bc.throwBall()">Throw</button>
-
-
-<!-- parabola  -->
-<p>
-To draw a parabolic curve onto the canvas requires a bit more thought. Canvas has built-in functions to draw circular and elliptical arcs, but if you want to draw a specific curve, you need to break things down into small intervals (borrowing an idea from calculus) and connect the dots with straight lines. When the intervals are small enough, the concatentation of straight lines will appear curve-like.
-
-</p>
-
-<pre><code >
-  function parabola(x, l, a, b, c, dir) {
-    for (var i = 0; i < x; i++) {
-      ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
-      ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
-      ctx.stroke();
-    }
-  }
-</code></pre>
-
-<div layout layout-align="center center">
-  <canvas id="parabola" width="400" height="400"></canvas>
-
+  <canvas id='ball' height=800 width =800></canvas>
 </div>
 
-<!-- polygon -->
-<p>
-We can apply the same principle to draw a circle, or an ellipse, from scratch (as well as any regular polygon!).
-</p>
-
-<pre><code>
-  function circle(a, b, x, r) {
-    ctx3.beginPath();
-    for (var i = 0; i < x; i++) {
-      ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
-      ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
-      ctx3.stroke();
-    }
-  }
-</code></pre>
-
-<div layout layout-align="center center">
-  <canvas id="polygon" width="400" height="400"></canvas>
-</div>
-<md-slider ng-model="bc.n" ng-change="bc.drawPolygon(bc.n)"></md-slider>
-
-<!-- parabola defn  -->
-
-
-<!-- ellipse defn  -->
+    <!-- <button ng-click="tc.illustrate()">Illustrate</button> -->
+    <md-slider ng-model="bc.x" ng-change="bc.drawBall(bc.x)" min="250" max="750" aria-label="parabDefn"></md-slider>
 
 
 
-<!-- parabola tangent -->
+
+    <!-- ellipse defn  -->
+
+    <p>
+      Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci. (Can also show tangent: kidney stones, whispering rooms).
+    </p>
+<!--
+
+    <canvas id="ellipse" width="700" height="700"></canvas>
+    a: <input type="range" min="25" max="200" ng-model="tc.a1" onchange="drawEllipse()" oninput="drawEllipse()"> {{tc.a1}}
+    b: <input type="range" min="25" max="200" ng-model="tc.b1" onchange="drawEllipse()" oninput="drawEllipse()"> {{tc.b1}}
+    <br>
+    <input type="range" min="0" max="628" ng-model="tc.theta1" onchange="drawEllipse()" oninput="drawEllipse()"> {{tc.theta1}}
+    <br>
+    <button ng-click="tc.toggleTangent()">Show tangent</button> -->
 
 
-<!-- parabola orthogonal -->
+
+
+    <!-- parabola tangent -->
+
+
+    <!-- parabola orthogonal -->
 
 
 
