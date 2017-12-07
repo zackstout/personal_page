@@ -4,7 +4,7 @@ app.controller('BlogController', function($location) {
 
   vm = this;
   vm.params = { p: 0.25 };
-  
+
   var canvas2 = document.getElementById('parabola');
   var ctx2 = canvas2.getContext('2d');
 

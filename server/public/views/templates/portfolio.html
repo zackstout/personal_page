@@ -1,4 +1,69 @@
 
-<div ng-include="'views/partials/nav.html'"></div>
 
+<div layout="row">
+        <div layout="column" flex="15" ng-controller="NavController as nc">
+
+          <div >
+            <button ng-click="nc.goHome()">About Me</button>
+          </div>
+          <div >
+            <button ng-click="nc.goBlog()">Blog</button>
+          </div>
+          <div >
+            <button ng-click="nc.goPort()">Portfolio</button>
+          </div>
+        </div>
+
+        <div layout="column" flex="80">
 <h2>portfolio is hard to type</h2>
+
+<hr>
+Solo Project
+<hr>
+
+
+
+<hr>
+Weekend Projects
+<hr>
+
+<div layout="column">
+  <div class="projContainer" layout="row">
+    <div class="imageContainer">
+
+    </div>
+    <div class="projectInfoContainer">
+      Github link: <a href="https://github.com/zackstout/real-estate-listings">Project 4</a>
+      Heroku link: <a href="https://tranquil-shore-40044.herokuapp.com/#!/listings">Project 4</a>
+    </div>
+  </div>
+  <div class="projContainer" layout="row">
+    <div class="imageContainer">
+
+    </div>
+    <div class="projectInfoContainer">
+      Github link: <a href="https://github.com/zackstout/weekend4_assignment">Project 3</a>
+      Heroku link: <a href="https://fierce-everglades-35141.herokuapp.com/">Project 3</a>
+    </div>
+  </div>
+  <div class="projContainer" layout="row">
+    <div class="imageContainer">
+
+    </div>
+    <div class="projectInfoContainer">
+      Github link: <a href="https://github.com/zackstout/wkd3_assignment">Project 2</a>
+    </div>
+  </div>
+  <div class="projContainer" layout="row">
+    <div class="imageContainer">
+
+    </div>
+    <div class="projectInfoContainer">
+      Github link: <a href="https://github.com/zackstout/wkd2_assignment">Project 1</a>
+      Heroku link: <a href="https://stark-everglades-66672.herokuapp.com/">Project 1</a>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

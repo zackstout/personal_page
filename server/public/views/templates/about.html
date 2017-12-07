@@ -1,4 +1,41 @@
 
-<div ng-include="'views/partials/nav.html'"></div>
+<!-- <div ng-include="'views/partials/nav.html'"></div> -->
+<div layout="row">
+        <div layout="column" flex="15" ng-controller="NavController as nc">
 
+          <div >
+            <button ng-click="nc.goHome()">About Me</button>
+          </div>
+          <div >
+            <button ng-click="nc.goBlog()">Blog</button>
+          </div>
+          <div >
+            <button ng-click="nc.goPort()">Portfolio</button>
+          </div>
+        </div>
+
+
+<div layout="column" flex="80">
 <h2>about</h2>
+
+<p>
+  "A program is crystallized thought." -- Marijn Haverbeke, <emph>Eloquent Javascript</emph>, Ch. 8
+</p>
+
+<p>
+  Github: <a href="http://github.com/zackstout">Me again!</a>
+</p>
+
+<p>
+  LinkedIn: <a href="https://www.linkedin.com/in/zack-stout-001/">Me!</a>
+</p>
+
+<p>
+  Email: zackstout@gmail.com
+</p>
+
+<p>
+
+</p>
+</div>
+</div>
