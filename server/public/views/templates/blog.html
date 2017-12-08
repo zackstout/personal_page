@@ -130,15 +130,17 @@
     <p>
       Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci. (Can also show tangent: kidney stones, whispering rooms).
     </p>
-<!--
 
-    <canvas id="ellipse" width="700" height="700"></canvas>
-    a: <input type="range" min="25" max="200" ng-model="tc.a1" onchange="drawEllipse()" oninput="drawEllipse()"> {{tc.a1}}
-    b: <input type="range" min="25" max="200" ng-model="tc.b1" onchange="drawEllipse()" oninput="drawEllipse()"> {{tc.b1}}
+    <div layout layout-align="center center">
+      <canvas id="ellipse" width="700" height="700"></canvas>
+    </div>
+
+    a: <md-slider min="25" max="200" ng-model="bc.a" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)"></md-slider> {{bc.a}}
+    b: <md-slider min="25" max="200" ng-model="bc.b" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)"></md-slider> {{bc.b}}
     <br>
-    <input type="range" min="0" max="628" ng-model="tc.theta1" onchange="drawEllipse()" oninput="drawEllipse()"> {{tc.theta1}}
+    <md-slider min="0" max="628" ng-model="bc.theta" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)"></md-slider> {{bc.theta}}
     <br>
-    <button ng-click="tc.toggleTangent()">Show tangent</button> -->
+    <button ng-click="bc.toggleTangent()">Show tangent</button>
 
 
 

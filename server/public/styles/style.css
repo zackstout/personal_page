@@ -31,7 +31,7 @@
 .myPic {
   height: auto;
   width: 250px;
-  border-radius: 30px;
+  border-radius: 120px;
   float: right;
 }
 
@@ -50,9 +50,9 @@
   height: 350px;
 }
 
-#ball {
-  width: 700px;
-  height: 700px;
+#ball, #ellipse {
+  width: 600px;
+  height: 600px;
 }
 
 .icon {
@@ -62,7 +62,7 @@
 }
 
 .iconHolder {
-  padding-left: 90px;
+  /*padding-left: 90px;*/
   /*padding-top: -10px;*/
   /*padding-right: 30px;*/
 }

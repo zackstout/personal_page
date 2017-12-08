@@ -18,9 +18,15 @@ app.controller('BlogController', function($location) {
   var canvas7 = document.getElementById('polygon');
   var ctx7 = canvas7.getContext('2d');
 
+  var canvas3 = document.getElementById('ellipse');
+  var ctx3 = canvas3.getContext('2d');
+
+
   vm.x6 = 0;
 
   vm.n = 3;
+
+
 
 
 //ball throw:
@@ -53,6 +59,8 @@ app.controller('BlogController', function($location) {
     };
 
 
+
+
     //static parab:
   parabola2(200, 1, 1/(vm.params.p*4), 0, 0, 1);
   ctx2.transform(-1, 0, 0, 1, 0, 0);
@@ -74,6 +82,9 @@ app.controller('BlogController', function($location) {
     }
   }
 
+
+
+
   //polygon:
   function circle2(a, b, x, r) {
     ctx7.beginPath();
@@ -94,6 +105,10 @@ app.controller('BlogController', function($location) {
   };
 
   vm.drawPolygon(3);
+
+
+
+
 
 
   //parabola defn:
@@ -164,8 +179,127 @@ vm.x = 270;
   vm.drawBall(vm.x);
 
 
-  //ellipse:
 
+
+
+  vm.a = 80;
+   vm.b = 110;
+    vm.theta = 0;
+    vm.showTangent = false;
+
+    vm.toggleTangent = function() {
+  vm.showTangent = !vm.showTangent;
+};
+
+
+  //ellipse:
+  function circle(a, b, x, r) {
+      ctx3.beginPath();
+      console.log(a, b, x, r);
+      for (var i = 0; i < x; i++) {
+        ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+        ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+        ctx3.stroke();
+      }
+    }
+
+    // circle(vm.a/100, vm.b/100, 100, 250);
+
+  vm.drawEllipse = function(a, b, theta) {
+      //location of foci:
+
+      var c = Math.sqrt(Math.abs(Math.pow(a, 2) - Math.pow(b, 2)));
+      var e = c/a;
+      console.log(a, b, c, e);
+      ctx3.clearRect(-500,-500,10000,10000);
+      console.log('drawin');
+
+      ctx3.translate(350,350);
+
+      circle(a, b, 100, 250);
+
+  //draw foci:
+      ctx3.fillStyle = 'green';
+
+      ctx3.beginPath();
+      if (a > b) {
+        ctx3.arc(c*250, 0, 7, 0, 2*Math.PI);
+        ctx3.stroke();
+        ctx3.fill();
+
+        ctx3.beginPath();
+        ctx3.arc(-c*250, 0, 7, 0, 2*Math.PI);
+        ctx3.stroke();
+        ctx3.fill();
+
+      } else if (b > a) {
+        ctx3.arc(0, c*250, 7, 0, 2*Math.PI);
+        ctx3.stroke();
+        ctx3.fill();
+
+        ctx3.beginPath();
+        ctx3.arc(0, -c*250, 7, 0, 2*Math.PI);
+        ctx3.stroke();
+        ctx3.fill();
+      }
+
+
+      // console.log(vm.params);
+
+      //ball's path:
+          ctx3.beginPath();
+          var x = 250*a*Math.cos((theta/100));
+          var y = 250*b*Math.sin(theta/100);
+          ctx3.arc(x, y, 10, 0, 2*Math.PI);
+          ctx3.stroke();
+          ctx3.fillStyle = 'yellow';
+          ctx3.fill();
+
+          //tracing out lines to foci:
+          ctx3.beginPath();
+          if (a > b) {
+            ctx3.moveTo(c*250, 0);
+            ctx3.lineTo(x, y);
+            ctx3.stroke();
+
+            ctx3.beginPath();
+            ctx3.moveTo(-c*250, 0);
+            ctx3.lineTo(x, y);
+            ctx3.stroke();
+          } else if (b > a) {
+            ctx3.moveTo(0, c*250);
+            ctx3.lineTo(x, y);
+            ctx3.stroke();
+
+            ctx3.beginPath();
+            ctx3.moveTo(0, -c*250);
+            ctx3.lineTo(x, y);
+            ctx3.stroke();
+          }
+
+
+      //draw tangent:
+          if (vm.showTangent) {
+            //standardizing to coordinates of one unit = 100px:
+            // console.log(x/250,y/250);
+
+            var m = (Math.pow(b, 2)/Math.pow(a, 2)) * -x/y;
+            // console.log(m);
+            ctx3.moveTo(x-300, y-300*m);
+            ctx3.lineTo(x+300, y+300*m);
+            ctx3.stroke();
+          }
+
+          ctx3.translate(-350,-350);
+
+
+          //what's the best way to grab the angle between focus-line and tangent?
+          //Hmmm....
+
+
+    }; //end DrawEllipse
+
+    vm.drawEllipse(vm.a/100, vm.b/100, vm.theta);
 
 
   //parabola reflection:
