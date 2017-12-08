@@ -2,18 +2,22 @@
 <div layout="row">
   <div layout="column" flex="15" ng-controller="NavController as nc">
 
-    <div class="sideNav">
-      <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+
+    <div class="sideNavHolder">
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+      </div>
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
+      </div>
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
+      </div>
     </div>
-    <div class="sideNav">
-      <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
-    </div>
-    <div class="sideNav">
-      <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
-    </div>
+
   </div>
 
-  <div layout="column" flex="70">
+  <div class="blogContent" layout="column" flex="70">
     <h1>blog</h1>
 
     <h2>Getting Started with HTML Canvas Animations:</h2>
@@ -135,27 +139,39 @@
       <canvas id="ellipse" width="700" height="700"></canvas>
     </div>
 
-    a: <md-slider min="25" max="200" ng-model="bc.a" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)"></md-slider> {{bc.a}}
-    b: <md-slider min="25" max="200" ng-model="bc.b" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)"></md-slider> {{bc.b}}
+    a: <md-slider min="25" max="200" ng-model="bc.a" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseA"></md-slider> {{bc.a}}
+    b: <md-slider min="25" max="200" ng-model="bc.b" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseB"></md-slider> {{bc.b}}
     <br>
-    <md-slider min="0" max="628" ng-model="bc.theta" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)"></md-slider> {{bc.theta}}
+    <md-slider min="0" max="628" ng-model="bc.theta" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseTheta"></md-slider> {{bc.theta}}
     <br>
     <button ng-click="bc.toggleTangent()">Show tangent</button>
 
 
 
-
     <!-- parabola tangent -->
+
+    <p>
+    Likewise, can see that tangents to parabolas ensure that light reflects through the focus.
+    </p>
+
+    <canvas id="parabReflection" width="800" height="800"></canvas>
+    <md-slider min="250" max="750" ng-model="bc.x4" ng-change="bc.drawBall4(bc.x4)" aria-label="parabReflection"></md-slider>
+
 
 
     <!-- parabola orthogonal -->
 
+    <p>
+    Finally, we can demonstrate that a parabola's orthogonal tangents intersect on the directrix.
+    </p>
 
+    <canvas id="parabOrth" width="800" height="800"></canvas>
+    <md-slider min="250" max="493" ng-model="bc.x3" ng-change="bc.drawBall3(bc.x3)" aria-label="parabolaOrth"></md-slider>
 
 
   </div>
 
-  <div layout="column" flex="10">
+  <div class="prevPosts" layout="column" flex="10">
     <p>post 1</p>
     <p>post 2</p>
     <p>post 3</p>

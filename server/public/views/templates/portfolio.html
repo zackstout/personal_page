@@ -3,15 +3,18 @@
 <div layout="row">
         <div layout="column" flex="15" ng-controller="NavController as nc">
 
-          <div class="sideNav">
-            <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+          <div class="sideNavHolder">
+            <div class="sideNav">
+              <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+            </div>
+            <div class="sideNav">
+              <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
+            </div>
+            <div class="sideNav">
+              <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
+            </div>
           </div>
-          <div class="sideNav">
-            <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
-          </div>
-          <div class="sideNav">
-            <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
-          </div>
+
         </div>
 
         <div layout="column" flex="80">

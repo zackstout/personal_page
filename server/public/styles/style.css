@@ -54,6 +54,23 @@
   width: 600px;
   height: 600px;
 }
+/*
+.sideNavHolderHolder {
+  position: relative;
+}*/
+
+.sideNavHolder {
+  position: fixed;
+  width: 120px;
+}
+
+.blogContent {
+  margin: 40px;
+}
+
+/*.prevPosts {
+  position: fixed;
+}*/
 
 .icon {
   height: 30px;

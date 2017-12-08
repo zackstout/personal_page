@@ -21,6 +21,14 @@ app.controller('BlogController', function($location) {
   var canvas3 = document.getElementById('ellipse');
   var ctx3 = canvas3.getContext('2d');
 
+  var canvas4 = document.getElementById('parabReflection');
+  var ctx4 = canvas4.getContext('2d');
+
+  var canvas5 = document.getElementById('parabOrth');
+  var ctx5 = canvas5.getContext('2d');
+
+  console.log(canvas5);
+
 
   vm.x6 = 0;
 
@@ -182,6 +190,12 @@ vm.x = 270;
 
 
 
+
+
+
+
+
+
   vm.a = 80;
    vm.b = 110;
     vm.theta = 0;
@@ -302,10 +316,208 @@ vm.x = 270;
     vm.drawEllipse(vm.a/100, vm.b/100, vm.theta);
 
 
+
+
+
+
+
+
   //parabola reflection:
+
+  vm.x4=280;
+
+  function parabola4(x, l, a, b, c, dir) {
+  for (var i = 0; i < x; i++) {
+    ctx4.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+    ctx4.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+    ctx4.stroke();
+  }
+}
+
+  vm.drawBall4 = function(x) {
+    ctx4.clearRect(0,0,1000,1000);
+    //path of the ball:
+    ctx4.beginPath();
+    // console.log(vm.x);
+
+    // var x = 250 + iteration*2;
+
+    //for standardizing the units:
+    var xNow = (x - 500)/100;
+    // console.log(xNow);
+
+    //draw moving ball:
+    ctx4.arc(x, 250 + xNow*xNow*100/(1), 6, 0, 2*Math.PI);
+    ctx4.stroke();
+    ctx4.fillStyle = 'green';
+    ctx4.fill();
+
+    //draw in slope:
+
+    // console.log((x - 500)/100, (xNow*xNow*100/(1))/100);
+    // console.log('m = ', 2*(vm.x4 - 500)/100);
+    var xUnit = (x - 500)/100;
+    var yUnit = (xNow*xNow*100/(1))/100;
+    var m = 2*(x - 500)/100;
+
+    ctx4.translate(x, 250 + xNow*xNow*100/(1));
+    ctx4.moveTo(-300, -m*300);
+    ctx4.lineTo(300, m*300);
+    ctx4.stroke();
+
+    ctx4.moveTo(0, 0);
+
+    //rookie mistake -- if you come in, u gotta go back out:
+    ctx4.translate(-x, -250 - xNow*xNow*100/(1));
+    ctx4.lineTo(500, 250 + 25);
+    ctx4.stroke();
+
+    ctx4.moveTo(x, 250 + xNow*xNow*100/(1));
+    ctx4.lineTo(x, 1000);
+    ctx4.stroke();
+
+
+    //re-draw parabola:
+    ctx4.translate(300, 0);
+    parabola4(200, 4, 1/(1), 0, 2.5, 1);
+    ctx4.transform(-1, 0, 0, 1, 0, 0);
+    parabola4(200, 4, 1/(1), 0, 2.5, -1);
+    ctx4.transform(-1, 0, 0, 1, 0, 0);
+    ctx4.translate(-300, 0);
+    //redraw grid:
+    ctx4.moveTo(500, 0);
+    ctx4.lineTo(500, 1000);
+    ctx4.stroke();
+    ctx4.moveTo(0, 250);
+    ctx4.lineTo(1000, 250);
+    ctx4.stroke();
+
+    //redraw in focus:
+    ctx4.beginPath();
+    ctx4.arc(500, 250+0.25*100, 5, 0, 2*Math.PI);
+    ctx4.stroke();
+    ctx4.fillStyle = 'blue';
+    ctx4.fill();
+    //redraw in directrix (dotted line):
+    for (var i=0; i<50; i++) {
+      ctx4.moveTo(i*20, 250-25);
+      ctx4.lineTo(i*20+10, 250-25);
+      ctx4.stroke();
+
+    }
+
+  }; //end of drawBall4
+
+  vm.drawBall4(vm.x4);
+
+
+
+
+
 
 
 
   //parabola orthogonal tangents:
+
+  vm.x3 = 300;
+  console.log(vm.x3);
+
+  function parabola3(x, l, a, b, c, dir) {
+  for (var i = 0; i < x; i++) {
+    ctx5.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+    ctx5.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+    ctx5.stroke();
+  }
+}
+
+
+  vm.drawBall3 = function(x) {
+    ctx5.clearRect(0,0,1000,1000);
+    //path of the ball:
+    ctx5.beginPath();
+    console.log(x);
+
+    // var x = 250 + iteration*2;
+
+    //for standardizing the units:
+    var xNow = (x - 500)/100;
+    // console.log(xNow);
+
+    //draw moving ball:
+    ctx5.arc(x, 250 + xNow*xNow*100/(1), 6, 0, 2*Math.PI);
+    ctx5.stroke();
+    ctx5.fillStyle = 'green';
+    ctx5.fill();
+    //re-draw parabola:
+    ctx5.translate(300, 0);
+    parabola3(200, 4, 1/(1), 0, 2.5, 1);
+    ctx5.transform(-1, 0, 0, 1, 0, 0);
+    parabola3(200, 4, 1/(1), 0, 2.5, -1);
+    ctx5.transform(-1, 0, 0, 1, 0, 0);
+    ctx5.translate(-300, 0);
+    //redraw grid:
+    ctx5.moveTo(500, 0);
+    ctx5.lineTo(500, 1000);
+    ctx5.stroke();
+    ctx5.moveTo(0, 250);
+    ctx5.lineTo(1000, 250);
+    ctx5.stroke();
+
+    //redraw in focus:
+    ctx5.beginPath();
+    ctx5.arc(500, 250+0.25*100, 5, 0, 2*Math.PI);
+    ctx5.stroke();
+    ctx5.fillStyle = 'blue';
+    ctx5.fill();
+    //redraw in directrix (dotted line):
+    for (var i=0; i<50; i++) {
+      ctx5.moveTo(i*20, 250-25);
+      ctx5.lineTo(i*20+10, 250-25);
+      ctx5.stroke();
+
+    }
+
+    //orthogonal tangents:
+    ctx5.translate(x, 250 + xNow*xNow*100/(1));
+    ctx5.moveTo(0,0);
+    ctx5.lineTo(500, -2*5*(500-x));
+
+    ctx5.stroke();
+    ctx5.translate(-x, -250 - xNow*xNow*100/(1));
+
+
+    ctx5.translate(500 - 100/(4*xNow), 250 + 100*Math.pow(1/(4*xNow), 2));
+    ctx5.moveTo(0,0);
+    ctx5.beginPath();
+    ctx5.arc(0, 0, 5, 0, 2*Math.PI);
+    ctx5.stroke();
+
+    ctx5.moveTo(0,0);
+    // ctx5.beginPath();
+    ctx5.lineTo(-1500, 750/xNow);
+    ctx5.stroke();
+
+
+    //try to close triangle:
+    //ahhhhh so close what am i missing?
+    //ahhhh yes just translate back out before trying to grab the ball's coordinate!
+    ctx5.moveTo(0,0);
+    ctx5.translate(-500 + 100/(4*xNow), -250 - 100*Math.pow(1/(4*xNow), 2));
+
+    ctx5.lineTo(x, 250 + xNow*xNow*100/(1));
+    ctx5.stroke();
+
+    // ctx5.translate(-500 + 100/(4*xNow), -250 - 100*Math.pow(1/(4*xNow), 2));
+
+    //close the triangle:
+    // ctx5.lineTo()
+
+    // iteration++;
+
+  }; //end of drawBall3
+
+  vm.drawBall3(vm.x3);
+
+
 
 });
