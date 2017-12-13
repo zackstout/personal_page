@@ -38,15 +38,15 @@
 </div>
 
 <div class="blogText">
-  Matter.js is a super fun physics library with excellent documentation (<a href="brm.io/matter-js/">Matter.js</a>) that can be easily added into a project. Simply <span class="codeBit">npm install matter-js</span> and source matter.min.js into your index.
+  Matter.js is a super fun physics library with excellent documentation (<a href="http://brm.io/matter-js/docs/">Matter.js</a>) that can be easily added into a project. Simply <span class="codeBit">npm install matter-js</span> and source matter.min.js into your index.
 </div>
 
 <div class="blogText">
-  I've found it easier to get Matter.js up and running when I use it in conjunction with p5.js (<a href="p5js.org">p5.js</a>) to draw bodies on the canvas. Matter.js can be broken into two functional components: an engine for calculating all the physics, and a renderer for drawing bodies on the canvas. Instead of using Matter's built-in renderer, we can use p5. (Just run another <span class="codeBit">npm install</span> and source it in).
+  I've found it easier to get Matter.js up and running when I use it in conjunction with <a href="http://p5js.org">p5.js</a> to draw bodies on the canvas. Matter.js can be broken into two functional components: an engine for calculating all the physics, and a renderer for drawing bodies on the canvas. Instead of using Matter's built-in renderer, we can use p5. (Just run another <span class="codeBit">npm install</span> and source it in).
 </div>
 
 <div class="blogText">
-  To start off, we can add a few abbreviations to save some time later on:
+  The following code will add a falling square and a static circle to the canvas. To start off, we can add a few abbreviations to save some time later on:
 </div>
 
 <pre><code layout layout-align="center center">var Engine = Matter.Engine;
@@ -63,7 +63,10 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 </code></pre>
 
 <div class="blogText">
-  But we mustn't forget to <span class="codeBit">add</span> them to our <span class="codeBit">world</span>! p5.js asks for two things: a <span class="codeBit">setup</span> function to tell it how to render the initial page, and a <span class="codeBit">draw</span> function to tell it how to update the canvas as time goes on:
+  The last (optional) argument passed to the shape constructor is an <span class="codeBit">options</span> object. Setting <span class="codeBit">isStatic</span> to 'true' makes the body immobile; if we set <span class="codeBit">isSensor</span> to 'true', the body won't participate in any collisions.
+</div>
+<div class="blogText">
+  But we mustn't forget to <span class="codeBit">add</span> the bodies to our <span class="codeBit">world</span>! p5.js asks for two things: a <span class="codeBit">setup</span> function to tell it how to render the initial page, and a <span class="codeBit">draw</span> function to tell it how to update the canvas as time goes on:
 </div>
 
 <pre><code layout layout-align="center center">function setup() {
@@ -95,6 +98,34 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
   An important thing to note when using p5.js in conjunction with Matter.js is that they keep track of bodies differently. For instance, p5's <span class="codeBit">ellipse</span> function asks for the body's diameter, whereas Matter's <span class="codeBit">circle</span> function asks for the body's radius.
 </div>
 
+<div class="blogText">
+  At this point, the possibilities proliferate. With <span class="codeBit">Matter.Mouse</span> and <span class="codeBit">Matter.MouseConstraint</span>, you can allow the user to interact with your world's bodies. With <span class="codeBit">Matter.Events</span> you can listen for collisions. With <span class="codeBit">Matter.Constraint</span> you can attach bodies to each other. Matter even lets you alter the world's gravity (with <span class="codeBit">world.gravity.y</span>)!
+</div>
+
+<div class="blogText">
+  And p5 is no slouch. It offers <span class="codeBit">mouseClicked</span> and <span class="codeBit">mouseDragged</span> functions that make it easy to interact with the canvas. If you add an array to your global scope...</div>
+  <pre><code layout layout-align="center center">var balls = [];
+  </code></pre>
+
+
+  <div class="blogText">...and then add a loop into your <span class="codeBit">draw</span> function...:
+</div>
+<pre><code layout layout-align="center center" id="hardCode">{{bc.hardText}}
+</code></pre>
+
+  <div class="blogText">...then you can add a <span class="codeBit">mouseDragged</span> function like so:
+  </div>
+  <pre><code layout layout-align="center center">function mouseDragged() {
+    var randomNum = Math.random()*50;
+    var ball = Bodies.circle(mouseX, mouseY, randomNum);
+    console.log(ball);
+    World.add(world, ball);
+    balls.push(ball);
+}</code></pre>
+  <div class="blogText">
+    The possibilities sprawl before us!
+</div>
+
 <hr>
 
 <div layout="column" layout-align="center center" id="post2">
@@ -121,16 +152,15 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
     <!-- ellipse defn  -->
 
 <div class="blogText">
-        Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci. One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path.
+        Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci.
+        <!-- One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path. -->
 </div>
 
 <div class="blogText">
-  If we also draw in the ellipse's tangent at each point, we have an illustration of the fact that an ellipse's focal lines (lines from each focus to a point on the ellipse) make each angles with the ellipse's tangent.
+  If we also draw in the ellipse's tangent at each point, we have an illustration of the fact that an ellipse's focal lines (lines from each focus to a point on the ellipse) make equal angles with the ellipse's tangent.
 </div>
 
-<div class="blogText">
-  Another way of saying it is: were you to send a ball toward an elliptical wall from one of its foci, the ball would bounce off of the wall and end up at the other focus. In the same way, sound waves bounce off the walls of elliptical rooms called "<a href="https://en.wikipedia.org/wiki/Whispering_gallery">whispering rooms</a>", allowing people standing at one focus to hear what is whispered by someone standing at the other focus!
-</div>
+
 
 <div layout="row">
   <div flex="70" layout layout-align="center center">
@@ -152,6 +182,10 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
     </div>
   </div>
+</div>
+
+<div class="blogText">
+  Another way of saying it is: were you to send a ball toward an elliptical wall from one of its foci, the ball would bounce off of the wall and end up at the other focus. In the same way, sound waves bounce off the walls of elliptical rooms called "<a href="https://en.wikipedia.org/wiki/Whispering_gallery">whispering rooms</a>", allowing people standing at one focus to hear what is whispered by someone standing at the other focus!
 </div>
 
     <div class="blogText">
@@ -286,7 +320,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
     <!-- polygon -->
     <div layout layout-align="center center" class="blogText">
-      We can apply the same principle to write a function that draws a circle or an ellipse (as well as any regular polygon!). As we increase the number of sides, the shape appears more curve-like.
+      We can apply the same principle to write a function that draws a circle or an ellipse (as well as any regular polygon!). As we increase the number of sides (represented in this function by the argument x), the shape appears more curve-like.
     </div>
 
     <pre><code layout layout-align="center center">function circle(a, b, x, r) {
@@ -308,13 +342,17 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       One key thing to note here is the <span class="codeBit">beginPath</span> function. Often you will want to clear your canvas (with a <span class="codeBit">clearRect()</span> method call), and in order to draw on your freshly cleared canvas you will need to begin a new path.
     </div>
 
+    <div class="blogText">
+      Another example of this misalignment between Matter and p5 is that Matter tracks the position of rectangles by their centers, while p5 (and vanilla canvas) track them by their upper-left corners.
+    </div>
+
 
 
   </div>
 
   <div class="prevPosts" layout="column" flex="12">
     <div class="allposts">All Posts:</div>
-    <ul>
+    <ul class="postlist">
       <li> <p ng-click="bc.goToPost(3)">Getting Started with Matter.js</p></li>
       <li> <p ng-click="bc.goToPost(2)">More HTML Canvas: Fun with Conic Sections</p></li>
       <li> <p ng-click="bc.goToPost(1)">Getting Started with HTML Canvas Animations</p></li>

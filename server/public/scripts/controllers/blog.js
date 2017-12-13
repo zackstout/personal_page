@@ -82,6 +82,8 @@ app.controller('BlogController', function($location, $anchorScroll) {
 
   vm.n = 3;
 
+  vm.hardText = 'for (var i=0; i<balls.length; i++){\n var ball = balls[i]; \n ellipse(ball.position.x, ball.position.y, ball.circleRadius);\n}';
+
 
 
 
