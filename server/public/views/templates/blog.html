@@ -1,5 +1,5 @@
 
-<div layout="row">
+<div layout="row" class="wholeEnchilada">
   <div layout="column" flex="15" ng-controller="NavController as nc">
 
 
@@ -8,7 +8,7 @@
         <div class="clickMe" ng-click="nc.goHome()">About Me</div>
       </div>
       <div class="sideNav">
-        <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
+        <div class="clickMe alive" ng-click="nc.goBlog()">Blog</div>
       </div>
       <div class="sideNav">
         <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
@@ -17,163 +17,307 @@
 
   </div>
 
-  <div class="blogContent" layout="column" flex="70">
-    <h1>blog</h1>
+  <div class="blogContent" layout="column" flex="60">
+    <!-- <h1>blog</h1> -->
 
-    <h2>Getting Started with HTML Canvas Animations:</h2>
-    <div class="head">Fun with Conic Sections</div>
+<!-- <div layout layout-align="center center">
+  <canvas id="triangle" width="300" height="300"></canvas>
 
+</div> -->
 
-    <p>
-      Being something of a math/physics nerd, I was delighted to discover that with nothing but the HTML canvas element, vanilla JavaScript, and a bit of math, one can easily render pleasing visual illustrations of mathematical relationships.
-    </p>
+<hr>
 
-    <!-- ball throw -->
+<div layout="column" layout-align="center center" id="post3">
+  <div >
+    <h2 class="blogTitle">Getting Started with Matter.js</h2>
 
-    <p>
-      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation (f(x) = a*x <sup>2</sup> + b*x + c). Canvas has a built-in coordinate system. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
-    </p>
+  </div>
+  <div class="blogSubtitle">
+    Dec. 16, 2017
+  </div>
+</div>
 
-    <div layout layout-align="center center">
-      <canvas id="parabolaBall" width="400" height="400"></canvas>
+<div class="blogText">
+  Matter.js is a super fun physics library with excellent documentation (<a href="brm.io/matter-js/">Matter.js</a>) that can be easily added into a project. Simply <span class="codeBit">npm install matter-js</span> and source matter.min.js into your index.
+</div>
 
-    </div>
-    <button ng-click="bc.throwBall()">Throw</button>
+<div class="blogText">
+  I've found it easier to get Matter.js up and running when I use it in conjunction with p5.js (<a href="p5js.org">p5.js</a>) to draw bodies on the canvas. Matter.js can be broken into two functional components: an engine for calculating all the physics, and a renderer for drawing bodies on the canvas. Instead of using Matter's built-in renderer, we can use p5. (Just run another <span class="codeBit">npm install</span> and source it in).
+</div>
 
+<div class="blogText">
+  To start off, we can add a few abbreviations to save some time later on:
+</div>
 
-    <!-- parabola  -->
-    <p>
-      To draw a parabolic curve onto the canvas requires a bit more thought. Canvas has built-in functions to draw circular and elliptical arcs, but if you want to draw a specific curve, you need to break things down into small intervals (borrowing an idea from calculus) and connect the dots with straight lines. When the intervals are small enough, the concatentation of straight lines will appear curve-like.
+<pre><code layout layout-align="center center">var Engine = Matter.Engine;
+var World = Matter.World;
+var Bodies = Matter.Bodies;
+</code></pre>
 
-    </p>
+<div class="blogText">
+ Then we can add a few bodies ...
+</div>
 
-    <pre><code >
-      function parabola(x, l, a, b, c, dir) {
-        for (var i = 0; i < x; i++) {
-          ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
-          ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
-          ctx.stroke();
-        }
-      }
-    </code></pre>
+<pre><code layout layout-align="center center">var box1 = Bodies.rectangle(200, 100, 20, 20);
+var omega = Bodies.circle(500, 500, 100, {isStatic: true});
+</code></pre>
 
-    <div layout layout-align="center center">
-      <canvas id="parabola" width="400" height="400"></canvas>
+<div class="blogText">
+  But we mustn't forget to <span class="codeBit">add</span> them to our <span class="codeBit">world</span>! p5.js asks for two things: a <span class="codeBit">setup</span> function to tell it how to render the initial page, and a <span class="codeBit">draw</span> function to tell it how to update the canvas as time goes on:
+</div>
 
-    </div>
+<pre><code layout layout-align="center center">function setup() {
+  var canvas = createCanvas(1000,1000);
+  var engine = Engine.create();
+  var world = engine.world;
+  World.add(world, [box1, omega]);
+  Engine.run(engine);
+}
+</code></pre>
 
-    <!-- polygon -->
-    <p>
-      We can apply the same principle to draw a circle, or an ellipse, from scratch (as well as any regular polygon!).
-    </p>
+<div class="blogText">
+  After we create our engine and our world, and start our engine, we're ready to draw:
 
-    <pre><code>
-      function circle(a, b, x, r) {
-        ctx3.beginPath();
-        for (var i = 0; i < x; i++) {
-          ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
-          ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
-          ctx3.stroke();
-        }
-      }
-    </code></pre>
+</div>
 
-    <div layout layout-align="center center">
-      <canvas id="polygon" width="400" height="400"></canvas>
-    </div>
+<pre><code layout layout-align="center center">function draw() {
+  background(251);
+  rect(box1.position.x, box1.position.y, 20, 20);
+  ellipse(omega.position.x, omega.position.y, 200);
+}
+</code></pre>
 
-    <md-slider ng-model="bc.n" min="2" max="25" ng-change="bc.drawPolygon(bc.n)" aria-label="polygon"></md-slider>
+<div class="blogText">
+  We reset the background with every iteration of the <span class="codeBit">draw</span> function in order to clear the previous renderings -- otherwise we end up with space-time worms roaming through our canvas.
+</div>
 
+<div class="blogText">
+  An important thing to note when using p5.js in conjunction with Matter.js is that they keep track of bodies differently. For instance, p5's <span class="codeBit">ellipse</span> function asks for the body's diameter, whereas Matter's <span class="codeBit">circle</span> function asks for the body's radius.
+</div>
+
+<hr>
+
+<div layout="column" layout-align="center center" id="post2">
+  <div >
+    <h2 class="blogTitle">More HTML Canvas: Fun with Conic Sections</h2>
+
+  </div>
+  <div class="blogSubtitle">
+    Dec. 14, 2017
+  </div>
+</div>
 
     <!-- parabola defn  -->
-    <p>
-      Now we can start to get fancier. What if we want a nice visual representation of the defining properties of a parabola? Every parabola has a focus and a directrix, and obeys the rule that every point on the parabola is equidistant from the parabola's focus and its directrix.
-    </p>
-
-    <pre><code>
-      //redraw in directrix (dotted line):
-      for (var i=0; i<50; i++) {
-        ctx5.moveTo(i*20, 250-vm.params.p*100);
-        ctx5.lineTo(i*20+10, 250-vm.params.p*100);
-        ctx5.stroke();
-
-      }
-    </code></pre>
-
-    <pre><code>
-      ctx5.clearRect(0,0,1000,1000);
-      //path of the ball:
-      ctx5.beginPath();
-      // console.log(vm.x);
-
-      // var x = 250 + iteration*2;
-
-      //for standardizing the units:
-      var xNow = (vm.x3 - 500)/100;
-      // console.log(xNow);
-
-      //draw moving ball:
-      ctx5.arc(vm.x3, 250 + xNow*xNow*100/(4*vm.params.p), 6, 0, 2*Math.PI);
-      ctx5.stroke();
-      ctx5.fillStyle = 'green';
-      ctx5.fill();
-    </code></pre>
+<div class="blogText">
+  Now that we're familiar with the basic tools of the canvas, we can illustrate some cool facts about conic sections. For instance, we can spin up a nice visualization of the parabola's defining property. Every parabola has a focus and a directrix, and obeys the rule that every point on the parabola is equidistant from the parabola's focus and its directrix (pictured as a dotted line).
+</div>
 
 <div layout layout-align="center center">
   <canvas id='ball' height=800 width =800></canvas>
+  &emsp; <md-slider ng-model="bc.x" ng-change="bc.drawBall(bc.x)" min="250" max="750" aria-label="parabDefn"></md-slider>
 </div>
-
-    <!-- <button ng-click="tc.illustrate()">Illustrate</button> -->
-    <md-slider ng-model="bc.x" ng-change="bc.drawBall(bc.x)" min="250" max="750" aria-label="parabDefn"></md-slider>
-
-
 
 
     <!-- ellipse defn  -->
 
-    <p>
-      Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci. (Can also show tangent: kidney stones, whispering rooms).
-    </p>
+<div class="blogText">
+        Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci. One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path.
+</div>
 
-    <div layout layout-align="center center">
-      <canvas id="ellipse" width="700" height="700"></canvas>
+<div class="blogText">
+  If we also draw in the ellipse's tangent at each point, we have an illustration of the fact that an ellipse's focal lines (lines from each focus to a point on the ellipse) make each angles with the ellipse's tangent.
+</div>
+
+<div class="blogText">
+  Another way of saying it is: were you to send a ball toward an elliptical wall from one of its foci, the ball would bounce off of the wall and end up at the other focus. In the same way, sound waves bounce off the walls of elliptical rooms called "<a href="https://en.wikipedia.org/wiki/Whispering_gallery">whispering rooms</a>", allowing people standing at one focus to hear what is whispered by someone standing at the other focus!
+</div>
+
+<div layout="row">
+  <div flex="70" layout layout-align="center center">
+    <canvas id="ellipse" width="700" height="700"></canvas>
+  </div>
+  <div layout="column" flex="30">
+    <br><br>
+    <div>
+        Horizontal Stretch:<md-slider min="25" max="200" ng-model="bc.a" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseA"></md-slider>
+    </div>
+    <div>
+        Vertical Stretch: <md-slider min="25" max="200" ng-model="bc.b" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseB"></md-slider>
+    </div>
+    <div>
+        Ball's Position: <md-slider min="0" max="628" ng-model="bc.theta" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseTheta"></md-slider>
+    </div>
+    <div>
+      <button ng-click="bc.toggleTangent()">Show tangent</button>
+
+    </div>
+  </div>
+</div>
+
+    <div class="blogText">
+          Likewise, balls shot out of a parabola's focus will bounce off its wall and shoot straight down, in a path perpendicular to the directrix. Said another way, all light rays passing into a parabolic shape will reflect off the wall and pass through its focus.
     </div>
 
-    a: <md-slider min="25" max="200" ng-model="bc.a" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseA"></md-slider> {{bc.a}}
-    b: <md-slider min="25" max="200" ng-model="bc.b" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseB"></md-slider> {{bc.b}}
-    <br>
-    <md-slider min="0" max="628" ng-model="bc.theta" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseTheta"></md-slider> {{bc.theta}}
-    <br>
-    <button ng-click="bc.toggleTangent()">Show tangent</button>
 
 
+    <div layout layout-align="center center">
+      <canvas id="parabReflection" width="800" height="800"></canvas>
+      &emsp; <md-slider min="250" max="750" ng-model="bc.x4" ng-change="bc.drawBall4(bc.x4)" aria-label="parabReflection"></md-slider>
+    </div>
 
-    <!-- parabola tangent -->
-
-    <p>
-    Likewise, can see that tangents to parabolas ensure that light reflects through the focus.
-    </p>
-
-    <canvas id="parabReflection" width="800" height="800"></canvas>
-    <md-slider min="250" max="750" ng-model="bc.x4" ng-change="bc.drawBall4(bc.x4)" aria-label="parabReflection"></md-slider>
 
 
 
     <!-- parabola orthogonal -->
 
-    <p>
-    Finally, we can demonstrate that a parabola's orthogonal tangents intersect on the directrix.
-    </p>
+<div class="blogText">
+   Finally, we can demonstrate that a parabola's orthogonal tangents intersect on the directrix. Moreover, the line connecting two points on the parabola that have orthogonal tangents will always contain the focus! So there are an infinite number of right triangles living between a parabola and its directrix.
+</div>
 
-    <canvas id="parabOrth" width="800" height="800"></canvas>
-    <md-slider min="250" max="493" ng-model="bc.x3" ng-change="bc.drawBall3(bc.x3)" aria-label="parabolaOrth"></md-slider>
+<div layout layout-align="center center">
+  <canvas id="parabOrth" width="800" height="800"></canvas>
+    &emsp;<md-slider min="250" max="493" ng-model="bc.x3" ng-change="bc.drawBall3(bc.x3)" aria-label="parabolaOrth"></md-slider>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
+
+<div layout="column" layout-align="center center" id="post1">
+  <h2 class="blogTitle">Getting Started with HTML Canvas Animations</h2>
+  <div class="blogSubtitle">Dec. 12, 2017</div>
+</div>
+
+
+
+    <div class="blogText">
+      Being something of a math/physics nerd, I was delighted to discover that with just the HTML canvas element, vanilla JavaScript, and a bit of math, one can easily render pleasing visual illustrations of key mathematical relationships.
+    </div>
+
+    <!-- ball throw -->
+
+    <div class="blogText">
+      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation (<i>f(x) = ax<sup>2</sup> + bx + c</i>). Canvas has a built-in coordinate system. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
+    </div>
+
+    <pre><code layout layout-align="center center">
+    vm.x = 0;
+    function ball() {
+        ctx.clearRect(0,0,400,400);
+        var xStandard = (vm.x - 200)/100;
+        var yPix = Math.pow(xStandard, 2)*100;
+        ctx.translate(200, 0);
+        ctx.beginPath();
+        ctx.arc(xStandard*100, yPix, 5, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fillStyle = 'purple';
+        ctx.fill();
+        ctx.translate(-200, 0);
+        vm.x += 5;
+      }</code></pre>
+
+      <div class="blogText">
+        This function keeps track of the ball's position. We can call it many times per second, each time clearing the canvas and re-drawing the ball at a slightly different position.
+      </div>
+
+      <div class="blogText">
+        Canvas's coordinate system starts at the upper lefthand corner; the value of <i>y</i> increases as you move further down the screen, and <i>x</i>'s value increases as you move right.
+      </div>
+
+      <div class="blogText"> We can translate to a new origin to simplify our calculation. We'll move to the middle of the top of our 400x400 canvas, to (200, 0). <i>(Don't forget to translate back out before re-drawing the ball!)</i>. Then we divide by 100 to standardize our units before squaring the value of the ball's x-coordinate, which gives us the ball's y-coordinate.</div>
+
+      <div class="blogText">
+        Now that we know the ball's position, it's simple to draw it: we begin a new path, call canvas's <span class="codeBit">arc()</span> method, draw the ball's outline with <span class="codeBit">stroke()</span>, and color it in with <span class="codeBit">fill()</span>. Finally, we ensure our function is called every 50 milliseconds:
+      </div>
+
+      <pre><code layout layout-align="center center">vm.throwBall = function() {
+        setInterval(ball, 50);
+      };</code></pre>
+
+    <div layout layout-align="center center">
+      <canvas id="parabolaBall" width="400" height="400"></canvas>
+      &emsp;<button ng-click="bc.throwBall()">Throw</button>
+
+    </div>
+
+
+    <!-- parabola  -->
+    <div class="blogText">
+      To draw a parabolic curve onto the canvas requires a bit more thought. Canvas has built-in functions to draw circular and elliptical arcs, but if you want to draw a specific curve, you need to break things down into small intervals (borrowing an idea from calculus) and connect the dots with straight lines. When the intervals are small enough, the concatentation of straight lines will appear curve-like.
+
+    </div>
+
+    <pre><code layout layout-align="center center">function parabola(x, l, a, b, c, dir) {
+        for (var i = 0; i < x; i++) {
+          ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+          ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+          ctx.stroke();
+        }
+      }</code></pre>
+
+      <div class="blogText">
+        In this function, <i>x</i> controls the number of iterations, and <i>l</i> controls the length of the line segment that is drawn during each iteration. The idea is to begin the line (with <span class="codeBit">moveTo()</span>) at one point on the parabola, and end it at a nearby point on the parabola (with <span class="codeBit">lineTo()</span>). Remember to draw the line (with <span class="codeBit">stroke()</span>)!
+
+      </div>
+
+        <div class="blogText">We use canvas's built-in linear transformation function to reflect the first half of the parabola over the y-axis:
+
+      </div>
+
+      <pre><code layout layout-align="center center">ctx.transform(-1, 0, 0, 1, 0, 0);</code></pre>
+
+      <div class="blogText">
+        Don't forget to transform again when you're done drawing the second half &mdash; otherwise all your future commands will assume your canvas is still flipped over.
+      </div>
+
+    <div layout layout-align="center center">
+      <canvas id="parabola" width="400" height="400"></canvas>
+      &emsp;&emsp;<md-slider ng-model="bc.params.p" min="5" max="500" ng-change="bc.parabola2(200,1,1/(bc.params.p*4/100),0,0,1)" aria-label="parab"></md-slider>
+    </div>
+
+    <!-- polygon -->
+    <div layout layout-align="center center" class="blogText">
+      We can apply the same principle to write a function that draws a circle or an ellipse (as well as any regular polygon!). As we increase the number of sides, the shape appears more curve-like.
+    </div>
+
+    <pre><code layout layout-align="center center">function circle(a, b, x, r) {
+        ctx.beginPath();
+        for (var i = 0; i < x; i++) {
+          ctx.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+          ctx.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+          ctx.stroke();
+        }
+      }</code></pre>
+
+
+    <div layout layout-align="center center">
+      <canvas id="polygon" width="400" height="400"></canvas>
+          &emsp;&emsp;<md-slider ng-model="bc.n" min="2" max="25" ng-change="bc.drawPolygon(bc.n)" aria-label="polygon"></md-slider>
+    </div>
+
+    <div class="blogText">
+      One key thing to note here is the <span class="codeBit">beginPath</span> function. Often you will want to clear your canvas (with a <span class="codeBit">clearRect()</span> method call), and in order to draw on your freshly cleared canvas you will need to begin a new path.
+    </div>
+
 
 
   </div>
 
-  <div class="prevPosts" layout="column" flex="10">
-    <p>post 1</p>
-    <p>post 2</p>
-    <p>post 3</p>
+  <div class="prevPosts" layout="column" flex="12">
+    <div class="allposts">All Posts:</div>
+    <ul>
+      <li> <p ng-click="bc.goToPost(3)">Getting Started with Matter.js</p></li>
+      <li> <p ng-click="bc.goToPost(2)">More HTML Canvas: Fun with Conic Sections</p></li>
+      <li> <p ng-click="bc.goToPost(1)">Getting Started with HTML Canvas Animations</p></li>
+    </ul>
   </div>
 </div>

@@ -24,3 +24,7 @@ app.config(function($routeProvider, $locationProvider) {
   });
   // WorldService.getWorld();
 });
+
+//wow it is *seriously* strange that style changes in the Portfolio bullet lists don't update until the list item goes beyond one line (it seems???)
+//if we can figure out how to add a hiding div in the dead center of each image, we can do a hover > show button: "See Demo" which takes you to heroku
+//in the dream, the headers of SOLO and WEEKEND will stay on top of screen as you scroll down through that section

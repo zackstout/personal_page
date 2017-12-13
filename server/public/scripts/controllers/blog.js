@@ -1,10 +1,17 @@
 
 
-app.controller('BlogController', function($location) {
+app.controller('BlogController', function($location, $anchorScroll) {
   console.log('BlogController created');
 
   vm = this;
   vm.params = { p: 0.25 };
+
+  vm.m = 4;
+
+  vm.goToPost = function(n) {
+    $location.hash('post'+n);
+    $anchorScroll();
+  };
 
   var canvas2 = document.getElementById('parabola');
   var ctx2 = canvas2.getContext('2d');
@@ -27,7 +34,48 @@ app.controller('BlogController', function($location) {
   var canvas5 = document.getElementById('parabOrth');
   var ctx5 = canvas5.getContext('2d');
 
+  // var canvas8 = document.getElementById('triangle');
+  // var ctx8 = canvas8.getContext('2d');
+
+
+
   console.log(canvas5);
+
+
+  function drawTriangle(s, x, y) {
+    ctx8.translate(x, y);
+//draw three lines:
+    ctx8.moveTo(0,0);
+    ctx8.lineTo(s, s*Math.pow(3, 0.5));
+    ctx8.stroke();
+    ctx8.moveTo(0,0);
+    ctx8.lineTo(-s, s*Math.pow(3, 0.5));
+    ctx8.stroke();
+    ctx8.moveTo(s, s*Math.pow(3, 0.5));
+    ctx8.lineTo(-s, s*Math.pow(3, 0.5));
+    ctx8.stroke();
+    ctx8.translate(-x,-y);
+  }
+
+  function drawInnerTriangle(s, x, y) {
+    ctx8.translate(x, y);
+    ctx8.moveTo(s, s*Math.pow(3, 0.5));
+    ctx8.lineTo(-s, s*Math.pow(3, 0.5));
+    ctx8.stroke();
+    ctx8.moveTo(-s, s*Math.pow(3, 0.5));
+    ctx8.lineTo(0, s*2*Math.pow(3, 0.5));
+    ctx8.stroke();
+    ctx8.moveTo(s, s*Math.pow(3, 0.5));
+    ctx8.lineTo(0, s*2*Math.pow(3, 0.5));
+    ctx8.stroke();
+    ctx8.translate(-x,-y);
+  }
+
+  // drawTriangle(140, 150, 50);
+  // drawInnerTriangle(70, 150, 50);
+  //
+  // drawInnerTriangle(35, 150, 50);
+  // drawInnerTriangle(35, 150+70, 150+70*Math.pow(3, 0.5));
 
 
   vm.x6 = 0;
@@ -56,13 +104,16 @@ app.controller('BlogController', function($location) {
     }
 
     var ballThrown = false;
+
     vm.throwBall = function() {
       console.log('throwin');
       ballToThrow = setInterval(ball6, 50);
+
       if (ballThrown) {
         clearInterval(ballToThrow);
         vm.x6 = 0;
       }
+
       ballThrown = true;
     };
 
@@ -70,9 +121,36 @@ app.controller('BlogController', function($location) {
 
 
     //static parab:
-  parabola2(200, 1, 1/(vm.params.p*4), 0, 0, 1);
+
+
+      vm.parabola2 = function(x, l, a, b, c, dir) {
+        // console.log('hi', a);
+        ctx2.clearRect(0,0, 2000,2000);
+        ctx2.beginPath();
+        for (var j = 0; j < x; j++) {
+          ctx2.moveTo(j*l + dir*200, -a*Math.pow(j*l/100, 2)*100 + b*j*l + c*100 + 200);
+          ctx2.lineTo((j+1)*l + dir*200, -a*Math.pow((j+1)*l/100, 2)*100 + b*(j+1)*l +c*100 + 200);
+          ctx2.stroke();
+        }
+        ctx2.transform(-1, 0, 0, 1, 0, 0);
+
+        for (var k = 0; k < x; k++) {
+          ctx2.moveTo(k*l - dir*200, -a*Math.pow(k*l/100, 2)*100 + b*k*l + c*100 + 200);
+          ctx2.lineTo((k+1)*l - dir*200, -a*Math.pow((k+1)*l/100, 2)*100 + b*(k+1)*l +c*100 + 200);
+          ctx2.stroke();
+        }
+        ctx2.transform(-1, 0, 0, 1, 0, 0);
+        ctx2.moveTo(200, 0);
+        ctx2.lineTo(200, 400);
+        ctx2.stroke();
+        ctx2.moveTo(0, 133);
+        ctx2.lineTo(400, 133);
+        ctx2.stroke();
+      };
+
+  vm.parabola2(200, 1, 1/(vm.params.p*4), 0, 0, 1);
   ctx2.transform(-1, 0, 0, 1, 0, 0);
-  parabola2(200, 1, 1/(vm.params.p*4), 0, 0, -1);
+  vm.parabola2(200, 1, 1/(vm.params.p*4), 0, 0, -1);
   ctx2.transform(-1, 0, 0, 1, 0, 0);
   //grid:
   ctx2.moveTo(200, 0);
@@ -82,13 +160,6 @@ app.controller('BlogController', function($location) {
   ctx2.lineTo(400, 133);
   ctx2.stroke();
 
-  function parabola2(x, l, a, b, c, dir) {
-    for (var j = 0; j < x; j++) {
-      ctx2.moveTo(j*l + dir*200, -a*Math.pow(j*l/100, 2)*100 + b*j*l + c*100 + 200);
-      ctx2.lineTo((j+1)*l + dir*200, -a*Math.pow((j+1)*l/100, 2)*100 + b*(j+1)*l +c*100 + 200);
-      ctx2.stroke();
-    }
-  }
 
 
 

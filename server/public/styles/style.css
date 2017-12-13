@@ -4,18 +4,43 @@
 
 }
 
+.wholeEnchilada {
+  /*background-color: #f0f8ff;*/
+  background-color: lightblue;
+}
+
 .sideNav {
   /*padding-top: 60px;
   padding-bottom: 60px;*/
   /*background-color: blue;*/
 }
 
+.description {
+  margin-right: 400px;
+}
+
+.iconContainer {
+  margin-left: -80px;
+}
+
 .clickMe {
-  height: 130px;
-  background-color: blue;
+  height: 125px;
+  width: 200px;
+  background-color: darkBlue;
+  font-family: Impact;
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: gold;
+  text-align: center;
+  padding-top: 60px;
 }
 
 .clickMe:hover {
+  background-color: teal;
+}
+
+.alive {
   background-color: teal;
 }
 
@@ -23,6 +48,21 @@
 
 }
 
+.blogSubtitle {
+  font-style: italic;
+  font-size: 18px;
+  font-family: Baskerville;
+}
+
+.blogTitle {
+  margin-top: 40px;
+  font-family: Baskerville;
+}
+
+hr {
+  margin-top: 30px;
+  background-color: darkblue;
+}
 .head {
   font-family: monospace;
   font-size: 22px;
@@ -41,18 +81,63 @@
 }
 
 .imageContainer {
-  height: 75px;
-  width: 75px;
+  width: 550px;
+  height: auto;
 }
 
-#parabola, #parabolaBall, #polygon {
+#parabola, #parabolaBall, #polygon, #triangle {
   width: 350px;
   height: 350px;
 }
 
-#ball, #ellipse {
-  width: 600px;
-  height: 600px;
+.penHolder {
+  width: 250px;
+  height: 200px;
+}
+
+.preview {
+  width: 420px;
+  height: auto;
+}
+
+.emailCont {
+  margin-top: 2px;
+}
+
+#ball, #ellipse, #parabReflection, #parabOrth {
+  width: 450px;
+  height: 450px;
+}
+
+.aboutMe, .portfolioHead {
+  margin-left: 40px;
+  color: #0375b4;
+}
+
+.containerContainer li {
+  margin-bottom: 22px;
+}
+
+.PortHeader {
+  text-transform: uppercase;
+  font-family: Aleo;
+  font-size: 22px;
+  background-color: #0375b4;
+  width: 100%;
+  height: 50px;
+  color: #ffce00;
+  padding-top: 26px;
+  padding-left: 30px;
+}
+
+.quote, .name {
+  font-size: 18px;
+  /*color: red;*/
+  margin-bottom: -5px;
+  font-family: Garamond;
+}
+.name {
+  margin-left: 60px;
 }
 /*
 .sideNavHolderHolder {
@@ -64,22 +149,117 @@
   width: 120px;
 }
 
+.prevPosts {
+  position: fixed;
+  margin-left: 85%;
+  margin-right: 5px;
+}
+
+.prevPosts li {
+  margin-top: 10px;
+}
+
+.containerContainer {
+  margin-left: 50px;
+}
+
 .blogContent {
   margin: 40px;
+}
+
+.blogText {
+  font-family: Baskerville;
+  font-size: 18px;
+}
+
+.allposts {
+  font-family: Baskerville;
+  font-size: 20px;
+  margin-left: 72px;
+  font-weight: bold;
+  margin-bottom: -20px;
+  margin-top: 25px;
 }
 
 /*.prevPosts {
   position: fixed;
 }*/
 
-.icon {
+.icon, .icon2 {
   height: 30px;
   width: 30px;
   /*padding-left: 50px;*/
 }
 
-.iconHolder {
-  /*padding-left: 90px;*/
-  /*padding-top: -10px;*/
-  /*padding-right: 30px;*/
+.icon2 {
+  margin-right: 15px;
+  /*margin-top: -15px;*/
+  margin-bottom: -8px;
+  margin-left: 80px;
+}
+
+.projName {
+  margin-top: -5px;
+  text-transform: uppercase;
+  font-size: 34px;
+
+  /*font-weight: bold;*/
+  font-family: Impact;
+}
+
+li {
+  font-family: Baskerville;
+  font-size: 18px;
+}
+
+.PortHeader {
+  font-family: Impact;
+  font-size: 30px;
+}
+
+.linkText {
+  padding-top: 8px;
+  text-decoration: none;
+  color: darkblue;
+  font-family: Baskerville;
+}
+
+.linkText:hover {
+  color: blue;
+}
+
+.textCont {
+  margin-top: 8px;
+}
+
+canvas {
+  background-color: lightskyblue;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+code {
+  font-size: 16px;
+  margin-left: 20px;
+  background-color: lightGray;
+  line-height: 135%;
+}
+
+.blogText {
+  margin-left: 100px;
+  margin-right: 50px;
+  line-height: 160%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+}
+
+.codeBit {
+  font-family: monospace;
+  background-color: lightgray;
+  font-size: 16.5px;
 }

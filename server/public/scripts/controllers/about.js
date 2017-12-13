@@ -11,12 +11,12 @@ app.controller('AboutController', function($location) {
   ctx.stroke();
 
   var t=0;
-  var l=125;
+  var l=155;
 
-  ctx.translate(100, 0);
+  ctx.translate(125, 0);
 
   function oscillatePendulum() {
-    ctx.clearRect(-100,0,200,200);
+    ctx.clearRect(-150,0,300,300);
     var theta = 40*Math.sin(t);
 
     var x = l*Math.sin(theta*Math.PI/180);
