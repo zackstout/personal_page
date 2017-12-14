@@ -1,6 +1,6 @@
 
 <!-- <div ng-include="'views/partials/nav.html'"></div> -->
-<div layout="row" class="wholeEnchilada">
+<div layout="row" class="wholeEnchilada" id="aboutContainer">
   <div layout="column" flex="15" ng-controller="NavController as nc">
 
     <div class="sideNavHolder">
@@ -46,7 +46,7 @@
               </p>
               <p class="name">&mdash;Marijn Haverbeke, <i>Eloquent Javascript</i>, Ch. 8
               </p>
-
+            <br>
               <p class="quote">
                 "Mathematics is the language in which God has written the universe."
               </p>
@@ -58,10 +58,25 @@
 
         </div>
 
+        <div layout="row">
+          <div class="description">
+            <p>
+              I'm a software development student at Prime Digital Academy, and I'm discovering to my delight that my background in mathematics and philosophy has poised me to fall in love with computer programming. I've always prized clarity of thought and expression, and I am thrilled to be marrying that passion with the making of real things.
+            </p>
+            <p>
+              My main philosophical interests lie near the issues of freedom and causality. I also love Greek tragedy, poetry (Wallace Stevens especially), and learning new words (recently, <i>apostatize</i>).
+            </p>
+
+            <p>
+              Feel free to reach out to me about anything! I'm eagerly seeking new software development opportunities.
+            </p>
+          </div>
+        </div>
+
 
       </div>
 
-      <div layout="column" flex="30">
+      <div layout="column" flex="30" id="picSide">
         <div class="myPicContainer" layout layout-align="center center">
           <!-- <div layout="row"> -->
           <img class="myPic" src="styles/zzz6.png">
@@ -71,8 +86,8 @@
           <div class="iconHolder" layout="row">
             <a href="http://github.com/zackstout">
               <img class="icon" src="styles/github_icon.svg"></a>
-              &emsp; <a class="linkText" href="http://github.com/zackstout"><span class="linkText">
-                <i>github.com/zackstout</i>
+              &emsp; <a class="linkText" href="http://github.com/zackstout"><span>
+                github.com/zackstout
               </span></a>
             </div>
 
@@ -81,8 +96,8 @@
             <div class="iconHolder" layout="row">
               <a href="https://www.linkedin.com/in/zack-stout-001/">
                 <img class="icon" src="styles/linkedin_icon.png"></a>
-                &emsp; <a class="linkText" href="https://www.linkedin.com/in/zack-stout-001/"><span class="linkText">
-                  <i>linkedin.com/in/zack-stout-001</i>
+                &emsp; <a class="linkText" href="https://www.linkedin.com/in/zack-stout-001/"><span>
+                  linkedin.com/in/zack-stout-001
                 </span></a>
               </div>
 
@@ -90,27 +105,14 @@
             </div>
 
             <div layout="row" class="emailCont" layout layout-align="center center">
-              <img class="icon" src="styles/gmail_icon2.ico"> &emsp; <i>zackstout@gmail.com</i>
+              <img class="icon" src="styles/gmail_icon2.ico"> &emsp; <a class="linkText" href="mailto:zackstout@gmail.com"><span>zackstout@gmail.com</span></a>
             </div>
 
             <!-- </div> -->
           </div>
         </div>
 
-        <div layout="column">
-          <div class="description">
-            <p>
-              I'm a software development student at Prime Digital Academy, and I'm discovering to my delight that my background in mathematics and philosophy has positioned me to fall in love with computer programming.
-            </p>
-          </div>
 
-
-          <p>
-
-          </p>
-
-
-        </div>
 
 
       </div>

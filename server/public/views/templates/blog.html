@@ -95,7 +95,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 </div>
 
 <div class="blogText">
-  An important thing to note when using p5.js in conjunction with Matter.js is that they keep track of bodies differently. For instance, p5's <span class="codeBit">ellipse</span> function asks for the body's diameter, whereas Matter's <span class="codeBit">circle</span> function asks for the body's radius.
+  An important thing to note when using p5.js in conjunction with Matter.js is that they keep track of bodies differently. For instance, p5's <span class="codeBit">ellipse</span> function asks for the body's diameter, whereas Matter's <span class="codeBit">circle</span> function asks for the body's radius. Another example of this misalignment is that Matter tracks the position of rectangles by their centers, while p5 (as well as vanilla canvas) tracks them by their upper-left corners.
 </div>
 
 <div class="blogText">
@@ -113,7 +113,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 <pre><code layout layout-align="center center" id="hardCode">{{bc.hardText}}
 </code></pre>
 
-  <div class="blogText">...then you can add a <span class="codeBit">mouseDragged</span> function like so:
+  <div class="blogText">...and then finally you can add a <span class="codeBit">mouseDragged</span> function like so:
   </div>
   <pre><code layout layout-align="center center">function mouseDragged() {
     var randomNum = Math.random()*50;
@@ -154,6 +154,20 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 <div class="blogText">
         Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci.
         <!-- One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path. -->
+</div>
+
+<div class="blogText">
+  We use the parametric equations for an ellipse, <div layout layout-align="center center"><i>x(t) = acos(t)<br>y(t) = bsin(t)</i></div>to draw the ball that follows our elliptical path:
+
+<pre><code layout layout-align="center center">ctx.beginPath();
+  var x = 250*a*Math.cos((theta/100));
+  var y = 250*b*Math.sin(theta/100);
+  ctx.arc(x, y, 10, 0, 2*Math.PI);
+  ctx.stroke();
+  ctx.fillStyle = 'yellow';
+  ctx.fill();
+</code></pre>
+
 </div>
 
 <div class="blogText">
@@ -205,7 +219,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
     <!-- parabola orthogonal -->
 
 <div class="blogText">
-   Finally, we can demonstrate that a parabola's orthogonal tangents intersect on the directrix. Moreover, the line connecting two points on the parabola that have orthogonal tangents will always contain the focus! So there are an infinite number of right triangles living between a parabola and its directrix.
+   Finally, we can illustrate the fact that a parabola's orthogonal tangents intersect on the directrix. Moreover, the line connecting two points on the parabola that have orthogonal tangents will always contain the focus! So there are an infinite number of right triangles living between a parabola and its directrix.
 </div>
 
 <div layout layout-align="center center">
@@ -240,7 +254,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
     <!-- ball throw -->
 
     <div class="blogText">
-      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation (<i>f(x) = ax<sup>2</sup> + bx + c</i>). Canvas has a built-in coordinate system. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
+      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation: <i>f(x) = ax<sup>2</sup> + bx + c</i>. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
     </div>
 
     <pre><code layout layout-align="center center">
@@ -267,7 +281,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
         Canvas's coordinate system starts at the upper lefthand corner; the value of <i>y</i> increases as you move further down the screen, and <i>x</i>'s value increases as you move right.
       </div>
 
-      <div class="blogText"> We can translate to a new origin to simplify our calculation. We'll move to the middle of the top of our 400x400 canvas, to (200, 0). <i>(Don't forget to translate back out before re-drawing the ball!)</i>. Then we divide by 100 to standardize our units before squaring the value of the ball's x-coordinate, which gives us the ball's y-coordinate.</div>
+      <div class="blogText"> We translate to a new origin to simplify our calculation, moving to the middle of the top of our 400x400 canvas, to (200, 0). <i>(Don't forget to translate back out before re-drawing the ball!)</i>. Then we divide by 100 to standardize our units before squaring the value of the ball's x-coordinate, which gives us the ball's y-coordinate.</div>
 
       <div class="blogText">
         Now that we know the ball's position, it's simple to draw it: we begin a new path, call canvas's <span class="codeBit">arc()</span> method, draw the ball's outline with <span class="codeBit">stroke()</span>, and color it in with <span class="codeBit">fill()</span>. Finally, we ensure our function is called every 50 milliseconds:
@@ -299,7 +313,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       }</code></pre>
 
       <div class="blogText">
-        In this function, <i>x</i> controls the number of iterations, and <i>l</i> controls the length of the line segment that is drawn during each iteration. The idea is to begin the line (with <span class="codeBit">moveTo()</span>) at one point on the parabola, and end it at a nearby point on the parabola (with <span class="codeBit">lineTo()</span>). Remember to draw the line (with <span class="codeBit">stroke()</span>)!
+        In this function, <i>x</i> controls the number of iterations, and <i>l</i> controls the length of the line segment that is drawn during each iteration. The idea is to begin the line (with <span class="codeBit">moveTo()</span>) at one point on the parabola, and end it at a nearby point on the parabola with <span class="codeBit">lineTo()</span>. Remember to draw the line with <span class="codeBit">stroke()</span>!
 
       </div>
 
@@ -310,7 +324,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       <pre><code layout layout-align="center center">ctx.transform(-1, 0, 0, 1, 0, 0);</code></pre>
 
       <div class="blogText">
-        Don't forget to transform again when you're done drawing the second half &mdash; otherwise all your future commands will assume your canvas is still flipped over.
+        Don't forget to transform again when you're done drawing the second half &mdash; otherwise all your future commands will assume your canvas is still flipped over. (You can use the same function, since the transformation is symmetric.)
       </div>
 
     <div layout layout-align="center center">
@@ -342,9 +356,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       One key thing to note here is the <span class="codeBit">beginPath</span> function. Often you will want to clear your canvas (with a <span class="codeBit">clearRect()</span> method call), and in order to draw on your freshly cleared canvas you will need to begin a new path.
     </div>
 
-    <div class="blogText">
-      Another example of this misalignment between Matter and p5 is that Matter tracks the position of rectangles by their centers, while p5 (and vanilla canvas) track them by their upper-left corners.
-    </div>
+
 
 
 

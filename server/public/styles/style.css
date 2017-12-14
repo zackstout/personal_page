@@ -15,11 +15,33 @@
   /*background-color: blue;*/
 }
 
+.quotes {
+  margin-left: 65px;
+  margin-top: 45px;
+}
+
+#picSide {
+  padding-left: 80px;
+}
+
+
+
 .description {
-  margin-right: 400px;
-  font-style: Baskerville;
-  font-size: 17px;
+  /*margin-right: 400px;*/
+  margin-top: 30px;
+  margin-left: 50px;
+  font-family: Baskerville;
+  font-size: 19px;
   line-height: 130%;
+}
+
+#aboutContainer {
+  padding-bottom: 300px;
+}
+
+#pendulum {
+  margin-top: 40px;
+  margin-left: 15px;
 }
 
 .iconContainer {
@@ -53,9 +75,9 @@
 
 .blogSubtitle {
   font-style: italic;
-  font-size: 21px;
+  font-size: 22px;
   font-family: Baskerville;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .blogTitle {
@@ -82,6 +104,10 @@ hr {
   width: 250px;
   border-radius: 120px;
   float: right;
+}
+
+.myPicContainer {
+  margin-top: 80px;
 }
 
 .projContainer {
@@ -125,7 +151,7 @@ hr {
 
 .containerContainer li {
   margin-bottom: 22px;
-  font-size: 20px;
+  font-size: 21px;
 }
 
 .PortHeader {
@@ -141,13 +167,15 @@ hr {
 }
 
 .quote, .name {
-  font-size: 18px;
+  font-size: 17px;
   /*color: red;*/
   margin-bottom: -5px;
-  font-family: Garamond;
+  font-family: Helvetica;
 }
 .name {
   margin-left: 60px;
+  margin-bottom:10px;
+  /*line-height: 70%;*/
 }
 /*
 .sideNavHolderHolder {
@@ -179,7 +207,7 @@ hr {
 
 .blogText {
   font-family: Baskerville;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .allposts {
@@ -264,7 +292,7 @@ code {
 .blogText {
   margin-left: 100px;
   margin-right: 50px;
-  font-size: 22.5px;
+  font-size: 21px;
   line-height: 160%;
   margin-top: 15px;
   margin-bottom: 15px;
