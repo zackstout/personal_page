@@ -27,10 +27,183 @@
 
 <hr>
 
+<div layout="column" layout-align="center center" id="post5">
+  <div >
+    <h2 class="blogTitle">Exploring the Golden Ratio</h2>
+    <!-- <a name="chapter1"></a> -->
+  </div>
+  <div class="blogSubtitle">
+    Dec. 18, 2017
+  </div>
+</div>
+
+<div class="blogText">
+  The golden ratio, commonly denoted &Phi;, shows up throughout nature and the human arts. It is one of the most breathtaking pieces of math I've encountered.
+</div>
+
+<div class="blogText">
+  If you begin with a line segment and then cut it at some point, you will have two shorter line segments. The lengths of those segments are in the golden ratio when the shorter line segment (of length <i>b</i>) stands to the longer line segment (of length <i>a</i>) as the longer line segment stands to the whole (<i>a + b</i>). That is, <i>a</i> and <i>b</i> exemplify the golden ratio (i.e. <i>a</i>/<i>b</i> = &Phi;) if
+</div>
+
+<!-- Lot of work just for an equation: -->
+<div class="blogText">
+  <div layout="row" layout-align="center center">
+    <div layout="column">
+      <div layout="row" layout-align="center center">
+        <i>a</i> &ensp;+&ensp; <i>b</i>
+      </div>
+      <div layout="row" layout-align="center center" class="lowCeiling">
+        &mdash;&mdash;
+      </div>
+      <div layout="row" layout-align="center center">
+        <i>a</i>
+      </div>
+    </div>
+    <div layout="column">
+      &emsp;=&emsp;
+    </div>
+    <div layout="column">
+      <div layout="row" layout-align="center center">
+        <i>a</i>
+      </div>
+      <div layout="row" layout-align="center center" class="lowCeiling">
+        &mdash;
+      </div>
+      <div layout="row" layout-align="center center">
+        <i>b</i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div layout layout-align="center center">
+  <canvas id="line" width="400" height="40"></canvas>
+</div>
+
+<div class="blogText">
+  If we let the smaller length, <i>b</i>, be equal to 1, a bit of algebra reveals that &Phi;<sup>2</sup> = &Phi; + 1. Solving this, we get an approximation for &Phi;: 1.618.
+</div>
+
+<div class="blogText">
+  If we imagine this divided line bending around to form a circle, we get what is sometimes called the golden angle, 2&Pi;/&Phi; radians. Many plants have leaves that grow in this pattern, probably in order to maximize sun-exposed surface area. We might draw the first two petals or leaves like this:
+</div>
+
+<div layout layout-align="center center">
+  <canvas id="twoLeaves" width="500" height="500"></canvas>
+</div>
+
+<div class="blogText">
+  Each leaf is composed of two circular arcs; we draw one leaf, and then <span class="codeBit">ctx.rotate(Math.PI/1.618)</span>, and draw another slightly shorter leaf.
+</div>
+
+<pre><code layout layout-align="center center">function drawLeaf(l) {
+  var r = l * 1.5;
+  var theta = Math.asin(l/r);
+  //draw first half of leaf:
+  ctx.beginPath();
+  ctx.arc(Math.pow((r*r - l*l), 0.5), -l, r, Math.PI - theta, Math.PI + theta);
+  ctx.stroke();
+
+  //draw second half of leaf:
+  ctx.beginPath();
+  ctx.arc(-Math.pow((r*r - l*l), 0.5), -l, r, -theta, theta);
+  ctx.stroke();
+}
+</code></pre>
+
+<div class="blogText">
+  To draw a more full-bodied plant, we just need a <span class="codeBit">for</span> loop:
+</div>
+
+<pre><code layout layout-align="center center">for (var i=0; i<20; i++) {
+    drawLeaf(startLength);
+    ctx9.rotate(2*Math.PI/phi);
+    startLength *= 0.88;
+  }
+</code></pre>
+
+<div layout layout-align="center center">
+  <canvas id="golden" width="500" height="500"></canvas>
+
+</div>
+
+<div class="blogText">
+  Bromiliads provide an especially vivid illustration of this principle at work:
+</div>
+
+<div layout="row" layout-align="center center">
+  <img class="bromiliad" src="styles/bromiliad2.jpg" alt="">&emsp;
+  <img class="bromiliad" src="styles/bromiliad.jpg" alt="">
+</div>
+
+<hr>
+
+<div layout="column" layout-align="center center" id="post4">
+  <div >
+    <h2 class="blogTitle">Writing SQL Queries</h2>
+    <!-- <a name="chapter1"></a> -->
+  </div>
+  <div class="blogSubtitle">
+    Dec. 17, 2017
+  </div>
+</div>
+
+<div class="blogText">
+  Writing queries to your SQL database is a lot of fun, and pretty intuitive once you get used to the syntax. (We'll use PostgreSQL syntax here.)
+</div>
+
+<div class="blogText">
+  To my mind, the bread and butter of a relational database query is the <span class="codeBit">JOIN</span> keyword. Suppose we have one table to keep track of humanitarian projects and another table, keyed to the first table, to keep track of each project's monthly carbon footprint. (Incidentally, this is the group project I'm working on at Prime.) To get all of the footprints associated with a single project, we could write
+</div>
+
+<pre><code layout layout-align="center center">SELECT * FROM "projects" JOIN "footprints"
+  ON "projects"."id" = "footprints"."project_id"
+  WHERE "projects"."id" = 1;
+</code></pre>
+
+<div class="blogText">
+  The <span class="codeBit">ON</span> clause ensures that we grab all of the footprints that have a project_id value equal to the id of the project we are interested in. A potential problem with this is that we might have identically-named columns in different tables (e.g. "id"). To remedy this, we can replace <span class="codeBit">*</span> in our <span class="codeBit">SELECT</span> clause with <span class="codeBit">"footprints"."id" as footprint_id, "projects"."id" as project_id, "living_total", "shipping_total", "travel_total"</span>.
+</div>
+
+<div class="blogText">
+  Our footprints table might have many rows; suppose we want to sum up the values in each column across all rows. We could write
+</div>
+
+<pre><code layout layout-align="center center">SELECT SUM("living_total") as living_total,
+  SUM("travel_total") as travel_total,
+  SUM("shipping_total") as shipping_total
+  FROM "footprints";
+</code></pre>
+
+<div class="blogText">
+  If we want to sum the values across columns, we can write <span class="codeBit">SUM("travel_total" + "shipping_total" + "living_total") as "total_footprint"</span>.
+</div>
+
+<div class="blogText">
+  Suppose that instead of summing all the rows, we wanted to group them into clusters, for instance by footprint Type. We can pair the <span class="codeBit">SUM</span> keyword with <span class="codeBit">PARTITION BY</span> to accomplish that: <span class="codeBit">SELECT SUM("living_total") OVER (PARTITION BY "type")</span>.
+</div>
+
+<div class="blogText">
+  Suppose we have three other tables, Shipping, Living and Travel, each keyed to our Footprints table. In order to post a new footprint to the database, we need to update each table. In our query from the server, we would first post to the Footprints table, adding <span class="codeBit">RETURNING "id"</span> to our <span class="codeBit">INSERT INTO</span> query. Then we can pass the returned id along to the next query, which posts to our three subtables with the proper foreign key.
+</div>
+
+<div class="blogText">
+  Finally, suppose we want to get, for each project, an array of all the footprint totals associated with it. The query would look something like this:
+</div>
+
+<pre><code layout layout-align="center center">SELECT "projects"."name" as name, array_agg("footprint_total") as total
+  FROM "projects" JOIN "footprints"
+  ON "projects"."id" = "footprints"."project_id"
+  GROUP BY "projects"."name";
+</code></pre>
+
+
+<hr>
+
 <div layout="column" layout-align="center center" id="post3">
   <div >
     <h2 class="blogTitle">Getting Started with Matter.js</h2>
-
+    <a name="chapter1"></a>
   </div>
   <div class="blogSubtitle">
     Dec. 16, 2017
@@ -113,7 +286,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 <pre><code layout layout-align="center center" id="hardCode">{{bc.hardText}}
 </code></pre>
 
-  <div class="blogText">...and then finally you can add a <span class="codeBit">mouseDragged</span> function like so:
+  <div class="blogText">...then finally, you can add a <span class="codeBit">mouseDragged</span> function like so:
   </div>
   <pre><code layout layout-align="center center">function mouseDragged() {
     var randomNum = Math.random()*50;
@@ -152,12 +325,15 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
     <!-- ellipse defn  -->
 
 <div class="blogText">
-        Similarly, we can dynamically illustrate the defining property of an ellipse: that each point on an elliptical path is equidistant from the ellipse's two foci.
+        Similarly, we can dynamically illustrate the defining property of an ellipse: each point on an elliptical path obeys the rule that the sum of its distances from the foci is constant.
         <!-- One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path. -->
 </div>
 
 <div class="blogText">
-  We use the parametric equations for an ellipse, <div layout layout-align="center center"><i>x(t) = acos(t)<br>y(t) = bsin(t)</i></div>to draw the ball that follows our elliptical path:
+  We use the parametric equations for an ellipse,
+  <div layout layout-align="center center" class="math">
+    <i>x(t) = acos(t)<br>y(t) = bsin(t)</i>
+  </div>to draw the ball that follows our elliptical path:
 
 <pre><code layout layout-align="center center">ctx.beginPath();
   var x = 250*a*Math.cos((theta/100));
@@ -203,7 +379,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 </div>
 
     <div class="blogText">
-          Likewise, balls shot out of a parabola's focus will bounce off its wall and shoot straight down, in a path perpendicular to the directrix. Said another way, all light rays passing into a parabolic shape will reflect off the wall and pass through its focus.
+          Similarly, balls shot out of a parabola's focus will bounce off its wall and shoot straight down, in a path perpendicular to the directrix. Said another way, all light rays passing into a parabolic shape will reflect off the wall and pass through its focus.
     </div>
 
 
@@ -254,7 +430,11 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
     <!-- ball throw -->
 
     <div class="blogText">
-      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation: <i>f(x) = ax<sup>2</sup> + bx + c</i>. As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
+      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation:
+      <div layout layout-align="center center" class="math">
+        <i>f(x) = ax<sup>2</sup> + bx + c</i>
+      </div>
+      As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
     </div>
 
     <pre><code layout layout-align="center center">
@@ -284,7 +464,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       <div class="blogText"> We translate to a new origin to simplify our calculation, moving to the middle of the top of our 400x400 canvas, to (200, 0). <i>(Don't forget to translate back out before re-drawing the ball!)</i>. Then we divide by 100 to standardize our units before squaring the value of the ball's x-coordinate, which gives us the ball's y-coordinate.</div>
 
       <div class="blogText">
-        Now that we know the ball's position, it's simple to draw it: we begin a new path, call canvas's <span class="codeBit">arc()</span> method, draw the ball's outline with <span class="codeBit">stroke()</span>, and color it in with <span class="codeBit">fill()</span>. Finally, we ensure our function is called every 50 milliseconds:
+        Now that we know the ball's position, it's straightforward to draw it: we begin a new path, call canvas's <span class="codeBit">arc()</span> method, draw the ball's outline with <span class="codeBit">stroke()</span>, and color it in with <span class="codeBit">fill()</span>. Finally, we ensure our function is called every 50 milliseconds:
       </div>
 
       <pre><code layout layout-align="center center">vm.throwBall = function() {
@@ -304,16 +484,16 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
     </div>
 
-    <pre><code layout layout-align="center center">function parabola(x, l, a, b, c, dir) {
+    <pre><code layout layout-align="center center">function parabola(x, L, a, dir) {
         for (var i = 0; i < x; i++) {
-          ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
-          ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+          ctx.moveTo(i*L + dir*200, a*Math.pow(i*L/100, 2)*100 + i*L + 100);
+          ctx.lineTo((i+1)*L + dir*200, a*Math.pow((i+1)*L/100, 2)*100 + (i+1)*L + 100);
           ctx.stroke();
         }
       }</code></pre>
 
       <div class="blogText">
-        In this function, <i>x</i> controls the number of iterations, and <i>l</i> controls the length of the line segment that is drawn during each iteration. The idea is to begin the line (with <span class="codeBit">moveTo()</span>) at one point on the parabola, and end it at a nearby point on the parabola with <span class="codeBit">lineTo()</span>. Remember to draw the line with <span class="codeBit">stroke()</span>!
+        In this function, <i>x</i> controls the number of iterations, and <i>L</i> controls the length of the line segment that is drawn during each iteration. We're hard-coding in the values of <i>b</i> and <i>c</i>. The idea is to begin the line (with <span class="codeBit">moveTo()</span>) at one point on the parabola, and end it at a nearby point on the parabola with <span class="codeBit">lineTo()</span>. Remember to draw the line with <span class="codeBit">stroke()</span>!
 
       </div>
 
@@ -349,7 +529,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
     <div layout layout-align="center center">
       <canvas id="polygon" width="400" height="400"></canvas>
-          &emsp;&emsp;<md-slider ng-model="bc.n" min="2" max="25" ng-change="bc.drawPolygon(bc.n)" aria-label="polygon"></md-slider>
+          &emsp;&emsp;<md-slider ng-model="bc.n" min="2" max="18" ng-change="bc.drawPolygon(bc.n)" aria-label="polygon"></md-slider>
     </div>
 
     <div class="blogText">
@@ -363,11 +543,13 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
   </div>
 
   <div class="prevPosts" layout="column" flex="12">
-    <div class="allposts">All Posts:</div>
+    <div class="allposts" layout layout-align="center center">All Posts:</div>
     <ul class="postlist">
-      <li> <p ng-click="bc.goToPost(3)">Getting Started with Matter.js</p></li>
-      <li> <p ng-click="bc.goToPost(2)">More HTML Canvas: Fun with Conic Sections</p></li>
-      <li> <p ng-click="bc.goToPost(1)">Getting Started with HTML Canvas Animations</p></li>
+      <li ng-click="bc.goToPost(5)">Exploring the Golden Ratio</li>
+      <li ng-click="bc.goToPost(4)">Writing SQL Queries</li>
+      <li ng-click="bc.goToPost(3)">Getting Started with Matter.js</li>
+      <li ng-click="bc.goToPost(2)">More HTML Canvas: Fun with Conic Sections</li>
+      <li ng-click="bc.goToPost(1)">Getting Started with HTML Canvas Animations</li>
     </ul>
   </div>
 </div>

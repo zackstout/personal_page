@@ -19,9 +19,9 @@ app.controller('PortfolioController', function($location) {
     ctx.beginPath();
     if (Math.sin(t) > 0 && Math.cos(t) > 0) {
       ctx.beginPath();
-      ctx.arc(-200*Math.sin(t) - 75*Math.sin(2*t), 75 - 75*Math.cos(2*t), 10, 0, 2*Math.PI);
+      ctx.arc(-200*Math.sin(t) - 75*Math.sin(2*t), 75 - 75*Math.cos(2*t), 7.5, 0, 2*Math.PI);
       ctx.stroke();
-      ctx.fillStyle = 'darkblue';
+      ctx.fillStyle = '#191970';
       ctx.fill();
 
       ctx.beginPath();

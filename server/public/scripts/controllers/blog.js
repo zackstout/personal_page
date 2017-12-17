@@ -9,8 +9,7 @@ app.controller('BlogController', function($location, $anchorScroll) {
   vm.m = 4;
 
   vm.goToPost = function(n) {
-    $location.hash('post'+n);
-    $anchorScroll();
+    $anchorScroll('post'+n);
   };
 
   var canvas2 = document.getElementById('parabola');
@@ -34,9 +33,69 @@ app.controller('BlogController', function($location, $anchorScroll) {
   var canvas5 = document.getElementById('parabOrth');
   var ctx5 = canvas5.getContext('2d');
 
+  var golden = document.getElementById('golden');
+  var ctx9 = golden.getContext('2d');
+
+  var line = document.getElementById('line');
+  var ctx10 = line.getContext('2d');
+
+  var twoLeaves = document.getElementById('twoLeaves');
+  var ctx11 = twoLeaves.getContext('2d');
+
   // var canvas8 = document.getElementById('triangle');
   // var ctx8 = canvas8.getContext('2d');
+  var phi = 1.61803;
 
+
+  ctx10.moveTo(10, 20);
+  ctx10.lineTo(390, 20);
+  ctx10.stroke();
+  ctx10.moveTo(244.85, 10);
+  ctx10.lineTo(244.85, 30);
+  ctx10.stroke();
+
+  function drawLeaf2(l) {
+    //just for fun:
+    var r = l * phi;
+    var theta = Math.asin(l/r);
+    ctx11.beginPath();
+    ctx11.arc(Math.pow((r*r - l*l), 0.5), -l, r, Math.PI - theta, Math.PI + theta);
+    ctx11.stroke();
+
+    ctx11.beginPath();
+    ctx11.arc(-Math.pow((r*r - l*l), 0.5), -l, r, -theta, theta);
+    ctx11.stroke();
+  }
+
+  ctx11.translate(250, 250);
+
+  drawLeaf2(120);
+  ctx11.rotate(2*Math.PI/phi);
+  drawLeaf2(105);
+
+
+  ctx9.translate(250, 250);
+
+  function drawLeaf(l) {
+    //just for fun:
+    var r = l * phi;
+    var theta = Math.asin(l/r);
+    ctx9.beginPath();
+    ctx9.arc(Math.pow((r*r - l*l), 0.5), -l, r, Math.PI - theta, Math.PI + theta);
+    ctx9.stroke();
+
+    ctx9.beginPath();
+    ctx9.arc(-Math.pow((r*r - l*l), 0.5), -l, r, -theta, theta);
+    ctx9.stroke();
+  }
+
+  var startLength = 120;
+
+  for (var i=0; i<20; i++) {
+    drawLeaf(startLength);
+    ctx9.rotate(2*Math.PI/phi);
+    startLength *= 0.88;
+  }
 
 
   console.log(canvas5);
@@ -44,7 +103,7 @@ app.controller('BlogController', function($location, $anchorScroll) {
 
   function drawTriangle(s, x, y) {
     ctx8.translate(x, y);
-//draw three lines:
+    //draw three lines:
     ctx8.moveTo(0,0);
     ctx8.lineTo(s, s*Math.pow(3, 0.5));
     ctx8.stroke();
@@ -87,68 +146,68 @@ app.controller('BlogController', function($location, $anchorScroll) {
 
 
 
-//ball throw:
+  //ball throw:
   function ball6() {
-      // console.log((vm.x6 - 200)/100);
-      ctx6.clearRect(0,0,400,400);
-      var xStandard = (vm.x6 - 200)/100;
-      var yPix = Math.pow(xStandard, 2)*100;
+    // console.log((vm.x6 - 200)/100);
+    ctx6.clearRect(0,0,400,400);
+    var xStandard = (vm.x6 - 200)/100;
+    var yPix = Math.pow(xStandard, 2)*100;
 
-      ctx6.translate(200, 0);
-      ctx6.beginPath();
-      ctx6.arc(xStandard*100, yPix, 5, 0, 2*Math.PI);
-      ctx6.stroke();
-      ctx6.fillStyle = 'purple';
-      ctx6.fill();
-      ctx6.translate(-200, 0);
+    ctx6.translate(200, 0);
+    ctx6.beginPath();
+    ctx6.arc(xStandard*100, yPix, 5, 0, 2*Math.PI);
+    ctx6.stroke();
+    ctx6.fillStyle = 'purple';
+    ctx6.fill();
+    ctx6.translate(-200, 0);
 
-      vm.x6 += 5;
+    vm.x6 += 5;
+  }
+
+  var ballThrown = false;
+
+  vm.throwBall = function() {
+    console.log('throwin');
+    ballToThrow = setInterval(ball6, 50);
+
+    if (ballThrown) {
+      clearInterval(ballToThrow);
+      vm.x6 = 0;
     }
 
-    var ballThrown = false;
-
-    vm.throwBall = function() {
-      console.log('throwin');
-      ballToThrow = setInterval(ball6, 50);
-
-      if (ballThrown) {
-        clearInterval(ballToThrow);
-        vm.x6 = 0;
-      }
-
-      ballThrown = true;
-    };
+    ballThrown = true;
+  };
 
 
 
 
-    //static parab:
+  //static parab:
 
 
-      vm.parabola2 = function(x, l, a, b, c, dir) {
-        // console.log('hi', a);
-        ctx2.clearRect(0,0, 2000,2000);
-        ctx2.beginPath();
-        for (var j = 0; j < x; j++) {
-          ctx2.moveTo(j*l + dir*200, -a*Math.pow(j*l/100, 2)*100 + b*j*l + c*100 + 200);
-          ctx2.lineTo((j+1)*l + dir*200, -a*Math.pow((j+1)*l/100, 2)*100 + b*(j+1)*l +c*100 + 200);
-          ctx2.stroke();
-        }
-        ctx2.transform(-1, 0, 0, 1, 0, 0);
+  vm.parabola2 = function(x, l, a, b, c, dir) {
+    console.log('hi', a);
+    ctx2.clearRect(0,0, 2000,2000);
+    ctx2.beginPath();
+    for (var j = 0; j < x; j++) {
+      ctx2.moveTo(j*l + dir*200, -a*Math.pow(j*l/100, 2)*100 + b*j*l + c*100 + 200);
+      ctx2.lineTo((j+1)*l + dir*200, -a*Math.pow((j+1)*l/100, 2)*100 + b*(j+1)*l +c*100 + 200);
+      ctx2.stroke();
+    }
+    ctx2.transform(-1, 0, 0, 1, 0, 0);
 
-        for (var k = 0; k < x; k++) {
-          ctx2.moveTo(k*l - dir*200, -a*Math.pow(k*l/100, 2)*100 + b*k*l + c*100 + 200);
-          ctx2.lineTo((k+1)*l - dir*200, -a*Math.pow((k+1)*l/100, 2)*100 + b*(k+1)*l +c*100 + 200);
-          ctx2.stroke();
-        }
-        ctx2.transform(-1, 0, 0, 1, 0, 0);
-        ctx2.moveTo(200, 0);
-        ctx2.lineTo(200, 400);
-        ctx2.stroke();
-        ctx2.moveTo(0, 133);
-        ctx2.lineTo(400, 133);
-        ctx2.stroke();
-      };
+    for (var k = 0; k < x; k++) {
+      ctx2.moveTo(k*l - dir*200, -a*Math.pow(k*l/100, 2)*100 + b*k*l + c*100 + 200);
+      ctx2.lineTo((k+1)*l - dir*200, -a*Math.pow((k+1)*l/100, 2)*100 + b*(k+1)*l +c*100 + 200);
+      ctx2.stroke();
+    }
+    ctx2.transform(-1, 0, 0, 1, 0, 0);
+    ctx2.moveTo(200, 0);
+    ctx2.lineTo(200, 400);
+    ctx2.stroke();
+    ctx2.moveTo(0, 133);
+    ctx2.lineTo(400, 133);
+    ctx2.stroke();
+  };
 
   vm.parabola2(200, 1, 1/(vm.params.p*4), 0, 0, 1);
   ctx2.transform(-1, 0, 0, 1, 0, 0);
@@ -195,14 +254,14 @@ app.controller('BlogController', function($location, $anchorScroll) {
   //parabola defn:
 
   function parabola(x, l, a, b, c, dir) {
-  for (var i = 0; i < x; i++) {
-    ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
-    ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
-    ctx.stroke();
+    for (var i = 0; i < x; i++) {
+      ctx.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+      ctx.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+      ctx.stroke();
+    }
   }
-}
 
-vm.x = 270;
+  vm.x = 270;
 
   vm.drawBall = function(x) {
     ctx.clearRect(0,0,1000,1000);
@@ -270,123 +329,123 @@ vm.x = 270;
 
 
   vm.a = 80;
-   vm.b = 110;
-    vm.theta = 0;
-    vm.showTangent = false;
+  vm.b = 110;
+  vm.theta = 0;
+  vm.showTangent = false;
 
-    vm.toggleTangent = function() {
-  vm.showTangent = !vm.showTangent;
-};
+  vm.toggleTangent = function() {
+    vm.showTangent = !vm.showTangent;
+  };
 
 
   //ellipse:
   function circle(a, b, x, r) {
-      ctx3.beginPath();
-      console.log(a, b, x, r);
-      for (var i = 0; i < x; i++) {
-        ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
-        ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
-        ctx3.stroke();
-      }
+    ctx3.beginPath();
+    console.log(a, b, x, r);
+    for (var i = 0; i < x; i++) {
+      ctx3.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+      ctx3.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+      ctx3.stroke();
     }
+  }
 
-    // circle(vm.a/100, vm.b/100, 100, 250);
+  // circle(vm.a/100, vm.b/100, 100, 250);
 
   vm.drawEllipse = function(a, b, theta) {
-      //location of foci:
+    //location of foci:
 
-      var c = Math.sqrt(Math.abs(Math.pow(a, 2) - Math.pow(b, 2)));
-      var e = c/a;
-      console.log(a, b, c, e);
-      ctx3.clearRect(-500,-500,10000,10000);
-      console.log('drawin');
+    var c = Math.sqrt(Math.abs(Math.pow(a, 2) - Math.pow(b, 2)));
+    var e = c/a;
+    console.log(a, b, c, e);
+    ctx3.clearRect(-500,-500,10000,10000);
+    console.log('drawin');
 
-      ctx3.translate(350,350);
+    ctx3.translate(350,350);
 
-      circle(a, b, 100, 250);
+    circle(a, b, 100, 250);
 
-  //draw foci:
-      ctx3.fillStyle = 'green';
+    //draw foci:
+    ctx3.fillStyle = 'green';
+
+    ctx3.beginPath();
+    if (a > b) {
+      ctx3.arc(c*250, 0, 7, 0, 2*Math.PI);
+      ctx3.stroke();
+      ctx3.fill();
 
       ctx3.beginPath();
-      if (a > b) {
-        ctx3.arc(c*250, 0, 7, 0, 2*Math.PI);
-        ctx3.stroke();
-        ctx3.fill();
+      ctx3.arc(-c*250, 0, 7, 0, 2*Math.PI);
+      ctx3.stroke();
+      ctx3.fill();
 
-        ctx3.beginPath();
-        ctx3.arc(-c*250, 0, 7, 0, 2*Math.PI);
-        ctx3.stroke();
-        ctx3.fill();
+    } else if (b > a) {
+      ctx3.arc(0, c*250, 7, 0, 2*Math.PI);
+      ctx3.stroke();
+      ctx3.fill();
 
-      } else if (b > a) {
-        ctx3.arc(0, c*250, 7, 0, 2*Math.PI);
-        ctx3.stroke();
-        ctx3.fill();
-
-        ctx3.beginPath();
-        ctx3.arc(0, -c*250, 7, 0, 2*Math.PI);
-        ctx3.stroke();
-        ctx3.fill();
-      }
+      ctx3.beginPath();
+      ctx3.arc(0, -c*250, 7, 0, 2*Math.PI);
+      ctx3.stroke();
+      ctx3.fill();
+    }
 
 
-      // console.log(vm.params);
+    // console.log(vm.params);
 
-      //ball's path:
-          ctx3.beginPath();
-          var x = 250*a*Math.cos((theta/100));
-          var y = 250*b*Math.sin(theta/100);
-          ctx3.arc(x, y, 10, 0, 2*Math.PI);
-          ctx3.stroke();
-          ctx3.fillStyle = 'yellow';
-          ctx3.fill();
+    //ball's path:
+    ctx3.beginPath();
+    var x = 250*a*Math.cos((theta/100));
+    var y = 250*b*Math.sin(theta/100);
+    ctx3.arc(x, y, 10, 0, 2*Math.PI);
+    ctx3.stroke();
+    ctx3.fillStyle = 'yellow';
+    ctx3.fill();
 
-          //tracing out lines to foci:
-          ctx3.beginPath();
-          if (a > b) {
-            ctx3.moveTo(c*250, 0);
-            ctx3.lineTo(x, y);
-            ctx3.stroke();
+    //tracing out lines to foci:
+    ctx3.beginPath();
+    if (a > b) {
+      ctx3.moveTo(c*250, 0);
+      ctx3.lineTo(x, y);
+      ctx3.stroke();
 
-            ctx3.beginPath();
-            ctx3.moveTo(-c*250, 0);
-            ctx3.lineTo(x, y);
-            ctx3.stroke();
-          } else if (b > a) {
-            ctx3.moveTo(0, c*250);
-            ctx3.lineTo(x, y);
-            ctx3.stroke();
+      ctx3.beginPath();
+      ctx3.moveTo(-c*250, 0);
+      ctx3.lineTo(x, y);
+      ctx3.stroke();
+    } else if (b > a) {
+      ctx3.moveTo(0, c*250);
+      ctx3.lineTo(x, y);
+      ctx3.stroke();
 
-            ctx3.beginPath();
-            ctx3.moveTo(0, -c*250);
-            ctx3.lineTo(x, y);
-            ctx3.stroke();
-          }
-
-
-      //draw tangent:
-          if (vm.showTangent) {
-            //standardizing to coordinates of one unit = 100px:
-            // console.log(x/250,y/250);
-
-            var m = (Math.pow(b, 2)/Math.pow(a, 2)) * -x/y;
-            // console.log(m);
-            ctx3.moveTo(x-300, y-300*m);
-            ctx3.lineTo(x+300, y+300*m);
-            ctx3.stroke();
-          }
-
-          ctx3.translate(-350,-350);
+      ctx3.beginPath();
+      ctx3.moveTo(0, -c*250);
+      ctx3.lineTo(x, y);
+      ctx3.stroke();
+    }
 
 
-          //what's the best way to grab the angle between focus-line and tangent?
-          //Hmmm....
+    //draw tangent:
+    if (vm.showTangent) {
+      //standardizing to coordinates of one unit = 100px:
+      // console.log(x/250,y/250);
+
+      var m = (Math.pow(b, 2)/Math.pow(a, 2)) * -x/y;
+      // console.log(m);
+      ctx3.moveTo(x-300, y-300*m);
+      ctx3.lineTo(x+300, y+300*m);
+      ctx3.stroke();
+    }
+
+    ctx3.translate(-350,-350);
 
 
-    }; //end DrawEllipse
+    //what's the best way to grab the angle between focus-line and tangent?
+    //Hmmm....
 
-    vm.drawEllipse(vm.a/100, vm.b/100, vm.theta);
+
+  }; //end DrawEllipse
+
+  vm.drawEllipse(vm.a/100, vm.b/100, vm.theta);
 
 
 
@@ -400,12 +459,12 @@ vm.x = 270;
   vm.x4=280;
 
   function parabola4(x, l, a, b, c, dir) {
-  for (var i = 0; i < x; i++) {
-    ctx4.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
-    ctx4.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
-    ctx4.stroke();
+    for (var i = 0; i < x; i++) {
+      ctx4.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+      ctx4.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+      ctx4.stroke();
+    }
   }
-}
 
   vm.drawBall4 = function(x) {
     ctx4.clearRect(0,0,1000,1000);
@@ -496,12 +555,12 @@ vm.x = 270;
   console.log(vm.x3);
 
   function parabola3(x, l, a, b, c, dir) {
-  for (var i = 0; i < x; i++) {
-    ctx5.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
-    ctx5.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
-    ctx5.stroke();
+    for (var i = 0; i < x; i++) {
+      ctx5.moveTo(i*l + dir*200, a*Math.pow(i*l/100, 2)*100 + b*i*l + c*100);
+      ctx5.lineTo((i+1)*l + dir*200, a*Math.pow((i+1)*l/100, 2)*100 + b*(i+1)*l +c*100);
+      ctx5.stroke();
+    }
   }
-}
 
 
   vm.drawBall3 = function(x) {

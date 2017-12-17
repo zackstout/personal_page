@@ -29,7 +29,7 @@ app.controller('AboutController', function($location) {
     ctx.beginPath();
     ctx.arc(x, y, 10, 0, 2*Math.PI);
     ctx.stroke();
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = '#191970 ';
     ctx.fill();
 
 
