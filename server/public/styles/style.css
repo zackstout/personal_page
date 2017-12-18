@@ -201,7 +201,7 @@ hr {
   font-size: 17px;
   /*color: red;*/
   margin-bottom: -5px;
-  font-family: Helvetica;
+  font-family: Palatino;
 }
 .name {
   margin-left: 60px;
@@ -332,6 +332,8 @@ code {
   margin-left: 20px;
   background-color: lightGray;
   line-height: 135%;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .blogText {
@@ -352,4 +354,7 @@ hr {
   font-family: monospace;
   background-color: lightgray;
   font-size: 16.5px;
+  /*padding-top: 4px;
+  padding-bottom: 4px;*/
+  padding: 4px;
 }

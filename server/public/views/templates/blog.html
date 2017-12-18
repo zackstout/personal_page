@@ -24,6 +24,9 @@
   <canvas id="triangle" width="300" height="300"></canvas>
 
 </div> -->
+<div layout layout-align="center center" class="blogText">
+  <i>Note: Unless indicated otherwise, code examples are written in JavaScript.</i>
+</div>
 
 <hr>
 
@@ -33,12 +36,12 @@
     <!-- <a name="chapter1"></a> -->
   </div>
   <div class="blogSubtitle">
-    Dec. 18, 2017
+    Dec. 17, 2017
   </div>
 </div>
 
 <div class="blogText">
-  The golden ratio, commonly denoted &Phi;, shows up throughout nature and the human arts. It is one of the most breathtaking pieces of math I've encountered.
+  The golden ratio, commonly denoted by &Phi;, shows up throughout nature and the human arts. It is one of the most breathtaking pieces of math I've encountered.
 </div>
 
 <div class="blogText">
@@ -93,31 +96,30 @@
 </div>
 
 <div class="blogText">
-  Each leaf is composed of two circular arcs; we draw one leaf, and then <span class="codeBit">ctx.rotate(Math.PI/1.618)</span>, and draw another slightly shorter leaf.
+  Each leaf is composed of two circular arcs; we draw one leaf, and then <span class="codeBit">ctx.rotate(2*Math.PI/1.618)</span>, and draw another slightly shorter leaf.
 </div>
 
-<pre><code layout layout-align="center center">function drawLeaf(l) {
-  var r = l * 1.5;
-  var theta = Math.asin(l/r);
-  //draw first half of leaf:
+<pre><code layout layout-align="center center">function drawLeaf(L) {
+  var r = L * 1.5;
+  var theta = Math.asin(L/r);
+
   ctx.beginPath();
-  ctx.arc(Math.pow((r*r - l*l), 0.5), -l, r, Math.PI - theta, Math.PI + theta);
+  ctx.arc(Math.pow((r*r - L*L), 0.5), -L, r, Math.PI - theta, Math.PI + theta);
   ctx.stroke();
 
-  //draw second half of leaf:
   ctx.beginPath();
-  ctx.arc(-Math.pow((r*r - l*l), 0.5), -l, r, -theta, theta);
+  ctx.arc(-Math.pow((r*r - L*L), 0.5), -L, r, -theta, theta);
   ctx.stroke();
 }
 </code></pre>
 
 <div class="blogText">
-  To draw a more full-bodied plant, we just need a <span class="codeBit">for</span> loop:
+  To fill out our plant, we just need a <span class="codeBit">for</span> loop:
 </div>
 
 <pre><code layout layout-align="center center">for (var i=0; i<20; i++) {
     drawLeaf(startLength);
-    ctx9.rotate(2*Math.PI/phi);
+    ctx.rotate(2*Math.PI/phi);
     startLength *= 0.88;
   }
 </code></pre>
@@ -144,7 +146,7 @@
     <!-- <a name="chapter1"></a> -->
   </div>
   <div class="blogSubtitle">
-    Dec. 17, 2017
+    Dec. 15, 2017
   </div>
 </div>
 
@@ -206,7 +208,7 @@
     <a name="chapter1"></a>
   </div>
   <div class="blogSubtitle">
-    Dec. 16, 2017
+    Dec. 12, 2017
   </div>
 </div>
 
@@ -264,7 +266,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 </code></pre>
 
 <div class="blogText">
-  We reset the background with every iteration of the <span class="codeBit">draw</span> function in order to clear the previous renderings -- otherwise we end up with space-time worms roaming through our canvas.
+  We reset the background with every iteration of the <span class="codeBit">draw</span> function in order to clear the previous renderings &mdash; otherwise we end up with space-time worms roaming through our canvas.
 </div>
 
 <div class="blogText">
@@ -277,8 +279,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
 <div class="blogText">
   And p5 is no slouch. It offers <span class="codeBit">mouseClicked</span> and <span class="codeBit">mouseDragged</span> functions that make it easy to interact with the canvas. If you add an array to your global scope...</div>
-  <pre><code layout layout-align="center center">var balls = [];
-  </code></pre>
+  <pre><code layout layout-align="center center">var balls = [];</code></pre>
 
 
   <div class="blogText">...and then add a loop into your <span class="codeBit">draw</span> function...:
@@ -291,7 +292,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
   <pre><code layout layout-align="center center">function mouseDragged() {
     var randomNum = Math.random()*50;
     var ball = Bodies.circle(mouseX, mouseY, randomNum);
-    console.log(ball);
+    ball.circleRadius = randomNum/2;
     World.add(world, ball);
     balls.push(ball);
 }</code></pre>
@@ -307,7 +308,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
   </div>
   <div class="blogSubtitle">
-    Dec. 14, 2017
+    Dec. 10, 2017
   </div>
 </div>
 
@@ -418,7 +419,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
 <div layout="column" layout-align="center center" id="post1">
   <h2 class="blogTitle">Getting Started with HTML Canvas Animations</h2>
-  <div class="blogSubtitle">Dec. 12, 2017</div>
+  <div class="blogSubtitle">Dec. 8, 2017</div>
 </div>
 
 
