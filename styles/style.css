@@ -197,6 +197,12 @@ hr {
   padding-left: 30px;
 }
 
+.mineButton {
+  width: 30px;
+  height: 30px;
+  margin: -3px -2px -3px -2px;
+}
+
 .quote, .name {
   font-size: 17px;
   /*color: red;*/
@@ -329,11 +335,14 @@ canvas {
 
 code {
   font-size: 16px;
-  margin-left: 20px;
+  margin-left: 40px;
   background-color: lightGray;
   line-height: 135%;
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 20px;
 }
 
 .blogText {

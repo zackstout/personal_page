@@ -17,15 +17,451 @@
 
   </div>
 
+  <!-- Idea for post: kinetic and potential energy of, say, a pendulum.
+
+  Idea for post: Stretch, implement slider for current value, and change view to look straight down the current-line and see how magnetic fields are affected, i.e. see a ball moving with different speed.
+
+  Idea for post: Learning python (note: need to actually download and use it in an app)
+
+  Idea for post: Relativity elevators with balls shooting from top to bottom. That visual really stuck with me. And you can't know whether you're accelerating or at rest; they're only relative notions (to a frame of reference; i.e. no such thing as accelerating full stop). Would be super cool to draw clocks with hands moving at the appropriate speeds.
+
+  idea: Build minesweeper in python. -->
+
   <div class="blogContent" layout="column" flex="60">
     <!-- <h1>blog</h1> -->
 
 <!-- <div layout layout-align="center center">
   <canvas id="triangle" width="300" height="300"></canvas>
-
 </div> -->
+
+<!--
+<table>
+  <thead>
+  </thead>
+  <tbody id="mineSweeper">
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+    <tr>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+      <td><button class="mineButton" ng-click="bc.checkBox()"> </button></td>
+    </tr>
+  </tbody>
+</table> -->
+
+
 <div layout layout-align="center center" class="blogText">
   <i>Note: Unless indicated otherwise, code examples are written in JavaScript.</i>
+</div>
+
+<hr>
+<!--
+<div layout="column" layout-align="center center" id="post8">
+  <div >
+    <h2 class="blogTitle">Creating a Customizable Chart</h2>
+  </div>
+  <div class="blogSubtitle">
+    Dec. 26, 2017
+  </div>
+</div>
+
+<div class="blogText">
+  Suppose we have a set of data that is grouped according to a few different categories and we want to build an app to visualize our data. For instance, say we are building an app that allows organizations to track and view their carbon footprint over time. Let's run through the steps needed to build a basic customizable chart using Chart.js, AngularJS and PostgreSQL.
+</div>
+
+<div class="blogText">
+  In our database we'll have a table for Monthly Reports, and three other tables that reference this first table: Living, Shipping and Travel. The Shipping table has columns to keep track of air-, sea-, truck- and train-based shipping costs (in terms of kg-tonne of shipped materials) for the month.
+</div>
+
+<div class="blogText">
+  Monthly reports are each attached to a project (e.g. Save the Infants), i.e. each row in the Monthly Reports table is foreign keyed to a row in the Projects table. Projects can have multiple Types (e.g. Education, Health), and are associated with a specific Country. By now we have eight tables &mdash; our original four, plus tables for Projects, Countries, Types, and Project-Types (we need this last table because each project can be associated with multiple types).
+</div>
+
+<div class="blogText">
+  We can start by adding (in our HTML) a pair of <span class='codeBit'>select</span> tags to allow a user to choose a particular project, month, type or country. First, the user can choose which category they are interested in:
+</div> -->
+
+<!-- <pre><code layout layout-align="center center">//Choose a View:
+<select ng-model="uc.chartView" ng-change="uc.changeChartView()">
+  <option value="projects">Project</option>
+  <option value="months">Month</option>
+  <option value="types">Type</option>
+  <option value="countries">Country</option>
+  </select></code></pre> -->
+
+<!-- <div class="blogText">
+  The <span class="codeBit">ng-change</span> ensures that whenever the user alters their selection, we trigger (in the controller) a <span class="codeBit">GET</span> call for all of the particulars in the requested category. (We keep track of the requested category in the controller with the property <span class="codeBit">vm.chartView</span>, where we have previously declared <span class='codeBit'>var vm = this</span>, but we could just as easily pass it along as an argument in our <span class="codeBit">changeChartView</span> function.) We use the results of this call to populate a second drop-down with <span class="codeBit">ng-repeat</span> (by somewhat clumsily writing each selector tag to the DOM and only <span class="codeBit">ng-show</span>ing the relevant one):
+</div> -->
+
+<!-- <pre><code>//Choose a particular:
+  <select ng-show="uc.activeSelector == 'projects'" ng-model="uc.chartParticular">
+    <option ng-repeat="res in uc.chartResults" value="res.project">{{res.project}}</option>
+  </select>
+  <select ng-show="uc.activeSelector == 'months'" ng-model="uc.chartParticular">
+    <option ng-repeat="res in uc.chartResults" value="res.month">{{res.month}}</option>
+  </select>
+  <select ng-show="uc.activeSelector == 'types'" ng-model="uc.chartParticular">
+    <option ng-repeat="res in uc.chartResults" value="res.type">{{res.type}}</option>
+  </select>
+  <select ng-show="uc.activeSelector == 'countries'" ng-model="uc.chartParticular">
+    <option ng-repeat="res in uc.chartResults" value="res.country">{{res.country}}</option>
+  </select>
+</code></pre> -->
+
+<!-- <div class="blogText">
+  Finally, we can populate a third dropdown with each of the categories <i>not</i> selected as a View. For example, if the user chooses to view a particular Month, they will have the choice to subdivide that month's carbon footprint by project, type or country. Now we have all the data we need to construct our SQL query, which we run on clicking "Submit":
+</div> -->
+<!--
+<pre><code><button ng-click="uc.getChartData(uc.chartView, uc.chartParticular, uc.chartSlice)">Submit</button></code></pre> -->
+
+
+
+<!-- <hr> -->
+
+<div layout="column" layout-align="center center" id="post7">
+  <div >
+    <h2 class="blogTitle">Sizes of Infinite Sets</h2>
+  </div>
+  <div class="blogSubtitle">
+    Dec. 23, 2017
+  </div>
+</div>
+
+<div class="blogText">
+  How might we go about comparing the sizes of different infinite sets? Mathematicians have found it natural to say that two infinite sets have the same size (or <i>cardinality</i>) just in case their members can be put into a bijective relationship: a one-to-one correspondence from set A to set B that hits all the members of B. (<i>One-to-one</i> means that any element in B can be mapped to by at most one element of A. The latter condition guarantees that every element in B will be mapped to (or 'hit') by some element of A.)
+</div>
+
+<div class="blogText">
+  This definition might seem strange. For instance, according to it, the set of all integers and the set of all even integers are of the same size, even though in a way it seems as though there are exactly half as many even integers as there are integers.
+</div>
+
+  <div class="blogText">
+    What about sets that our definition judges to have different sizes? Consider the sets R = {all real numbers between 0 and 1} and Q = {all rational numbers between 0 and 1}. (A <i>rational</i> number is one that can be expressed as a ratio of integers.) Cantor developed a wonderful proof that the two sets cannot be put into a bijective relation; that is, they are not of the same size. The set R has far more members than the set Q, even though both have an infinite number of members.
+</div>
+
+<div class="blogText">
+  (Note: Really, what <a href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument">Cantor's proof</a> shows is that the set of real numbers, R, cannot be put into a bijective relation with the set of natural numbers (1, 2, 3, ...). The rational numbers, Q, <i>can</i> be put into a bijective relation with the natural numbers. Since bijectivity is transitive, it follows from Cantor's proof that there is no bijection between Q and R.)
+</div>
+
+<div class="blogText">
+  One fascinating consequence of this definition is that the interval from 0 to 1 contains exactly as many real numbers as the interval from 0 to positive infinity! We know this because we can produce a bijective correspondence between points in the two intervals.
+</div>
+
+<div class="blogText">
+  We can illustrate this fact by drawing a quarter-circle, and using each point that lies upon it to connect the interval [0, 1] to the interval [0, &Inf;].
+</div>
+
+
+<div layout layout-align="center center">
+  <canvas id='infinity' height=500 width =500></canvas>
+  &emsp; <md-slider ng-model="bc.inf" ng-change="bc.infinitize(bc.inf)" min="1" max="200" aria-label="infin"></md-slider>
+</div>
+<!-- NOTE: max should really be a magic number -->
+
+
+
+
+<hr>
+
+
+<div layout="column" layout-align="center center" id="post6">
+  <div >
+    <h2 class="blogTitle">From JavaScript to Python: Basic Syntax</h2>
+    <!-- <a name="chapter1"></a> -->
+  </div>
+  <div class="blogSubtitle">
+    Dec. 21, 2017
+  </div>
+</div>
+
+<div class="blogText">
+  Python is sometimes touted as one of the easiest programming languages to learn. I think this is especially true when approaching Python from a background in JavaScript.
+</div>
+
+<div class="blogText">
+  The first thing to know is that whereas JavaScript uses parentheses and braces to signify different code blocks, Python relies on white space and colons:
+</div>
+
+<div layout="row" layout-align="center center">
+  <div layout="col">
+    <pre><code layout layout-align="top center">//JavaScript:
+    function sayHello() {
+      console.log("Hello world!");
+    }
+    sayHello()</code></pre>
+  </div>
+  <div layout="col">
+    <pre><code layout layout-align="top center">#Python:
+    def sayHello():
+      print "Hello world!"
+    sayHello()</code></pre>
+  </div>
+</div>
+
+<div class="blogText">
+  Working with strings is similar in Python: instead of <span class="codeBit">str.length</span>, you use <span class="codeBit">len(str)</span>; instead of <span class="codeBit">str.charAt(0)</span>, you use <span class="codeBit">str[0]</span>. Python offers a nice feature, <i>string substitution</i>, which lets you put variables inside of strings (note that Python also allows us to dispense with semicolons and declaration keywords such as <span class="codeBit">var</span> or <span class="codeBit">let</span>):
+</div>
+
+
+<div layout="row" layout-align="center center">
+  <div layout="col">
+    <pre><code layout layout-align="top center">//JavaScript:
+      var x = 'phoenix';
+      console.log('This bird is a ', x);</code></pre>
+  </div>
+  <div layout="col">
+    <pre><code layout layout-align="top center">#Python:
+      x = 'phoenix'
+      print 'This bird is a %s' % (x)</code></pre>
+  </div>
+</div>
+
+<div class="blogText">
+  Another nice aspect of Python is the strong parallelism between strings, lists (which are Python's version of arrays) and dictionaries (which are Python's version of objects). This parallelism shines through in the way Python treats <span class="codeBit">for</span> loops (this syntax might remind AngularJS users of <span class="codeBit">ng-repeat</span>):
+</div>
+
+
+<div layout="row" layout-align="center center">
+  <div layout="col">
+    <pre><code layout layout-align="top center">//JavaScript:
+      var myArray = [1, 'apple'];
+      for (var i=0; i < myArray.length; i++) {
+        console.log(myArray[i]);
+      }</code></pre>
+  </div>
+  <div layout="col">
+    <pre><code layout layout-align="top center">#Python:
+    myString = 'capybara'
+    myList = [1, 'apple', 7.2]
+    myDictionary = {
+      'shirt_color': 'black',
+      'socks': ['blueSock', 'redSock'],
+      'shoes_count': 2
+    }
+    for c in myString:
+      print c
+    for x in myList:
+      print x
+    for key in myDictionary:
+      print key + ' ' + myDictionary[key]</code></pre>
+  </div>
+</div>
+
+<div class="blogText">
+  In order to replicate the JavaScript way of writing <span class='codeBit'>for</span> loops in Python, we could awkwardly write
+</div>
+
+<pre><code  layout layout-align="center center">for i in range(len(myList)):
+  print myList[i]
+</code></pre>
+
+<div class="blogText">
+  Alternatively, we could write <span class="codeBit">enumerate(myList)</span> if we wanted to attach an index to each item in our list (we could even pass it a second argument to tell it which index to start counting at!).
+</div>
+
+<div class="blogText">
+  Python also makes it easy to spin up tailor-made lists with a feature called <i>list comprehension</i>. To get a list of all multiples of 3 between 20 and 80, we could write
+</div>
+
+<pre><code layout layout-align="center center">myArray = [i for i in range(20, 80) if i % 3 == 0]
+print myArray
+</code></pre>
+
+<div class="blogText">
+  One of my favorite things about Python is its readability. Instead of having to know, for example, that JavaScript arrays have a method called <span class="codeBit">.includes()</span> that checks whether an array contains a certain element, we can just write
+</div>
+
+
+<pre><code layout layout-align="center center">if user_guess not in correct_guesses:
+    print "Guess again!"
+</code></pre>
+
+<div class="blogText">
+  Suppose we wanted to filter an array, purging it of all elements that fail to meet a certain condition. We can pass an anonymous function (written on the fly) to the array's <span>filter</span> method. Python lets us abbreviate this process with a <i>lambda</i> operator; similarly, ES6 offers arrow functions. Let's filter out all trees that don't begin with 'c':
+</div>
+
+<div layout="row" layout-align="center center">
+  <div layout="col">
+    <pre><code layout layout-align="top center">//JavaScript:
+      var trees = ['conifer', 'cedar', 'birch'];
+      var c_trees = trees.filter(function(tree, trees) {
+        return tree.charAt(0) == 'c'
+      });
+      //Or, with an arrow function:
+      var c_trees = trees.filter(() =>
+        {return tree.charAt(0) == 'c'});</code></pre>
+  </div>
+  <div layout="col">
+    <pre><code layout layout-align="top center">#Python:
+    trees = ['conifer', 'cedar', 'birch']
+    c_trees = filter(lambda tree: tree[0] == 'c', trees)</code></pre>
+  </div>
+</div>
+
+<div class="blogText">
+  Class inheritance, too, works similarly across our two languages. We can declare a new class with a constructor (or <i>initialization</i>) function, add methods to our class, and then create an instance:
+</div>
+
+<div layout="row" layout-align="center center">
+  <div layout="col">
+    <pre><code layout layout-align="top center">//JavaScript:
+      class Dog {
+        constructor(breed, color) {
+          this.breed = breed;
+          this.color = color;
+        }
+        bark() {
+          console.log("Woof!");
+        }
+      }
+      var tiny = new Dog("pug", "tan");
+      tiny.bark();</code></pre>
+  </div>
+  <div layout="col">
+    <pre><code layout layout-align="top center">#Python:
+    class Dog(object):
+      def __init__(self, breed, color):
+        self.breed = breed
+        self.color = color
+      def bark(self):
+        print "Woof!"
+    tiny = Dog("pug", "tan")</code></pre>
+  </div>
+</div>
+
+<div class="blogText">
+  If we want one class (a subclass) to inherit all of the methods and properties associated with another object &mdash; say we want to create Pug and Greyhound and Mastiff subclasses &mdash; we can write
+</div>
+
+<div layout="row" layout-align="center center">
+  <div layout="col">
+    <pre><code layout layout-align="top center">//JavaScript:
+      class Pug extends Dog {
+        ...
+      }</code></pre>
+  </div>
+  <div layout="col">
+    <pre><code layout layout-align="top center">#Python:
+      class Pug(Dog):
+        ...</code></pre>
+  </div>
+</div>
+
+<div class="blogText">
+  There is plenty more to explore in Python &mdash; especially the plethora of libraries that are available for you to <span class="codeBit">import</span> into your project &mdash; but hopefully this has been enough to convince you that the transition from JavaScript into Python can be a natural and smooth one.
 </div>
 
 <hr>
@@ -546,6 +982,9 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
   <div class="prevPosts" layout="column" flex="12">
     <div class="allposts" layout layout-align="center center">All Posts:</div>
     <ul class="postlist">
+      <!-- <li ng-click="bc.goToPost(8)">Creating a Customizable Chart</li> -->
+      <li ng-click="bc.goToPost(7)">Sizes of Infinite Sets</li>
+      <li ng-click="bc.goToPost(6)">From JavaScript to Python: Basic Syntax</li>
       <li ng-click="bc.goToPost(5)">Exploring the Golden Ratio</li>
       <li ng-click="bc.goToPost(4)">Writing SQL Queries</li>
       <li ng-click="bc.goToPost(3)">Getting Started with Matter.js</li>

@@ -12,6 +12,92 @@ app.controller('BlogController', function($location, $anchorScroll) {
     $anchorScroll('post'+n);
   };
 
+  var sweeper = document.getElementById('mineSweeper');
+  console.log(sweeper);
+  // sweeper.append();
+
+  // Ok we need
+  // (1) a way to attach id to each button/data cell. i.e. angular element append or something
+  // (2) a way to generate 10 random bombs (taking into account whether that square has been bombed already)
+  // (3) how does it work? how are the islands delineated by the program?
+  // (4) function to calculate how many bombs are adjacent to each square in the island
+  // (5) right click to flag a square
+
+  function countAndSay(x) {
+    if (x == 1) {
+      return 1;
+    } else if (x == 2) {
+      return 11;
+    } else {
+      var stringToSay = String(countAndSay(x-1));
+      var result = [];
+      var count = 1;
+      for (var i=1; i<stringToSay.length; i++) {
+        if (stringToSay.charAt(i) == stringToSay.charAt(i - 1)) {
+          count ++;
+          if (stringToSay.length - 1 == i) {
+            result.push({
+              int: stringToSay.charAt(i),
+              count: count
+            });
+          }
+        } else {
+          result.push({
+            int: stringToSay.charAt(i - 1),
+            count: count
+          });
+          if (stringToSay.length - 1 == i) {
+            result.push({
+              int: stringToSay.charAt(i),
+              count: count
+            });
+          }
+          count = 1;
+        }
+      }
+      var realRes = '';
+      for (var j=0; j<result.length; j++) {
+        realRes += result[j].count;
+        realRes += result[j].int;
+      }
+      return realRes;
+    }
+  }
+  console.log(countAndSay(7));
+
+  function areFriends(p, q) {
+    var x = String(p);
+    var y = String(q);
+    for (var i=0; i<x.length; i++) {
+      var n1 = x[i];
+      for (var j=0; j<y.length; j++) {
+        var n2 = y[j];
+        if (n1 == n2) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function numOfFriends(x) {
+    var res = 0;
+    for (var i=1; i<x; i++) {
+      for (var j=i+1; j<x; j++) {
+        if (areFriends(i, j)) {
+          res ++;
+        }
+      }
+    }
+    return res;
+  }
+
+  var n = Math.pow(10, 18);
+  console.log(numOfFriends(100));
+
+
+
+
   var canvas2 = document.getElementById('parabola');
   var ctx2 = canvas2.getContext('2d');
 
@@ -42,9 +128,78 @@ app.controller('BlogController', function($location, $anchorScroll) {
   var twoLeaves = document.getElementById('twoLeaves');
   var ctx11 = twoLeaves.getContext('2d');
 
+  var inf = document.getElementById('infinity');
+  var ctx12 = inf.getContext('2d');
+
   // var canvas8 = document.getElementById('triangle');
   // var ctx8 = canvas8.getContext('2d');
   var phi = 1.61803;
+
+  // ctx12.translate(250, 250);
+  ctx12.moveTo(50, 0);
+  ctx12.lineTo(50, 500);
+  ctx12.stroke();
+  ctx12.moveTo(0, 250);
+  ctx12.lineTo(500, 250);
+  ctx12.stroke();
+
+  ctx12.beginPath();
+  ctx12.arc(50, 250, 200, 3*Math.PI/2, 0);
+  ctx12.stroke();
+
+  vm.infinitize = function(x) {
+    ctx12.clearRect(0, 0, 2000, 2000);
+
+    //redraw:
+    //note: need to beginPath here in order to avoid glitchiness:
+    ctx12.beginPath();
+    ctx12.moveTo(50, 0);
+    ctx12.lineTo(50, 500);
+    ctx12.stroke();
+    ctx12.moveTo(0, 250);
+    ctx12.lineTo(500, 250);
+    ctx12.stroke();
+
+    ctx12.beginPath();
+    ctx12.arc(50, 250, 200, 3*Math.PI/2, 0);
+    ctx12.stroke();
+
+    xCoord = 250 - (200-x);
+    ctx12.moveTo(xCoord, 250);
+    xAdj = (xCoord - 50)/200;
+    yAdj = Math.pow(1 - Math.pow(xAdj, 2), 0.5);
+    yCoord = 250 - yAdj * 200;
+    // console.log(xAdj, 'and ', yAdj);
+    ctx12.lineTo(xCoord, yCoord);
+    ctx12.stroke();
+
+    xNew = xCoord - 50;
+    yNew = yCoord - 50;
+    // console.log(xNew, yNew);
+    slope = yNew / xNew;
+    console.log(slope);
+    xEnd = 200/slope;
+    ctx12.moveTo(50, 50);
+    ctx12.lineTo(50 + xEnd, 250);
+    ctx12.stroke();
+    //
+    // slope = -xAdj / (Math.pow(1 - xAdj * xAdj, 0.5));
+    // console.log(slope);
+    //
+    // ctx12.moveTo(xCoord, yCoord);
+    // ctx12.lineTo(xCoord + 100 / -slope, 250);
+    // ctx12.stroke();
+
+    //x is between 1 and 200:
+    // var newX = -(200 - x);
+    // ctx12.arc(newX, 0, 7, 0, 2*Math.PI);
+    // ctx12.stroke();
+    //
+    // ctx12.moveTo(newX, 0);
+    // ctx12.lineTo(newX, -Math.pow(1 - Math.pow(newX, 2)/100), 0.5);
+    // ctx12.stroke();
+  };
+
 
 
   ctx10.moveTo(10, 20);
