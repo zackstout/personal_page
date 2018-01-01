@@ -173,11 +173,24 @@
 
 
 
+
+
+
+
+
+
 <div layout layout-align="center center" class="blogText">
   <i>Note: Unless indicated otherwise, code examples are written in JavaScript.</i>
 </div>
 
 <hr>
+
+
+
+
+
+
+
 <!--
 <div layout="column" layout-align="center center" id="post8">
   <div >
@@ -202,44 +215,54 @@
 
 <div class="blogText">
   We can start by adding (in our HTML) a pair of <span class='codeBit'>select</span> tags to allow a user to choose a particular project, month, type or country. First, the user can choose which category they are interested in:
-</div> -->
+</div>
 
-<!-- <pre><code layout layout-align="center center">//Choose a View:
-<select ng-model="uc.chartView" ng-change="uc.changeChartView()">
-  <option value="projects">Project</option>
-  <option value="months">Month</option>
-  <option value="types">Type</option>
-  <option value="countries">Country</option>
-  </select></code></pre> -->
+<code layout layout-align="center center">//Choose a View:
+  <br><br>{{bc.html11}}
+  <br>&emsp;{{bc.html12}}
+  <br>&emsp;{{bc.html13}}
+  <br>&emsp;{{bc.html14}}
+  <br>&emsp;{{bc.html15}}
+  <br>{{bc.html16}}
 
-<!-- <div class="blogText">
+</code>
+
+<div class="blogText">
   The <span class="codeBit">ng-change</span> ensures that whenever the user alters their selection, we trigger (in the controller) a <span class="codeBit">GET</span> call for all of the particulars in the requested category. (We keep track of the requested category in the controller with the property <span class="codeBit">vm.chartView</span>, where we have previously declared <span class='codeBit'>var vm = this</span>, but we could just as easily pass it along as an argument in our <span class="codeBit">changeChartView</span> function.) We use the results of this call to populate a second drop-down with <span class="codeBit">ng-repeat</span> (by somewhat clumsily writing each selector tag to the DOM and only <span class="codeBit">ng-show</span>ing the relevant one):
-</div> -->
+</div>
 
-<!-- <pre><code>//Choose a particular:
-  <select ng-show="uc.activeSelector == 'projects'" ng-model="uc.chartParticular">
-    <option ng-repeat="res in uc.chartResults" value="res.project">{{res.project}}</option>
-  </select>
-  <select ng-show="uc.activeSelector == 'months'" ng-model="uc.chartParticular">
-    <option ng-repeat="res in uc.chartResults" value="res.month">{{res.month}}</option>
-  </select>
-  <select ng-show="uc.activeSelector == 'types'" ng-model="uc.chartParticular">
-    <option ng-repeat="res in uc.chartResults" value="res.type">{{res.type}}</option>
-  </select>
-  <select ng-show="uc.activeSelector == 'countries'" ng-model="uc.chartParticular">
-    <option ng-repeat="res in uc.chartResults" value="res.country">{{res.country}}</option>
-  </select>
-</code></pre> -->
-
-<!-- <div class="blogText">
-  Finally, we can populate a third dropdown with each of the categories <i>not</i> selected as a View. For example, if the user chooses to view a particular Month, they will have the choice to subdivide that month's carbon footprint by project, type or country. Now we have all the data we need to construct our SQL query, which we run on clicking "Submit":
-</div> -->
-<!--
-<pre><code><button ng-click="uc.getChartData(uc.chartView, uc.chartParticular, uc.chartSlice)">Submit</button></code></pre> -->
+<div id="html2" layout layout-align="center center">
+  <code>//Choose a particular:
+    <br><br>{{bc.html2a}}
+    <br>&emsp;{{bc.html2b}}
+    <br>&emsp;&emsp;{{bc.html2c}}
+    <br>&emsp;&emsp;&emsp;{{bc.html2d}}
+    <br>{{bc.html2e}}
+  </code>
+</div>
 
 
+<div class="blogText">
+  Finally, we can populate a third dropdown with each of the categories <i>not</i> selected as a View. For example, if the user chooses to view a particular Month, they will have the choice to subdivide that month's carbon footprint by project, type or country. (The code for this is very similar to the above.) Now we have all the data we need to construct our SQL query, which we run on clicking "Submit":
+</div>
 
-<!-- <hr> -->
+<div id="html3" layout layout-align="center center">
+  <code>
+    {{bc.html31}}<br>{{bc.html32}}
+  </code>
+</div>
+
+<div class="blogText">
+  To build our SQL query, we will need to know a few things:
+  <ul>
+    <li></li>
+  </ul>
+</div>
+
+
+
+
+<hr> -->
 
 <div layout="column" layout-align="center center" id="post7">
   <div >
@@ -348,9 +371,10 @@
   <div layout="col">
     <pre><code layout layout-align="top center">//JavaScript:
       var myArray = [1, 'apple'];
-      for (var i=0; i < myArray.length; i++) {
-        console.log(myArray[i]);
-      }</code></pre>
+      for (var i=0; i < myArray.length;
+        i++) {
+          console.log(myArray[i]);
+        }</code></pre>
   </div>
   <div layout="col">
     <pre><code layout layout-align="top center">#Python:
@@ -406,18 +430,21 @@ print myArray
 <div layout="row" layout-align="center center">
   <div layout="col">
     <pre><code layout layout-align="top center">//JavaScript:
-      var trees = ['conifer', 'cedar', 'birch'];
-      var c_trees = trees.filter(function(tree, trees) {
-        return tree.charAt(0) == 'c'
-      });
+      var trees = ['conifer', 'birch',
+        'cedar'];
+      var c_trees = trees.filter(
+        function(tree, trees) {
+          return tree.charAt(0) == 'c'
+        });
       //Or, with an arrow function:
       var c_trees = trees.filter(() =>
         {return tree.charAt(0) == 'c'});</code></pre>
   </div>
   <div layout="col">
     <pre><code layout layout-align="top center">#Python:
-    trees = ['conifer', 'cedar', 'birch']
-    c_trees = filter(lambda tree: tree[0] == 'c', trees)</code></pre>
+    trees = ['conifer', 'birch', 'cedar']
+    c_trees = filter(
+      lambda tree: tree[0] == 'c', trees)</code></pre>
   </div>
 </div>
 
@@ -550,11 +577,13 @@ print myArray
   var theta = Math.asin(L/r);
 
   ctx.beginPath();
-  ctx.arc(Math.pow((r*r - L*L), 0.5), -L, r, Math.PI - theta, Math.PI + theta);
+  ctx.arc(Math.pow((r*r - L*L), 0.5), -L, r,
+      Math.PI - theta, Math.PI + theta);
   ctx.stroke();
 
   ctx.beginPath();
-  ctx.arc(-Math.pow((r*r - L*L), 0.5), -L, r, -theta, theta);
+  ctx.arc(-Math.pow((r*r - L*L), 0.5), -L, r,
+      -theta, theta);
   ctx.stroke();
 }
 </code></pre>
@@ -639,7 +668,8 @@ print myArray
   Finally, suppose we want to get, for each project, an array of all the footprint totals associated with it. The query would look something like this:
 </div>
 
-<pre><code layout layout-align="center center">SELECT "projects"."name" as name, array_agg("footprint_total") as total
+<pre><code layout layout-align="center center">SELECT "projects"."name" as name,
+  array_agg("footprint_total") as total
   FROM "projects" JOIN "footprints"
   ON "projects"."id" = "footprints"."project_id"
   GROUP BY "projects"."name";

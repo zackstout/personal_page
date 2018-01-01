@@ -141,11 +141,40 @@ app.controller('BlogController', function($location, $anchorScroll) {
   var numHolderEl2 = angular.element(numHolder2);
   var numHolderEl3 = angular.element(numHolder3);
 
+  vm.html11 = '<select ng-model="uc.chartView" ng-change="uc.changeChartView()">';
+  vm.html12 = '<option value="projects">Project</option>';
+  vm.html13 = '<option value="months">Month</option>';
+  vm.html14 = '<option value="types">Type</option>';
+  vm.html15 = '<option value="countries">Country</option>';
+  vm.html16 = '</select>';
+
+  vm.html31 = '<button ng-click="uc.getChartData(uc.chartView,';
+  vm.html32 = 'uc.chartParticular, uc.chartSlice)">Submit</button>';
+
+  vm.html2a = '<select ng-show="uc.activeSelector == \'projects\'"';
+  vm.html2b = 'ng-model="uc.chartParticular">';
+  vm.html2c = '<option ng-repeat="res in uc.chartResults"';
+  vm.html2d = 'value="res.project">{{res.project}}</option>';
+  vm.html2e = '</select>';
+
+  vm.html21 = '<select ng-show="uc.activeSelector == \'projects\'" ng-model="uc.chartParticular">';
+  vm.html22 = '  <option ng-repeat="res in uc.chartResults" value="res.project">{{res.project}}</option>';
+  vm.html23 = '</select>';
+  vm.html24 ='<select ng-show="uc.activeSelector == \'months\'" ng-model="uc.chartParticular">';
+  vm.html25 ='  <option ng-repeat="res in uc.chartResults" value="res.month">{{res.month}}</option>';
+  vm.html26 ='</select>';
+  vm.html27 ='<select ng-show="uc.activeSelector == \'types\'" ng-model="uc.chartParticular">';
+  vm.html28 ='  <option ng-repeat="res in uc.chartResults" value="res.type">{{res.type}}</option>';
+  vm.html29 ='</select>';
+  vm.html210 ='<select ng-show="uc.activeSelector == \'countries\'" ng-model="uc.chartParticular">';
+  vm.html211 ='  <option ng-repeat="res in uc.chartResults" value="res.country">{{res.country}}</option>';
+  vm.html212 = '</select>';
+
 
 //jeez this whole monster sure is turning into a bloated behemoth of code:
 //   binCount = 0;
 //   vm.binaryNum = 0;
-// 
+//
 //   vm.goBack = function() {
 //     if (binCount != 0) {
 //       binCount --;
