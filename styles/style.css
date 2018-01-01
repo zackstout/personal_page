@@ -203,6 +203,10 @@ hr {
   margin: -3px -2px -3px -2px;
 }
 
+#binNumHolder2 {
+  color: red;
+}
+
 .quote, .name {
   font-size: 17px;
   /*color: red;*/

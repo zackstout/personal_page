@@ -96,6 +96,8 @@ app.controller('BlogController', function($location, $anchorScroll) {
   console.log(numOfFriends(100));
 
 
+  var canvas1 = document.getElementById('binaryCount');
+  var ctx1 = canvas1.getContext('2d');
 
 
   var canvas2 = document.getElementById('parabola');
@@ -130,6 +132,272 @@ app.controller('BlogController', function($location, $anchorScroll) {
 
   var inf = document.getElementById('infinity');
   var ctx12 = inf.getContext('2d');
+
+  var numHolder = document.getElementById('binNumHolder');
+  var numHolder2 = document.getElementById('binNumHolder2');
+  var numHolder3 = document.getElementById('binNumHolder3');
+
+  var numHolderEl = angular.element(numHolder);
+  var numHolderEl2 = angular.element(numHolder2);
+  var numHolderEl3 = angular.element(numHolder3);
+
+
+//jeez this whole monster sure is turning into a bloated behemoth of code:
+  binCount = 0;
+  vm.binaryNum = 0;
+
+  vm.goBack = function() {
+    if (binCount != 0) {
+      binCount --;
+    }
+    renderBinCount(binCount);
+  };
+
+  vm.goForward = function() {
+    if (binCount != 15) {
+      binCount ++;
+    }
+    renderBinCount(binCount);
+  };
+
+  renderBinCount(0);
+  console.log(numHolder);
+  console.log(angular.element(numHolder));
+  console.log(numHolderEl);
+  numHolderEl.text('0');
+
+//could write a function to abstract the rectangle drawing....but need their size, as well as horizontal and vertical position. almost doesn't seem worth it if we can't find a pattern.
+
+//draw the rectangle with size (0, 1, 2 or 3), horizontal position (0, 1 or 2), and vertical position (1, 2, 3 or 4):
+  function drawRect(s, h, v) {
+
+    ctx1.translate(200*h + 100, 250);
+    switch(s) {
+      case 0:
+        ctx1.fillStyle = 'yellow';
+        break;
+      case 1:
+        ctx1.fillStyle = 'green';
+        break;
+      case 2:
+        ctx1.fillStyle = 'blue';
+        break;
+      case 3:
+        ctx1.fillStyle = 'purple';
+        break;
+    }
+    ctx1.fillRect(-10*s - 20, -v*15, 40 + s*20, 20);
+    ctx1.translate(-200*h - 100, -250);
+
+    //silly me, actually thought we needed a switch to deal with this stuff. that's the point of arguments! just got too into switchin lol
+  }
+
+
+  function renderBinCount(x) {
+    // console.log(x);
+
+    //thirds are from 0-200, 200-400, 400-600:
+    switch(x) {
+      case 0:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 0, 4);
+      drawRect(1, 0, 3);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      // ctx1.translate(100, 250);
+      // ctx1.fillRect(-50, -15, 100, 20);
+      // ctx1.fillRect(-40, -30, 80, 20);
+      // ctx1.fillRect(-30, -45, 60, 20);
+      // ctx1.fillRect(-20, -60, 40, 20);
+      // ctx1.translate(-100, -250);
+      //
+      // console.log(0);
+      numHolderEl.text('0');
+      numHolderEl2.text('');
+      numHolderEl3.text('');
+
+      break;
+
+      case 1:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 1, 1);
+      drawRect(1, 0, 3);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 2:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 1, 1);
+      drawRect(1, 2, 1);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+
+      break;
+
+      case 3:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 2, 2);
+      drawRect(1, 2, 1);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('1');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 4:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 2, 2);
+      drawRect(1, 2, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('00');      break;
+
+      case 5:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 2, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+      numHolderEl.text('10');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 6:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+      numHolderEl.text('1');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+
+      break;
+
+      case 7:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 3);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+      numHolderEl.text('11');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 8:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 3);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('000');
+      break;
+
+      case 9:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 2, 2);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('100');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 10:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 2, 2);
+      drawRect(1, 0, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('10');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+      break;
+
+      case 11:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 0, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('101');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 12:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 0, 1);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('1');
+      numHolderEl2.text('1');
+      numHolderEl3.text('00');
+      break;
+
+      case 13:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 1);
+      drawRect(1, 0, 1);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('110');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 14:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 1);
+      drawRect(1, 2, 3);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('11');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+      break;
+
+      case 15:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 2, 4);
+      drawRect(1, 2, 3);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('111');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+    }
+  }
+
+
+
 
   // var canvas8 = document.getElementById('triangle');
   // var ctx8 = canvas8.getContext('2d');
