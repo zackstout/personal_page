@@ -1,6 +1,6 @@
 
 
-app.controller('BlogController', function($location, $anchorScroll) {
+app.controller('BlogController', function($location, $scope, $anchorScroll, $compile) {
   console.log('BlogController created');
 
   vm = this;
@@ -132,6 +132,147 @@ app.controller('BlogController', function($location, $anchorScroll) {
 
   var inf = document.getElementById('infinity');
   var ctx12 = inf.getContext('2d');
+
+
+
+//note: should be an id, but then we have to change the slice...
+var valuesOnGrid = [];
+
+//yep, needed getAttribute to grab the class, nice, that's a third new thing learned:
+    vm.checkBoxMine = function(ev) {
+      //keep in mind that this will only work for single digit numbers!!:
+      var row = ev.target.getAttribute("class").slice(14, 15);
+      var col = ev.target.getAttribute("class").slice(18, 19);
+      console.log("row: ", row, ", col: ", col);
+
+      console.log(angular.element(ev.currentTarget).parent());
+      var cell = angular.element(ev.currentTarget).parent();
+      //ok good this will remove the button:
+      ev.currentTarget.remove();
+
+      //ok new plan, can we loop through an array or object and append the appropriate value to the spot which is the parent of the clicked button?
+      //yassss this works as well:
+      var valueOnGrid = valuesOnGrid[row][col];
+      cell.append(valueOnGrid);
+      //ok now we're in business. now the question is, how do we model the grid? as an array of arrays of values, e.g. number strings and bombs? if one could save object properties with numeral keys
+
+      console.log(getNeighbors(row, col, 5));
+
+    };
+
+//perfect, this will draw the grid! But the ng-click won't work.....we needed $compile!!!!! yes!
+//wonderful, now we can (using $event) see which button was clicked!
+  function drawGridMines(x) {
+    var mineSweep = angular.element(document.getElementById('mineSweep'));
+    var mineRow = [];
+    var mineRowVals = [];
+    for (var k=0; k<x; k++) {
+      for (var i=0; i<x; i++) {
+        mineRow.push('<td><button class="mineButton row' + k + 'col' + i + '"  ng-click="bc.checkBoxMine($event)"> </button></td>');
+        mineRowVals.push('');
+      }
+      var fullRow = '<tr>' + mineRow + '</tr>';
+      mineSweep.append($compile(fullRow)($scope));
+      mineRow = [];
+
+      valuesOnGrid.push(mineRowVals);
+      mineRowVals = [];
+    }
+    console.log(valuesOnGrid);
+    var mines = generateMines();
+    console.log(mines);
+    //i suppose the disadvantage of doing it with bare arrays is that it's harder to alter the value of a single element. Oh no, apparently it's easy.
+    for (var j=0; j<mines.length; j++) {
+      var mine = mines[j];
+      valuesOnGrid[mine.row][mine.col] = 'b';
+    }
+
+    //success!!!
+    console.log(valuesOnGrid);
+
+
+
+
+  }
+
+//yessss it appears to work, ok after accounting for r==0 it does work:
+  function getNeighbors(r, c, s) {
+    neighbors = [];
+    if (r>0) {
+      neighbors.push({row: parseInt(r)-1, col: c});
+      // neighbors.push({row: r-1, col: c+1});
+      if (c>0) {
+        neighbors.push({row: r, col: parseInt(c)-1});
+        neighbors.push({row: parseInt(r)-1, col: parseInt(c)-1});
+      }
+      if (c < s-1) {
+        neighbors.push({row: r, col: parseInt(c)+1});
+        neighbors.push({row: parseInt(r)-1, col: parseInt(c)+1});
+      }
+    } else {
+      if (c>0) {
+        neighbors.push({row: parseInt(r), col: parseInt(c)-1});
+      }
+      if (c < s-1) {
+        neighbors.push({row: parseInt(r), col: parseInt(c)+1});
+      }
+    }
+
+    if (r < s-1 ) {
+      neighbors.push({row: parseInt(r)+1, col:c});
+
+      if (c>0) {
+        neighbors.push({row: parseInt(r)+1, col: parseInt(c)-1});
+      }
+      if (c < s-1) {
+        neighbors.push({row: parseInt(r)+1, col: parseInt(c)+1});
+      }
+    }
+
+
+    return neighbors;
+  }
+
+
+  function generateMines() {
+    return [{row: 4, col: 2}, {row: 4, col: 1}, {row: 3, col: 2}, {row: 3, col: 0}];
+
+  }
+
+  drawGridMines(5);
+
+
+
+
+//   new Chart(document.getElementById("chartdemo"), {
+//     type: 'line',
+//     data: {
+//       labels: ['air', 'truck', 'sea', 'freight train', 'plane', 'car', 'train', 'hotel', 'fuel', 'grid', 'propane'],
+//       datasets: [{
+//         //make an array with the sum of all categories
+//         data: [1,2,1,2,2,2,3,4,5,2,1],
+//         label: "CO2",
+//         borderColor: "#3e95cd",
+//         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"],
+//         fill: false
+//       }
+//     ]
+//   },
+//   options: {
+//     title: {
+//       display: true,
+//       text: 'Carbon Footprint'
+//     }
+//   }
+// });
+
+
+
+
+
+
+
+
 
   var numHolder = document.getElementById('binNumHolder');
   var numHolder2 = document.getElementById('binNumHolder2');
