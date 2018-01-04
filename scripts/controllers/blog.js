@@ -135,6 +135,9 @@ app.controller('BlogController', function($location, $scope, $anchorScroll, $com
 
 
 
+
+
+
 //note: should be an id, but then we have to change the slice...
 var valuesOnGrid = [];
 
@@ -150,6 +153,9 @@ var valuesOnGrid = [];
       //ok good this will remove the button:
       ev.currentTarget.remove();
 
+      //yesssss it works, wunderbar:
+      checkForBombs(row, col, 5);
+
       //ok new plan, can we loop through an array or object and append the appropriate value to the spot which is the parent of the clicked button?
       //yassss this works as well:
       var valueOnGrid = valuesOnGrid[row][col];
@@ -160,6 +166,7 @@ var valuesOnGrid = [];
 
     };
 
+
 //perfect, this will draw the grid! But the ng-click won't work.....we needed $compile!!!!! yes!
 //wonderful, now we can (using $event) see which button was clicked!
   function drawGridMines(x) {
@@ -169,7 +176,7 @@ var valuesOnGrid = [];
     for (var k=0; k<x; k++) {
       for (var i=0; i<x; i++) {
         mineRow.push('<td><button class="mineButton row' + k + 'col' + i + '"  ng-click="bc.checkBoxMine($event)"> </button></td>');
-        mineRowVals.push('');
+        mineRowVals.push('0');
       }
       var fullRow = '<tr>' + mineRow + '</tr>';
       mineSweep.append($compile(fullRow)($scope));
@@ -190,82 +197,112 @@ var valuesOnGrid = [];
     //success!!!
     console.log(valuesOnGrid);
 
-
-
-
   }
+
 
 //yessss it appears to work, ok after accounting for r==0 it does work:
   function getNeighbors(r, c, s) {
     neighbors = [];
-    if (r>0) {
-      neighbors.push({row: parseInt(r)-1, col: c});
+    var R = parseInt(r);
+    var C = parseInt(c);
+
+    if (R>0) {
+      neighbors.push({row: R-1, col: C});
       // neighbors.push({row: r-1, col: c+1});
       if (c>0) {
-        neighbors.push({row: r, col: parseInt(c)-1});
-        neighbors.push({row: parseInt(r)-1, col: parseInt(c)-1});
+        neighbors.push({row: R, col: C-1});
+        neighbors.push({row: R-1, col: C-1});
       }
       if (c < s-1) {
-        neighbors.push({row: r, col: parseInt(c)+1});
-        neighbors.push({row: parseInt(r)-1, col: parseInt(c)+1});
+        neighbors.push({row: R, col: C+1});
+        neighbors.push({row: R-1, col: C+1});
       }
     } else {
       if (c>0) {
-        neighbors.push({row: parseInt(r), col: parseInt(c)-1});
+        neighbors.push({row: R, col: C-1});
       }
       if (c < s-1) {
-        neighbors.push({row: parseInt(r), col: parseInt(c)+1});
+        neighbors.push({row: R, col: C+1});
       }
     }
 
     if (r < s-1 ) {
-      neighbors.push({row: parseInt(r)+1, col:c});
+      neighbors.push({row: R+1, col:C});
 
       if (c>0) {
-        neighbors.push({row: parseInt(r)+1, col: parseInt(c)-1});
+        neighbors.push({row: R+1, col: C-1});
       }
       if (c < s-1) {
-        neighbors.push({row: parseInt(r)+1, col: parseInt(c)+1});
+        neighbors.push({row: R+1, col: C+1});
       }
     }
-
 
     return neighbors;
   }
 
 
   function generateMines() {
-    return [{row: 4, col: 2}, {row: 4, col: 1}, {row: 3, col: 2}, {row: 3, col: 0}];
+    return [{row: 4, col: 2}, {row: 4, col: 3}, {row: 4, col: 0}, {row: 1, col: 2}, {row: 3, col: 1}, {row: 1, col: 0}];
 
   }
 
-  drawGridMines(5);
+
+  function checkForBombs(r, c, s) {
+    var neighbors = getNeighbors(r, c, s);
+    var v = valuesOnGrid[r][c];
+
+    if (v != 'b') {
+      var intV = parseInt(v);
+      for (var i=0; i<neighbors.length; i++) {
+        var n = neighbors[i];
+        var val = valuesOnGrid[n.row][n.col];
+
+        if (val == 'b') {
+          intV ++;
+        }
+      }
+      valuesOnGrid[r][c] = String(intV);
+    }
+
+  }
+
+
+  // drawGridMines(5);
 
 
 
+function makeChart() {
 
-//   new Chart(document.getElementById("chartdemo"), {
-//     type: 'line',
-//     data: {
-//       labels: ['air', 'truck', 'sea', 'freight train', 'plane', 'car', 'train', 'hotel', 'fuel', 'grid', 'propane'],
-//       datasets: [{
-//         //make an array with the sum of all categories
-//         data: [1,2,1,2,2,2,3,4,5,2,1],
-//         label: "CO2",
-//         borderColor: "#3e95cd",
-//         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"],
-//         fill: false
-//       }
-//     ]
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: 'Carbon Footprint'
-//     }
-//   }
-// });
+  var chart = new Chart(document.getElementById("chartdemo").getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: ['air', 'truck', 'sea', 'freight train', 'plane', 'car', 'train', 'hotel', 'fuel', 'grid', 'propane'],
+      datasets: [{
+        //make an array with the sum of all categories
+        data: [1,2,1,2,2,2,3,4,5,2,1],
+        label: "CO2",
+        borderColor: "#3e95cd",
+        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"],
+        fill: false
+      }
+    ]
+  },
+  options: {
+    //hmm....if we turn this off, it stops screaming, but also looks kinda bad...Oh well. Ah, just need to resize the canvas and put it in a centered div!:
+    responsive: false,
+    // animation: false,
+    title: {
+      display: true,
+      text: 'Carbon Footprint'
+    }
+  }
+});
 
+// chart.update();
+
+}
+
+// makeChart();
 
 
 
