@@ -344,7 +344,7 @@ function makeChart() {
   var chart = new Chart(document.getElementById("chartdemo").getContext('2d'), {
     type: 'line',
     data: {
-      labels: ['air', 'truck', 'sea', 'freight train', 'plane', 'car', 'train', 'hotel', 'fuel', 'grid', 'propane'],
+      labels: ['04/12', '05/12', '06/12', '07/12', '08/12', '09/12', '10/12', '11/12', '12/12', '01/13', '02/13'],
       datasets: [{
         //make an array with the sum of all categories
         data: [1,2,1,2,2,2,3,4,5,2,1],
@@ -370,9 +370,41 @@ function makeChart() {
 
 }
 
-// makeChart();
+makeChart();
 
 
+function makeChart2() {
+
+  var chart = new Chart(document.getElementById("chartdemo2").getContext('2d'), {
+    //ahh yes, must correctly spell:
+    type: 'doughnut',
+    data: {
+      labels: ['Living', 'Shipping', 'Travel'],
+      datasets: [{
+        data: [1,2,4],
+        label: "CO2",
+        borderColor: "#3e95cd",
+        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"],
+        fill: false
+      }
+    ]
+  },
+  options: {
+    //hmm....if we turn this off, it stops screaming, but also looks kinda bad...Oh well. Ah, just need to resize the canvas and put it in a centered div!:
+    responsive: false,
+    // animation: false,
+    title: {
+      display: true,
+      text: 'Carbon Footprint'
+    }
+  }
+});
+
+// chart.update();
+
+}
+
+makeChart2();
 
 
 

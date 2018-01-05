@@ -61,13 +61,13 @@
 
 
 
-<!--
-<div layout="column" layout-align="center center" id="post8">
+
+<div layout="column" layout-align="center center" id="post9">
   <div >
     <h2 class="blogTitle">Creating a Customizable Chart</h2>
   </div>
   <div class="blogSubtitle">
-    Dec. 26, 2017
+    Jan. 4, 2018
   </div>
 </div>
 
@@ -76,7 +76,7 @@
 </div>
 
 <div class="blogText">
-  In our database we'll have a table for Monthly Reports, and three other tables that reference this first table: Living, Shipping and Travel. The Shipping table has columns to keep track of air-, sea-, truck- and train-based shipping costs (in terms of kg-tonne of shipped materials) for the month.
+  In our database we'll have a table for Monthly Reports, and three other tables that reference this table: Living, Shipping and Travel. The Shipping table has columns to keep track of air-, sea-, truck- and train-based shipping costs (in terms of kg-tonne of shipped materials) for the month.
 </div>
 
 <div class="blogText">
@@ -108,6 +108,7 @@
     <br>&emsp;&emsp;{{bc.html2c}}
     <br>&emsp;&emsp;&emsp;{{bc.html2d}}
     <br>{{bc.html2e}}
+    <br>. . .
   </code>
 </div>
 
@@ -123,21 +124,74 @@
 </div>
 
 <div class="blogText">
-  To build our SQL query, we will need to know a few things:
+  We send along this information to the server in our <span class="codeBit">req.body</span>:
+</div>
+
+<pre><code layout layout-align="center center">req.body = {
+  view: 'Period',
+  particular: '04/16',
+  slice: 'Project'
+}</code></pre>
+
+<div class="blogText">
+  Then, we can pass along the information to our database query:
+</div>
+
+<pre><code layout layout-align="center center">queryText = 'SELECT "period", "projects"."name",
+"countries"."id" as country_id,
+ . . .,
+SUM("hotel") OVER (PARTITION BY ' + slice + ') as hotel,
+SUM("fuel") OVER (PARTITION BY ' + slice + ') as fuel,
+ . . .
+FROM "countries"
+JOIN "projects" ON "countries"."id" =
+"projects"."country_id"
+JOIN "project_type" ON "projects"."id" =
+"project_type"."project_id"
+ . . .
+WHERE "users"."id" = $1 AND ' + view + '."name" = $2;';
+</code></pre>
+
+<div class="blogText">
+  This is a variable query: we pass <span class="codeBit">slice = req.body.slice</span> and <span class="codeBit">view = req.body.view</span> directly into the query string, and additionally we pass an array of variables specifying the user ($1) and the particular ($2).
+</div>
+
+<div class="blogText">
+  We take the user's input &mdash; view, particular and slice &mdash; and convert it into a query. Breaking things down:
   <ul>
-    <li></li>
+    <li>We first include among the columns we <span class="codeBit">SELECT</span> a <span class="codeBit">SUM</span> of the values in each row, for all of our columns;</li>
+    <li>We <span class="codeBit">PARTITION</span> this sum by the chosen <span class="codeBit">slice</span>;</li>
+    <li>We have each query grab from the entire database, since the inputs are variable;</li>
+    <li>And finally we tell the database which user and which particular <span class="codeBit">view</span> we are interested in.</li>
   </ul>
 </div>
 
+<div class="blogText">
+  The final thing to note about our query is that each of view-tables (Projects, Periods, Types, Countries, Categories) must have a column titled "name". The chart you output might be a line chart when the user slices by Period:
+</div>
 
-
-
-<hr> -->
-
-<!-- <div layout layout-align="center center">
+<div layout layout-align="center center">
   <canvas id="chartdemo" width="500" height="500"></canvas>
 
-</div> -->
+</div>
+
+<div class="blogText">
+  Or a donut chart when the user slices by another variable (in this case, by Category):
+</div>
+
+<div layout layout-align="center center">
+  <canvas id="chartdemo2" width="500" height="500"></canvas>
+
+</div>
+
+<div class="blogText">
+  Don't forget to <span class="codeBit">npm install chart.js</span>. Once installed, the possibilities abound!
+</div>
+
+
+<hr>
+
+
 
 
 <div layout="column" layout-align="center center" id="post8">
@@ -145,7 +199,7 @@
     <h2 class="blogTitle">Binary Counting and the Towers of Hanoi</h2>
   </div>
   <div class="blogSubtitle">
-    Jan. 4, 2018
+    Jan. 1, 2018
   </div>
 </div>
 
@@ -194,6 +248,10 @@
 
   </div>
 </div>
+
+<div class="blogText">
+  (<b>Note</b>: When moving forward, the red digit represents the disc just moved. When moving backward, it represents the disc about to be moved.)
+</div>
 <!-- <button ng-click="bc.goBack()">back</button>
 <button ng-click="bc.goForward()">forward</button> -->
 
@@ -203,7 +261,7 @@
 
 
 <div class="blogText">
-  (Note: This post is heavily inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=2SUvWfNJSsM">video</a>.)
+  (<b>Note</b>: This post is heavily inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=2SUvWfNJSsM">video</a>.)
 </div>
 
 <hr>
@@ -235,7 +293,7 @@
 </div>
 
 <div class="blogText">
-  One fascinating consequence of this definition is that the interval from 0 to 1 contains exactly as many real numbers as the interval from 0 to positive infinity! We know this because we can produce a bijective correspondence between points in the two intervals.
+  One rather breathtaking consequence of this definition is that the interval from 0 to 1 contains exactly as many real numbers as the interval from 0 to positive infinity! We know this because we can produce a bijective correspondence between points in the two intervals.
 </div>
 
 <div class="blogText">
@@ -515,6 +573,10 @@ print myArray
 
 <div class="blogText">
   Each leaf is composed of two circular arcs; we draw one leaf, and then <span class="codeBit">ctx.rotate(2*Math.PI/1.618)</span>, and draw another slightly shorter leaf.
+</div>
+
+<div class="blogText">
+  (<b>Note</b>: for information on <span class='blogText'>ctx</span>, see my earlier posts.)
 </div>
 
 <pre><code layout layout-align="center center">function drawLeaf(L) {
@@ -966,6 +1028,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
   <div class="prevPosts" layout="column" flex="12">
     <div class="allposts" layout layout-align="center center">All Posts:</div>
     <ul class="postlist">
+      <li ng-click="bc.goToPost(9)">Creating a Customizable Chart</li>
       <li ng-click="bc.goToPost(8)">Binary Counting and the Towers of Hanoi</li>
       <li ng-click="bc.goToPost(7)">Sizes of Infinite Sets</li>
       <li ng-click="bc.goToPost(6)">From JavaScript to Python: Basic Syntax</li>
