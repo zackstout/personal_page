@@ -197,6 +197,15 @@ hr {
   padding-left: 30px;
 }
 
+#margAbove {
+  margin-top: 20px;
+}
+
+#binNums {
+  font-family: Garamond;
+  font-size: 44px;
+}
+
 .mineButton {
   width: 30px;
   height: 30px;

@@ -35,23 +35,15 @@
 </div> -->
 
 
-<!-- <div layout="row">
-  <span><span id="binNumHolder"></span><span id="binNumHolder2"></span><span id="binNumHolder3"></span></span>
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="binaryCount" width="600" height="300"></canvas>
-</div>
-<button ng-click="bc.goBack()">back</button>
-<button ng-click="bc.goForward()">forward</button> -->
 
 
 
-<div layout layout-align="center center">
+
+<!-- <div layout layout-align="center center">
   <table id="mineSweep">
 
   </table>
-</div>
+</div> -->
 
 
 
@@ -146,6 +138,73 @@
   <canvas id="chartdemo" width="500" height="500"></canvas>
 
 </div> -->
+
+
+<div layout="column" layout-align="center center" id="post8">
+  <div >
+    <h2 class="blogTitle">Binary Counting and the Towers of Hanoi</h2>
+  </div>
+  <div class="blogSubtitle">
+    Jan. 4, 2018
+  </div>
+</div>
+
+
+<div class="blogText">
+  A marvelous fact about the Towers of Hanoi puzzle is that you can solve it by counting in binary.
+</div>
+
+<div class="blogText">
+  The puzzle, as exhibited in a recent iteration of the <i>Planet of the Apes</i> franchise, is to move a tower of discs from one position to another without ever placing a larger disc atop a smaller one.
+</div>
+
+<div class="blogText">
+  Counting in binary means that we use 2 as a base, rather than 10. So 14 is represented as 1110 in binary, because
+
+  <div id="margAbove" layout="row" layout-align="center center">
+    8 + 4 + 2 + 0 = 14
+  </div>
+  <div layout="row" layout-align="center center">
+    <span>2<sup>3</sup> &ensp;2<sup>2</sup> &ensp;2<sup>1</sup> &ensp;2<sup>0</sup>&emsp;&emsp;</span>
+  </div>
+</div>
+
+<div class="blogText">
+  As we count up in binary (1, 10, 11, 100, ...), we can imagine each digit (e.g. the 2's place or the 8's place) representing a disc. The 1's place represents the smallest disc.
+</div>
+
+<div class="blogText">
+  The algorithm we want to follow is this: each time we increment our count, a certain digit changes from 0 to 1. Move the disc corresponding to that digit one peg to the right. If you cannot put it there, move it twice. If you are at the rightmost space, wrap around to the beginning.
+</div>
+
+<div layout="row" layout-align="center center" id="binNums">
+  <span><span id="binNumHolder"></span><span id="binNumHolder2"></span><span id="binNumHolder3"></span></span>
+</div>
+
+<div layout layout-align="center center">
+  <canvas id="binaryCount" width="600" height="300"></canvas>
+</div>
+<div layout="row" layout-align="center center">
+  <div flex="10">
+    <button ng-click="bc.goBack()">back</button>
+
+  </div>
+  <div flex="10">
+    <button ng-click="bc.goForward()">forward</button>
+
+  </div>
+</div>
+<!-- <button ng-click="bc.goBack()">back</button>
+<button ng-click="bc.goForward()">forward</button> -->
+
+<div class="blogText">
+  Astonishly, no matter how many discs we add, this algorithm will generate the fastest path (least number of moves) from first tower to second! (What happens if we increase the number of pegs...?)
+</div>
+
+
+<div class="blogText">
+  (Note: This post is heavily inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=2SUvWfNJSsM">video</a>.)
+</div>
 
 
 
@@ -906,7 +965,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
   <div class="prevPosts" layout="column" flex="12">
     <div class="allposts" layout layout-align="center center">All Posts:</div>
     <ul class="postlist">
-      <!-- <li ng-click="bc.goToPost(8)">Creating a Customizable Chart</li> -->
+      <li ng-click="bc.goToPost(8)">Binary Counting and the Towers of Hanoi</li>
       <li ng-click="bc.goToPost(7)">Sizes of Infinite Sets</li>
       <li ng-click="bc.goToPost(6)">From JavaScript to Python: Basic Syntax</li>
       <li ng-click="bc.goToPost(5)">Exploring the Golden Ratio</li>

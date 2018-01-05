@@ -96,8 +96,8 @@ app.controller('BlogController', function($location, $scope, $anchorScroll, $com
   console.log(numOfFriends(100));
 
 
-  // var canvas1 = document.getElementById('binaryCount');
-  // var ctx1 = canvas1.getContext('2d');
+  var canvas1 = document.getElementById('binaryCount');
+  var ctx1 = canvas1.getContext('2d');
 
 
   var canvas2 = document.getElementById('parabola');
@@ -154,7 +154,12 @@ var valuesOnGrid = [];
       ev.currentTarget.remove();
 
       //yesssss it works, wunderbar:
-      checkForBombs(row, col, 5);
+      //except now we're calling it on grid draw instead of on click:
+      // checkForBombs(row, col, 5);
+
+      //ooooh i think i see the problem; it's only finding the number for each square AFTER we click it.
+      //we need to find them all at the beginning.
+      openUpGrid(row, col);
 
       //ok new plan, can we loop through an array or object and append the appropriate value to the spot which is the parent of the clicked button?
       //yassss this works as well:
@@ -185,9 +190,9 @@ var valuesOnGrid = [];
       valuesOnGrid.push(mineRowVals);
       mineRowVals = [];
     }
-    console.log(valuesOnGrid);
+    // console.log(valuesOnGrid);
     var mines = generateMines();
-    console.log(mines);
+    // console.log(mines);
     //i suppose the disadvantage of doing it with bare arrays is that it's harder to alter the value of a single element. Oh no, apparently it's easy.
     for (var j=0; j<mines.length; j++) {
       var mine = mines[j];
@@ -195,7 +200,15 @@ var valuesOnGrid = [];
     }
 
     //success!!!
-    console.log(valuesOnGrid);
+    // console.log(valuesOnGrid);
+
+    //wow kind of can't believe this worked:
+    valuesOnGrid.forEach(function(arr, index) {
+      var ind = index;
+      arr.forEach(function(v, index) {
+        checkForBombs(ind, index, 5);
+      });
+    });
 
   }
 
@@ -266,8 +279,63 @@ var valuesOnGrid = [];
 
   }
 
+  //ok so what do we need to do to open up squares.....
+  //check all neighbors. if any is 0, reveal it and all of its neighbors.
+  //if any of those revealed neighbors is 0, repeat for that neighbor.
+
+  var newNeighbors = [];
+
+  function openUpGrid(r, c) {
+    var valueOnGrid = valuesOnGrid[r][c];
+    var neighbors = getNeighbors(r, c, 5);
+
+    checkForZeros(r, c);
+    console.log(newNeighbors);
+
+//YES! it works. Removes the zeros too though.....well let's just add them back!:
+    newNeighbors.forEach(function(n) {
+      var cell = document.getElementsByClassName('row' + n.charAt(0) + 'col' + n.charAt(1))[0];
+      console.log(cell);
+      var realCell = angular.element(cell);
+      console.log(realCell);
+      realCell.parent().append(valuesOnGrid[n.charAt(0)][n.charAt(1)]);
+      realCell.remove();
+
+      //all right this is close but not quite there....:
+      var nunuNeighbors = getNeighbors(n.charAt(0), n.charAt(1));
+      nunuNeighbors.forEach(function(x) {
+        var cell1 = document.getElementsByClassName('row' + x.row + 'col' + x.col)[0];
+        console.log(cell1);
+        if (cell1) {
+          var realCell1 = angular.element(cell1);
+          realCell1.parent().append(valuesOnGrid[x.row][x.col]);
+          realCell1.remove();
+        }
+      });
+
+      // console.log(cell);
+    });
+  }
+
+//i believe this is working: we just needed to call it once on the clicked thing, instead of for every neighbor of the original.
+  function checkForZeros(r, c) {
+    var neighbors = getNeighbors(r, c, 5);
+    neighbors.forEach(function(n) {
+      var pos = String(n.row) + String(n.col);
+      if (valuesOnGrid[n.row][n.col] === '0' && !newNeighbors.includes(pos)) {
+        newNeighbors.push(pos);
+        checkForZeros(n.row, n.col);
+      }
+    });
+  }
+
 
   // drawGridMines(5);
+
+
+
+
+
 
 
 
@@ -349,259 +417,259 @@ function makeChart() {
   vm.html212 = '</select>';
 
 
-//jeez this whole monster sure is turning into a bloated behemoth of code:
-//   binCount = 0;
-//   vm.binaryNum = 0;
-//
-//   vm.goBack = function() {
-//     if (binCount != 0) {
-//       binCount --;
-//     }
-//     renderBinCount(binCount);
-//   };
-//
-//   vm.goForward = function() {
-//     if (binCount != 15) {
-//       binCount ++;
-//     }
-//     renderBinCount(binCount);
-//   };
-//
-//   renderBinCount(0);
-//   console.log(numHolder);
-//   console.log(angular.element(numHolder));
-//   console.log(numHolderEl);
-//   numHolderEl.text('0');
-//
-// //could write a function to abstract the rectangle drawing....but need their size, as well as horizontal and vertical position. almost doesn't seem worth it if we can't find a pattern.
-//
-// //draw the rectangle with size (0, 1, 2 or 3), horizontal position (0, 1 or 2), and vertical position (1, 2, 3 or 4):
-//   function drawRect(s, h, v) {
-//
-//     ctx1.translate(200*h + 100, 250);
-//     switch(s) {
-//       case 0:
-//         ctx1.fillStyle = 'yellow';
-//         break;
-//       case 1:
-//         ctx1.fillStyle = 'green';
-//         break;
-//       case 2:
-//         ctx1.fillStyle = 'blue';
-//         break;
-//       case 3:
-//         ctx1.fillStyle = 'purple';
-//         break;
-//     }
-//     ctx1.fillRect(-10*s - 20, -v*15, 40 + s*20, 20);
-//     ctx1.translate(-200*h - 100, -250);
-//
-//     //silly me, actually thought we needed a switch to deal with this stuff. that's the point of arguments! just got too into switchin lol
-//   }
-//
-//
-//   function renderBinCount(x) {
-//     // console.log(x);
-//
-//     //thirds are from 0-200, 200-400, 400-600:
-//     switch(x) {
-//       case 0:
-//       ctx1.clearRect(0, 0, 600, 600);
-//
-//       drawRect(0, 0, 4);
-//       drawRect(1, 0, 3);
-//       drawRect(2, 0, 2);
-//       drawRect(3, 0, 1);
-//
-//       // ctx1.translate(100, 250);
-//       // ctx1.fillRect(-50, -15, 100, 20);
-//       // ctx1.fillRect(-40, -30, 80, 20);
-//       // ctx1.fillRect(-30, -45, 60, 20);
-//       // ctx1.fillRect(-20, -60, 40, 20);
-//       // ctx1.translate(-100, -250);
-//       //
-//       // console.log(0);
-//       numHolderEl.text('0');
-//       numHolderEl2.text('');
-//       numHolderEl3.text('');
-//
-//       break;
-//
-//       case 1:
-//       ctx1.clearRect(0, 0, 600, 600);
-//
-//       drawRect(0, 1, 1);
-//       drawRect(1, 0, 3);
-//       drawRect(2, 0, 2);
-//       drawRect(3, 0, 1);
-//
-//       numHolderEl.text('');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 2:
-//       ctx1.clearRect(0, 0, 600, 600);
-//
-//       drawRect(0, 1, 1);
-//       drawRect(1, 2, 1);
-//       drawRect(2, 0, 2);
-//       drawRect(3, 0, 1);
-//
-//       numHolderEl.text('');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('0');
-//
-//       break;
-//
-//       case 3:
-//       ctx1.clearRect(0, 0, 600, 600);
-//
-//       drawRect(0, 2, 2);
-//       drawRect(1, 2, 1);
-//       drawRect(2, 0, 2);
-//       drawRect(3, 0, 1);
-//
-//       numHolderEl.text('1');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 4:
-//       ctx1.clearRect(0, 0, 600, 600);
-//
-//       drawRect(0, 2, 2);
-//       drawRect(1, 2, 1);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 0, 1);
-//
-//       numHolderEl.text('');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('00');      break;
-//
-//       case 5:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 0, 2);
-//       drawRect(1, 2, 1);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 0, 1);
-//       numHolderEl.text('10');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 6:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 0, 2);
-//       drawRect(1, 1, 2);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 0, 1);
-//       numHolderEl.text('1');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('0');
-//
-//       break;
-//
-//       case 7:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 1, 3);
-//       drawRect(1, 1, 2);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 0, 1);
-//       numHolderEl.text('11');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 8:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 1, 3);
-//       drawRect(1, 1, 2);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('000');
-//       break;
-//
-//       case 9:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 2, 2);
-//       drawRect(1, 1, 2);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('100');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 10:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 2, 2);
-//       drawRect(1, 0, 1);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('10');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('0');
-//       break;
-//
-//       case 11:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 0, 2);
-//       drawRect(1, 0, 1);
-//       drawRect(2, 1, 1);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('101');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 12:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 0, 2);
-//       drawRect(1, 0, 1);
-//       drawRect(2, 2, 2);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('1');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('00');
-//       break;
-//
-//       case 13:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 1, 1);
-//       drawRect(1, 0, 1);
-//       drawRect(2, 2, 2);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('110');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//
-//       case 14:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 1, 1);
-//       drawRect(1, 2, 3);
-//       drawRect(2, 2, 2);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('11');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('0');
-//       break;
-//
-//       case 15:
-//       ctx1.clearRect(0, 0, 600, 600);
-//       drawRect(0, 2, 4);
-//       drawRect(1, 2, 3);
-//       drawRect(2, 2, 2);
-//       drawRect(3, 2, 1);
-//       numHolderEl.text('111');
-//       numHolderEl2.text('1');
-//       numHolderEl3.text('');
-//       break;
-//     }
-//   }
+// jeez this whole monster sure is turning into a bloated behemoth of code:
+  binCount = 0;
+  vm.binaryNum = 0;
+
+  vm.goBack = function() {
+    if (binCount != 0) {
+      binCount --;
+    }
+    renderBinCount(binCount);
+  };
+
+  vm.goForward = function() {
+    if (binCount != 15) {
+      binCount ++;
+    }
+    renderBinCount(binCount);
+  };
+
+  renderBinCount(0);
+  console.log(numHolder);
+  console.log(angular.element(numHolder));
+  console.log(numHolderEl);
+  numHolderEl.text('0');
+
+//could write a function to abstract the rectangle drawing....but need their size, as well as horizontal and vertical position. almost doesn't seem worth it if we can't find a pattern.
+
+//draw the rectangle with size (0, 1, 2 or 3), horizontal position (0, 1 or 2), and vertical position (1, 2, 3 or 4):
+  function drawRect(s, h, v) {
+
+    ctx1.translate(200*h + 100, 250);
+    switch(s) {
+      case 0:
+        ctx1.fillStyle = 'yellow';
+        break;
+      case 1:
+        ctx1.fillStyle = 'green';
+        break;
+      case 2:
+        ctx1.fillStyle = 'blue';
+        break;
+      case 3:
+        ctx1.fillStyle = 'purple';
+        break;
+    }
+    ctx1.fillRect(-10*s - 20, -v*15, 40 + s*20, 20);
+    ctx1.translate(-200*h - 100, -250);
+
+    //silly me, actually thought we needed a switch to deal with this stuff. that's the point of arguments! just got too into switchin lol
+  }
+
+
+  function renderBinCount(x) {
+    // console.log(x);
+
+    //thirds are from 0-200, 200-400, 400-600:
+    switch(x) {
+      case 0:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 0, 4);
+      drawRect(1, 0, 3);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      // ctx1.translate(100, 250);
+      // ctx1.fillRect(-50, -15, 100, 20);
+      // ctx1.fillRect(-40, -30, 80, 20);
+      // ctx1.fillRect(-30, -45, 60, 20);
+      // ctx1.fillRect(-20, -60, 40, 20);
+      // ctx1.translate(-100, -250);
+      //
+      // console.log(0);
+      numHolderEl.text('0');
+      numHolderEl2.text('');
+      numHolderEl3.text('');
+
+      break;
+
+      case 1:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 1, 1);
+      drawRect(1, 0, 3);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 2:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 1, 1);
+      drawRect(1, 2, 1);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+
+      break;
+
+      case 3:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 2, 2);
+      drawRect(1, 2, 1);
+      drawRect(2, 0, 2);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('1');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 4:
+      ctx1.clearRect(0, 0, 600, 600);
+
+      drawRect(0, 2, 2);
+      drawRect(1, 2, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('00');      break;
+
+      case 5:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 2, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+      numHolderEl.text('10');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 6:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+      numHolderEl.text('1');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+
+      break;
+
+      case 7:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 3);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 0, 1);
+      numHolderEl.text('11');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 8:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 3);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('');
+      numHolderEl2.text('1');
+      numHolderEl3.text('000');
+      break;
+
+      case 9:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 2, 2);
+      drawRect(1, 1, 2);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('100');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 10:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 2, 2);
+      drawRect(1, 0, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('10');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+      break;
+
+      case 11:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 0, 1);
+      drawRect(2, 1, 1);
+      drawRect(3, 2, 1);
+      numHolderEl.text('101');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 12:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 0, 2);
+      drawRect(1, 0, 1);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('1');
+      numHolderEl2.text('1');
+      numHolderEl3.text('00');
+      break;
+
+      case 13:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 1);
+      drawRect(1, 0, 1);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('110');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+
+      case 14:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 1, 1);
+      drawRect(1, 2, 3);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('11');
+      numHolderEl2.text('1');
+      numHolderEl3.text('0');
+      break;
+
+      case 15:
+      ctx1.clearRect(0, 0, 600, 600);
+      drawRect(0, 2, 4);
+      drawRect(1, 2, 3);
+      drawRect(2, 2, 2);
+      drawRect(3, 2, 1);
+      numHolderEl.text('111');
+      numHolderEl2.text('1');
+      numHolderEl3.text('');
+      break;
+    }
+  }
 
 
 
@@ -652,7 +720,7 @@ function makeChart() {
     yNew = yCoord - 50;
     // console.log(xNew, yNew);
     slope = yNew / xNew;
-    console.log(slope);
+    // console.log(slope);
     xEnd = 200/slope;
     ctx12.moveTo(50, 50);
     ctx12.lineTo(50 + xEnd, 250);
