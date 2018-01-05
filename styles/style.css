@@ -241,6 +241,7 @@ hr {
   position: fixed;
   margin-left: 85%;
   margin-right: 5px;
+  overflow: scroll;
 }
 
 .prevPosts li {
@@ -255,10 +256,8 @@ hr {
   margin: 40px;
 }
 
-.blogText {
-  font-family: Baskerville;
-  font-size: 17px;
-}
+
+
 
 .allposts {
   font-family: Baskerville;
@@ -267,6 +266,7 @@ hr {
   font-weight: bold;
   margin-bottom: -20px;
   margin-top: 25px;
+  overflow: scroll;
 }
 
 /*.prevPosts {
@@ -365,7 +365,20 @@ code {
   line-height: 160%;
   margin-top: 15px;
   margin-bottom: 15px;
+  font-family: Baskerville;
+  /*font-size: 17px;*/
 }
+
+/*.blogText2 {
+  margin-left: 100px;
+  margin-right: 50px;
+  font-size: 21px;
+  line-height: 160%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-family: Baskerville;
+  font-size: 18px;
+}*/
 
 hr {
   width: 100%;

@@ -174,22 +174,22 @@ var valuesOnGrid = [];
 
 //perfect, this will draw the grid! But the ng-click won't work.....we needed $compile!!!!! yes!
 //wonderful, now we can (using $event) see which button was clicked!
-  function drawGridMines(x) {
-    var mineSweep = angular.element(document.getElementById('mineSweep'));
-    var mineRow = [];
-    var mineRowVals = [];
-    for (var k=0; k<x; k++) {
-      for (var i=0; i<x; i++) {
-        mineRow.push('<td><button class="mineButton row' + k + 'col' + i + '"  ng-click="bc.checkBoxMine($event)"> </button></td>');
-        mineRowVals.push('0');
-      }
-      var fullRow = '<tr>' + mineRow + '</tr>';
-      mineSweep.append($compile(fullRow)($scope));
-      mineRow = [];
-
-      valuesOnGrid.push(mineRowVals);
-      mineRowVals = [];
+function drawGridMines(x) {
+  var mineSweep = angular.element(document.getElementById('mineSweep'));
+  var mineRow = [];
+  var mineRowVals = [];
+  for (var k=0; k<x; k++) {
+    for (var i=0; i<x; i++) {
+      mineRow.push('<td><button class="mineButton row' + k + 'col' + i + '"  ng-click="bc.checkBoxMine($event)"> </button></td>');
+      mineRowVals.push('0');
     }
+  var fullRow = '<tr>' + mineRow + '</tr>';
+  mineSweep.append($compile(fullRow)($scope));
+  mineRow = [];
+
+  valuesOnGrid.push(mineRowVals);
+  mineRowVals = [];
+}
     // console.log(valuesOnGrid);
     var mines = generateMines();
     // console.log(mines);
@@ -347,7 +347,7 @@ function makeChart() {
       labels: ['04/12', '05/12', '06/12', '07/12', '08/12', '09/12', '10/12', '11/12', '12/12', '01/13', '02/13'],
       datasets: [{
         //make an array with the sum of all categories
-        data: [1,2,1,2,2,2,3,4,5,2,1],
+        data: [1,2,1,2,2,2,3,4,3,2,1],
         label: "CO2",
         borderColor: "#3e95cd",
         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"],
