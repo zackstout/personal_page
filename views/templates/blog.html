@@ -39,12 +39,6 @@
 
 
 
-<div layout layout-align="center center">
-  <table id="mineSweep">
-
-  </table>
-</div>
-
 
 
 
@@ -133,10 +127,10 @@ valuesOnGrid.forEach(function(arr, index) {
 
   <li class="blogText">What happens if the player clicks a button? We check whether there is a bomb there; if so, they lose. If not, remove the button to reveal the number. (This is why we must pass <span class="codeBit">$event</span> into each button's <span class="codeBit">ng-click</span>. We can use <span class="codeBit">ev.target.getAttribute("class")</span> in the controller to access the clicked button's class, which contains information about its position. To find out what value lives at that position, we use <span class="codeBit">valuesOnGrid[row][col]</span>. We remove the button with <span class="codeBit">ev.currentTarget.remove()</span>.)</li>
 
-  <li class="blogText">The really tricky part is opening up islands &mdash; sometimes, when you click a button, multiple cells will open up. I believe the logic is:</li>
+  <li class="blogText">The really tricky part is opening up islands &mdash; i.e. sometimes, when you click a button, multiple cells will open up. I believe the logic is:</li>
   <ul>
     <li class="blogText">Check the clicked cell's neighbors for 0s.</li>
-    <li class="blogText">For each 0 among the neighbors, open up that cell and all of <i>its</i> neighbors. (Because the value is 0, we are guaranteed to never reveal a bomb.)</li>
+    <li class="blogText">For each 0 among the neighbors, open up that cell and all of <i>its</i> neighbors. (Since the value is 0, we are guaranteed to never reveal a bomb.)</li>
     <li class="blogText">If any of the opened neighbors contains a 0, repeat the above.</li>
   </ul>
 
@@ -155,7 +149,15 @@ valuesOnGrid.forEach(function(arr, index) {
   <li class="blogText">Finally, we'll want to add in right-click functionality for flagging spaces suspected to contain bombs. When the user opens up every square that doesn't contain a bomb, they win!</li>
 </ol>
 
+<div class="blogText">
+  Here's a prototype of the game. It's not fully operational just yet:
+</div>
 
+<div layout layout-align="center center">
+  <table id="mineSweep">
+
+  </table>
+</div>
 
 
 
@@ -1024,10 +1026,12 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       <div layout layout-align="center center" class="math">
         <i>f(x) = ax<sup>2</sup> + bx + c</i>
       </div>
-      As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity!
+      As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity! The variable <span class="codeBit">ctx</span> is what allows us to interact with the canvas:
     </div>
 
-    <pre><code layout layout-align="center center">    vm.x = 0;
+    <pre><code layout layout-align="center center">    var canvas = document.getElementById('ballCanvas');
+    var ctx = canvas.getContext("2d");
+    vm.x = 0;
     function ball() {
         ctx.clearRect(0,0,400,400);
         var xStandard = (vm.x - 200)/100;

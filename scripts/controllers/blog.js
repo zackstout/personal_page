@@ -330,7 +330,7 @@ function drawGridMines(x) {
   }
 
 
-  // drawGridMines(5);
+  drawGridMines(5);
 
 
 
