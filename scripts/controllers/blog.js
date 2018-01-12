@@ -12,6 +12,10 @@ app.controller('BlogController', function($location, $scope, $anchorScroll, $com
 // vm.n = 0;
 //
 
+vm.hideTabs = function() {
+  vm.hit = false;
+};
+
 vm.hit = true;
   vm.goPost = function(n) {
     console.log('hithere');
@@ -40,6 +44,11 @@ vm.hit = true;
   vm.goOther = function() {
     $location.path('/other');
     vm.hit = false;
+  };
+
+  vm.showSub = function() {
+    console.log(';o');
+    vm.hit = !vm.hit;
   };
 
 

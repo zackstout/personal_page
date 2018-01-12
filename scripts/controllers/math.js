@@ -15,8 +15,8 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
 
         var phi = 1.61803;
 
-        var canvas0 = document.getElementById('sierptriangle');
-        var ctx0 = canvas0.getContext('2d');
+        // var canvas0 = document.getElementById('sierptriangle');
+        // var ctx0 = canvas0.getContext('2d');
 
         var vertices = [];
 
@@ -65,13 +65,13 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
           // vertices.push({x: 250, y:50});
         }
 
-        drawSierpTriangle(200);
+        // drawSierpTriangle(200);
 
-        ctx0.beginPath();
-        ctx0.arc(325, 270, 0.25, 0, 2*Math.PI);
-        // ctx0.stroke();
-        ctx0.fillStyle = 'black';
-        ctx0.fill();
+        // ctx0.beginPath();
+        // ctx0.arc(325, 270, 0.25, 0, 2*Math.PI);
+        // // ctx0.stroke();
+        // ctx0.fillStyle = 'black';
+        // ctx0.fill();
         var start = {x: 325, y: 270};
 
         function drawRandomPoint2() {
@@ -295,14 +295,14 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
               // console.log(direction);
             };
 
-            snakeGrid(15);
+            // snakeGrid(15);
 
 
-            var apple = {r: 10, c: 1};
-            var appleCell = 'col' + apple.c + 'row' + apple.r;
-            document.getElementById(appleCell).className = 'apple';
+            // var apple = {r: 10, c: 1};
+            // var appleCell = 'col' + apple.c + 'row' + apple.r;
+            // document.getElementById(appleCell).className = 'apple';
 
-            changeSnake();
+            // changeSnake();
 
             var snakeInt;
             vm.startSnake = function() {

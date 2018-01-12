@@ -1,5 +1,5 @@
 
-<div layout="row" class="wholeEnchilada">
+<div layout="row" class="wholeEnchilada" >
   <div layout="column" flex="15" ng-controller="NavController as nc">
 
 
@@ -11,8 +11,8 @@
       <div layout="row" >
 
 <!-- oh how odd, it does need to have "alive" ... -->
-        <div class="sideNav" layout="column">
-          <div class="clickMe alive" ng-click="nc.showSub()">Blog</div>
+        <div ng-controller="BlogController as bc" class="sideNav" layout="column">
+          <div class="clickMe alive" ng-click="bc.showSub()">Blog</div>
         </div>
 
       <!-- <div ng-controller="BlogController as bc"> -->
@@ -48,7 +48,7 @@
 
   idea: Build minesweeper in python. -->
 
-  <div class="blogContent" layout="column" flex="80">
+  <div class="blogContent" layout="column" flex="80" ng-click="bc.hideTabs()">
     <!-- <h1>blog</h1> -->
 
 <!-- <div layout layout-align="center center">

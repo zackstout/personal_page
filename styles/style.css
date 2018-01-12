@@ -287,10 +287,17 @@ hr {
 
 .brags, .brags2 {
   margin-top: 10px;
+  border: none;
 }
 
-.brags2:hover {
+/*.brags2:hover {
   background-color: mediumTurquoise;
+  cursor: pointer;
+}*/
+
+*:focus {
+outline: 0;
+outline: none;
 }
 
 
@@ -356,6 +363,7 @@ li {
 
 .postlist li:hover {
   background-color: mediumTurquoise;
+  cursor: pointer;
 }
 
 .postlist li {
