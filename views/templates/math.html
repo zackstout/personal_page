@@ -1,0 +1,423 @@
+<div layout="row" class="wholeEnchilada">
+  <div layout="column" flex="15" ng-controller="NavController as nc">
+
+
+    <div class="sideNavHolder">
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+      </div>
+
+      <div layout="row" >
+
+<!-- oh how odd, it does need to have "alive" ... -->
+        <div class="sideNav" layout="column">
+          <div class="clickMe alive" ng-click="nc.hit = !nc.hit">Blog</div>
+        </div>
+
+        <div  ng-show="nc.hit" layout="column">
+          <div class="subBlog" ng-click="nc.goCode()" layout="row" flex="33">
+            <span class="subSubBlog">Coding</span>
+          </div>
+          <div class="subBlog" ng-click="nc.goMath()" layout="row" flex="33">
+            <span class="subSubBlog1">Math</span>
+          </div>
+          <div class="subBlog" ng-click="nc.goOther()" layout="row" flex="33">
+            <span class="subSubBlog2">Other</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div  class="sideNav">
+        <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Idea for post: kinetic and potential energy of, say, a pendulum.
+
+  Idea for post: Stretch, implement slider for current value, and change view to look straight down the current-line and see how magnetic fields are affected, i.e. see a ball moving with different speed.
+
+  Idea for post: Relativity elevators with balls shooting from top to bottom. That visual really stuck with me. And you can't know whether you're accelerating or at rest; they're only relative notions (to a frame of reference; i.e. no such thing as accelerating full stop). Would be super cool to draw clocks with hands moving at the appropriate speeds.
+-->
+
+  <div class="blogContent" layout="column" flex="60">
+
+
+<hr>
+<br>
+<div layout layout-align="center center">
+  <table id="snakeTable"></table>
+  <button ng-click="mc.startSnake()">Start!</button>
+</div>
+
+    <hr>
+
+<div layout layout-align="center center">
+  <canvas id="sierptriangle" width="500" height="500"></canvas>
+  <button ng-click="mc.startSierp()">Start!</button>
+</div>
+
+<hr>
+
+    <div layout="column" layout-align="center center" id="post8">
+      <div >
+        <h2 class="blogTitle">Binary Counting and the Towers of Hanoi</h2>
+      </div>
+      <div class="blogSubtitle">
+        Jan. 1, 2018
+      </div>
+    </div>
+
+
+    <div class="blogText">
+      A marvelous fact about the Towers of Hanoi puzzle is that you can solve it by counting in binary.
+    </div>
+
+    <div class="blogText">
+      The puzzle, as exhibited in a recent iteration of the <i>Planet of the Apes</i> franchise, is to move a tower of discs from one position to another without ever placing a larger disc atop a smaller one.
+    </div>
+
+    <div class="blogText">
+      Counting in binary means that we use 2 as a base, rather than 10. So 14 is represented as 1110 in binary, because
+
+      <div id="margAbove" layout="row" layout-align="center center">
+        8 + 4 + 2 + 0 = 14
+      </div>
+      <div layout="row" layout-align="center center">
+        <span>2<sup>3</sup> &ensp;2<sup>2</sup> &ensp;2<sup>1</sup> &ensp;2<sup>0</sup>&emsp;&emsp;</span>
+      </div>
+    </div>
+
+    <div class="blogText">
+      As we count up in binary (1, 10, 11, 100, ...), we can imagine each digit (e.g. the 2's place or the 8's place) representing a disc. The 1's place represents the smallest disc.
+    </div>
+
+    <div class="blogText">
+      The algorithm we want to follow is this: each time we increment our count, a certain digit changes from 0 to 1. Move the disc corresponding to that digit one peg to the right. If you cannot put it there, move it twice. If you are at the rightmost space, wrap around to the beginning.
+    </div>
+
+    <div layout="row" layout-align="center center" id="binNums">
+      <span><span id="binNumHolder"></span><span id="binNumHolder2"></span><span id="binNumHolder3"></span></span>
+    </div>
+
+    <div layout layout-align="center center">
+      <canvas id="binaryCount" width="600" height="300"></canvas>
+    </div>
+    <div layout="row" layout-align="center center">
+      <div flex="10">
+        <button ng-click="mc.goBack()">back</button>
+
+      </div>
+      <div flex="10">
+        <button ng-click="mc.goForward()">forward</button>
+
+      </div>
+    </div>
+
+    <div class="blogText">
+      When moving forward, the red digit represents the disc just moved. When moving backward, it represents the disc about to be moved.
+    </div>
+    <!-- <button ng-click="mc.goBack()">back</button>
+    <button ng-click="mc.goForward()">forward</button> -->
+
+    <div class="blogText">
+      Astonishly, no matter how many discs we add, this algorithm will generate the fastest path (least number of moves) from first tower to second! It always takes 2<sup>n</sup> - 1 steps, where n is the number of discs.
+    </div>
+
+
+    <div class="blogText">
+      (<b>Note</b>: This post is heavily inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=2SUvWfNJSsM">video</a>.)
+    </div>
+
+
+    <hr>
+
+
+    <div layout="column" layout-align="center center" id="post7">
+      <div >
+        <h2 class="blogTitle">Sizes of Infinite Sets</h2>
+      </div>
+      <div class="blogSubtitle">
+        Dec. 23, 2017
+      </div>
+    </div>
+
+    <div class="blogText">
+      How might we go about comparing the sizes of different infinite sets? Mathematicians have found it natural to say that two infinite sets have the same size (or <i>cardinality</i>) just in case their members can be put into a bijective relationship: a one-to-one correspondence from set A to set B that hits all the members of B. (<i>One-to-one</i> means that any element in B can be mapped to by at most one element of A. The latter condition guarantees that every element in B will be mapped to (or 'hit') by some element of A.)
+    </div>
+
+    <div class="blogText">
+      This definition might seem strange. For instance, according to it, the set of all integers and the set of all even integers are of the same size, even though in a way it seems as though there are exactly half as many even integers as there are integers.
+    </div>
+
+      <div class="blogText">
+        What about sets that our definition judges to have different sizes? Consider the sets R = {all real numbers between 0 and 1} and Q = {all rational numbers between 0 and 1}. (A <i>rational</i> number is one that can be expressed as a ratio of integers.) Cantor developed a wonderful proof that the two sets cannot be put into a bijective relation; that is, they are not of the same size. The set R has far more members than the set Q, even though both have an infinite number of members.
+    </div>
+
+    <div class="blogText">
+      (<b>Note</b>: Really, what <a href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument">Cantor's proof</a> shows is that the set of real numbers, R, cannot be put into a bijective relation with the set of natural numbers (1, 2, 3, ...). The rational numbers, Q, <i>can</i> be put into a bijective relation with the natural numbers. Since bijectivity is transitive, it follows from Cantor's proof that there is no bijection between Q and R.)
+    </div>
+
+    <div class="blogText">
+      One rather breathtaking consequence of this definition is that the interval from 0 to 1 contains exactly as many real numbers as the interval from 0 to positive infinity! We know this because we can produce a bijective correspondence between points in the two intervals.
+    </div>
+
+    <div class="blogText">
+      We can illustrate this fact by drawing a quarter-circle, and using each point that lies upon it to connect the interval [0, 1] to the interval [0, &infin;).
+    </div>
+
+
+    <div layout layout-align="center center">
+      <canvas id='infinity' height=500 width =500></canvas>
+      &emsp; <md-slider ng-model="mc.inf" ng-change="mc.infinitize(mc.inf)" min="1" max="200" aria-label="infin"></md-slider>
+    </div>
+    <!-- NOTE: max should really be a magic number -->
+
+
+    <hr>
+
+    <div layout="column" layout-align="center center" id="post5">
+      <div >
+        <h2 class="blogTitle">Exploring the Golden Ratio</h2>
+        <!-- <a name="chapter1"></a> -->
+      </div>
+      <div class="blogSubtitle">
+        Dec. 17, 2017
+      </div>
+    </div>
+
+    <div class="blogText">
+      The golden ratio, commonly denoted by &Phi;, shows up throughout nature and the human arts. It is one of the most breathtaking pieces of math I've encountered.
+    </div>
+
+    <div class="blogText">
+      If you begin with a line segment and then cut it at some point, you will have two shorter line segments. The lengths of those segments are in the golden ratio when the shorter line segment (of length <i>b</i>) stands to the longer line segment (of length <i>a</i>) as the longer line segment stands to the whole (<i>a + b</i>). That is, <i>a</i> and <i>b</i> exemplify the golden ratio (i.e. <i>a</i>/<i>b</i> = &Phi;) if
+    </div>
+
+    <!-- Lot of work just for an equation: -->
+    <div class="blogText">
+      <div layout="row" layout-align="center center">
+        <div layout="column">
+          <div layout="row" layout-align="center center">
+            <i>a</i> &ensp;+&ensp; <i>b</i>
+          </div>
+          <div layout="row" layout-align="center center" class="lowCeiling">
+            &mdash;&mdash;
+          </div>
+          <div layout="row" layout-align="center center">
+            <i>a</i>
+          </div>
+        </div>
+        <div layout="column">
+          &emsp;=&emsp;
+        </div>
+        <div layout="column">
+          <div layout="row" layout-align="center center">
+            <i>a</i>
+          </div>
+          <div layout="row" layout-align="center center" class="lowCeiling">
+            &mdash;
+          </div>
+          <div layout="row" layout-align="center center">
+            <i>b</i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div layout layout-align="center center">
+      <canvas id="line" width="400" height="40"></canvas>
+    </div>
+
+    <div class="blogText">
+      If we let the smaller length, <i>b</i>, be equal to 1, a bit of algebra reveals that &Phi;<sup>2</sup> = &Phi; + 1. Solving this, we get an approximation for &Phi;: 1.618.
+    </div>
+
+    <div class="blogText">
+      If we imagine this divided line bending around to form a circle, we get what is sometimes called the golden angle, 2&Pi;/&Phi; radians. Many plants have leaves that grow in this pattern, probably in order to maximize sun-exposed surface area. We might draw the first two petals or leaves like this:
+    </div>
+
+    <div layout layout-align="center center">
+      <canvas id="twoLeaves" width="500" height="500"></canvas>
+    </div>
+
+    <div class="blogText">
+      Each leaf is composed of two circular arcs; we draw one leaf, and then <span class="codeBit">ctx.rotate(2*Math.PI/1.618)</span>, and draw another slightly shorter leaf.
+    </div>
+
+    <div class="blogText">
+      (<b>Note</b>: for information on <span class='codeBit'>ctx</span>, see my earlier posts.)
+    </div>
+
+    <pre><code layout layout-align="center center">function drawLeaf(L) {
+      var r = L * 1.5;
+      var theta = Math.asin(L/r);
+
+      ctx.beginPath();
+      ctx.arc(Math.pow((r*r - L*L), 0.5), -L, r,
+          Math.PI - theta, Math.PI + theta);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(-Math.pow((r*r - L*L), 0.5), -L, r,
+          -theta, theta);
+      ctx.stroke();
+    }
+    </code></pre>
+
+    <div class="blogText">
+      To fill out our plant, we just need a <span class="codeBit">for</span> loop:
+    </div>
+
+    <pre><code layout layout-align="center center">for (var i=0; i<20; i++) {
+        drawLeaf(startLength);
+        ctx.rotate(2*Math.PI/phi);
+        startLength *= 0.88;
+      }
+    </code></pre>
+
+    <div layout layout-align="center center">
+      <canvas id="golden" width="500" height="500"></canvas>
+
+    </div>
+
+    <div class="blogText">
+      Bromiliads provide an especially vivid illustration of this principle at work:
+    </div>
+
+    <div layout="row" layout-align="center center">
+      <img class="bromiliad" src="styles/bromiliad2.jpg" alt="">&emsp;
+      <img class="bromiliad" src="styles/bromiliad.jpg" alt="">
+    </div>
+
+
+    <hr>
+
+    <div layout="column" layout-align="center center" id="post2">
+      <div >
+        <h2 class="blogTitle">More HTML Canvas: Fun with Conic Sections</h2>
+
+      </div>
+      <div class="blogSubtitle">
+        Dec. 10, 2017
+      </div>
+    </div>
+
+        <!-- parabola defn  -->
+    <div class="blogText">
+      Now that we're familiar with the basic tools of the canvas, we can illustrate some cool facts about conic sections. For instance, we can spin up a nice visualization of the parabola's defining property. Every parabola has a focus and a directrix, and obeys the rule that every point on the parabola is equidistant from the parabola's focus and its directrix (pictured as a dotted line).
+    </div>
+
+    <div layout layout-align="center center">
+      <canvas id='ball' height=800 width =800></canvas>
+      &emsp; <md-slider ng-model="mc.x" ng-change="mc.drawBall(mc.x)" min="250" max="750" aria-label="parabDefn"></md-slider>
+    </div>
+
+
+        <!-- ellipse defn  -->
+
+    <div class="blogText">
+            Similarly, we can dynamically illustrate the defining property of an ellipse: each point on an elliptical path obeys the rule that the sum of its distances from the foci is constant.
+            <!-- One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path. -->
+    </div>
+
+    <div class="blogText">
+      We use the parametric equations for an ellipse,
+      <div layout layout-align="center center" class="math">
+        <i>x(t) = acos(t)<br>y(t) = bsin(t)</i>
+      </div>to draw the ball that follows our elliptical path:
+
+    <pre><code layout layout-align="center center">ctx.beginPath();
+      var x = 250*a*Math.cos((theta/100));
+      var y = 250*b*Math.sin(theta/100);
+      ctx.arc(x, y, 10, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fillStyle = 'yellow';
+      ctx.fill();
+    </code></pre>
+
+    </div>
+
+    <div class="blogText">
+      If we also draw in the ellipse's tangent at each point, we have an illustration of the fact that an ellipse's focal lines (lines from each focus to a point on the ellipse) make equal angles with the ellipse's tangent.
+    </div>
+
+
+
+    <div layout="row">
+      <div flex="70" layout layout-align="center center">
+        <canvas id="ellipse" width="700" height="700"></canvas>
+      </div>
+      <div layout="column" flex="30">
+        <br><br>
+        <div>
+            Horizontal Stretch:<md-slider min="25" max="200" ng-model="mc.a" ng-change="mc.drawEllipse(mc.a/100, mc.b/100, mc.theta)" aria-label="ellipseA"></md-slider>
+        </div>
+        <div>
+            Vertical Stretch: <md-slider min="25" max="200" ng-model="mc.b" ng-change="mc.drawEllipse(mc.a/100, mc.b/100, mc.theta)" aria-label="ellipseB"></md-slider>
+        </div>
+        <div>
+            Ball's Position: <md-slider min="0" max="628" ng-model="mc.theta" ng-change="mc.drawEllipse(mc.a/100, mc.b/100, mc.theta)" aria-label="ellipseTheta"></md-slider>
+        </div>
+        <div>
+          <button ng-click="mc.toggleTangent()">Show tangent</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="blogText">
+      Another way of saying it is: were you to send a ball toward an elliptical wall from one of its foci, the ball would bounce off of the wall and end up at the other focus. In the same way, sound waves bounce off the walls of elliptical rooms called "<a href="https://en.wikipedia.org/wiki/Whispering_gallery">whispering rooms</a>", allowing people standing at one focus to hear what is whispered by someone standing at the other focus!
+    </div>
+
+        <div class="blogText">
+              Similarly, balls shot out of a parabola's focus will bounce off its wall and shoot straight down, in a path perpendicular to the directrix. Said another way, all light rays passing into a parabolic shape will reflect off the wall and pass through its focus.
+        </div>
+
+
+
+        <div layout layout-align="center center">
+          <canvas id="parabReflection" width="800" height="800"></canvas>
+          &emsp; <md-slider min="250" max="750" ng-model="mc.x4" ng-change="mc.drawBall4(mc.x4)" aria-label="parabReflection"></md-slider>
+        </div>
+
+
+
+
+        <!-- parabola orthogonal -->
+
+    <div class="blogText">
+       Finally, we can illustrate the fact that a parabola's orthogonal tangents intersect on the directrix. Moreover, the line connecting two points on the parabola that have orthogonal tangents will always contain the focus! So there are an infinite number of right triangles living between a parabola and its directrix.
+    </div>
+
+    <div layout layout-align="center center">
+      <canvas id="parabOrth" width="800" height="800"></canvas>
+        &emsp;<md-slider min="250" max="493" ng-model="mc.x3" ng-change="mc.drawBall3(mc.x3)" aria-label="parabolaOrth"></md-slider>
+    </div>
+
+
+
+
+
+  </div>
+
+  <div class="prevPosts" layout="column" flex="12">
+    <div class="allposts" layout layout-align="center center">All Posts:</div>
+    <ul class="postlist">
+      <!-- <li ng-click="mc.goToPost(10)">Building Minesweeper</li> -->
+      <!-- <li ng-click="mc.goToPost(9)">Creating a Customizable Chart</li> -->
+      <li ng-click="mc.goToPost(8)">Binary Counting and the Towers of Hanoi</li>
+      <li ng-click="mc.goToPost(7)">Sizes of Infinite Sets</li>
+      <!-- <li ng-click="mc.goToPost(6)">From JavaScript to Python: Basic Syntax</li> -->
+      <li ng-click="mc.goToPost(5)">Exploring the Golden Ratio</li>
+      <!-- <li ng-click="mc.goToPost(4)">Writing SQL Queries</li> -->
+      <!-- <li ng-click="mc.goToPost(3)">Getting Started with Matter.js</li> -->
+      <li ng-click="mc.goToPost(2)">More HTML Canvas: Fun with Conic Sections</li>
+      <!-- <li ng-click="mc.goToPost(1)">Getting Started with HTML Canvas Animations</li> -->
+    </ul>
+  </div>
+
+
+</div>

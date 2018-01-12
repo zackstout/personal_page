@@ -7,10 +7,29 @@
       <div class="sideNav">
         <div class="clickMe" ng-click="nc.goHome()">About Me</div>
       </div>
-      <div class="sideNav">
-        <div class="clickMe alive" ng-click="nc.goBlog()">Blog</div>
+
+      <div layout="row" >
+
+<!-- oh how odd, it does need to have "alive" ... -->
+        <div class="sideNav" layout="column">
+          <div class="clickMe alive" ng-click="nc.showSub()">Blog</div>
+        </div>
+
+        <div  ng-show="nc.hit" layout="column">
+          <div class="subBlog" ng-click="nc.goCode()" layout="row" flex="33">
+            <span class="subSubBlog">Coding</span>
+          </div>
+          <div class="subBlog" ng-click="nc.goMath()" layout="row" flex="33">
+            <span class="subSubBlog1">Math</span>
+          </div>
+          <div class="subBlog" ng-click="nc.goOther()" layout="row" flex="33">
+            <span class="subSubBlog2">Other</span>
+          </div>
+        </div>
+
       </div>
-      <div class="sideNav">
+
+      <div  class="sideNav">
         <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
       </div>
     </div>
@@ -27,1107 +46,96 @@
 
   idea: Build minesweeper in python. -->
 
-  <div class="blogContent" layout="column" flex="60">
+  <div class="blogContent" layout="column" flex="80">
     <!-- <h1>blog</h1> -->
 
 <!-- <div layout layout-align="center center">
   <canvas id="triangle" width="300" height="300"></canvas>
 </div> -->
+<!-- <div layout layout="center center"> -->
 
 
 
-
-
-
-
-
-
-
-<div layout layout-align="center center" class="blogText">
-  <i>Note: Unless indicated otherwise, code examples are written in JavaScript.</i>
-</div>
-
-<hr>
-
-<div layout="column" layout-align="center center" id="post10">
-  <div >
-    <h2 class="blogTitle">Building Minesweeper</h2>
+<!-- haha yeah, we really should have done it with rows first, columns second.... (to style rows together, i.e. put both in same anchor tag); -->
+  <div layout="row" layout-align="center center" class="blogText">
+    BLOG POSTS:
   </div>
-  <div class="blogSubtitle">
-    Jan. 6, 2018
-  </div>
-</div>
-
-<div class="blogText">
-  How might we go about building the game Minesweeper? Let's go through the steps (using AngularJS):
-</div>
-
-<ol class="blogText">
-  <li class="blogText">To build our grid (of size n x n), we can use an HTML <span class="codeBit">table</span>. Using a loop within a loop, we can add data cells (containing buttons) to each row, and then <span class="codeBit">append</span> the row to our table.</li>
-
-  <pre><code layout layout-align="center center">function drawGridMines(n) {
-    var table = angular.element(
-      document.getElementById('mineSweep'));
-    var mineRow = [];
-    var mineRowVals = [];
-    for (var k=0; k < n; k++) {
-      for (var i=0; i < n; i++) {
-        mineRow.push('&lt;td&gt;&lt;button class="mineButton row' +
-          k + 'col' + i + '"ng-click="bc.checkBoxMine($event)">
-          &lt;/button>&lt;/td>');
-        mineRowVals.push('0');
-      }
-    var fullRow = '&lt;tr>' + mineRow + '&lt;/tr>';
-    table.append($compile(fullRow)($scope));
-    mineRow = [];
-
-    valuesOnGrid.push(mineRowVals);
-    mineRowVals = [];
-  }</code></pre>
-
-  <div class="blogText">We give each button an <span class="codeBit">id</span>, e.g. <span class="codeBit">row1col3</span>, so that it knows its row/column position. Note that we must wrap our element with <span class="codeBit">angular.element()</span> in order to <span class="codeBit">append</span> to it. Further, we need to <span class="codeBit">$compile</span> our HTML before appending it.</div>
-
-  <li class="blogText">We store the values that live underneath each button (either 'bomb' or a number representing the number of adjacent bombs) in an array of arrays, <span class="codeBit">valuesOnGrid</span>. To start, let's put a '0' in each cell.</li>
-
-  <li class="blogText">Next we need to generate our bombs &mdash; the trick here is to ensure that we put each bomb in a unique cell. Then we update our <span class="codeBit">valuesOnGrid</span> array to reflect the positions of the bombs:</li>
-
-  <pre><code layout layout-align="center center">for (var j=0; j < mines.length; j++) {
-        var mine = mines[j];
-        valuesOnGrid[mine.row][mine.col] = 'b';
-      }</code></pre>
-
-  <li class="blogText">We need to get the count of adjacent bombs for each cell. We can write a function, <span class="codeBit">getNeighbors(r, c)</span>, to find all of a cell's neighbors (taking into account that it may lie on the table's edge). I will spare you my rather clumsy code.</li>
-
-  <li class="blogText">Then we can feed the array of neighbors into a <span class="codeBit">checkForBombs</span> function that updates our <span class="codeBit">valuesOnGrid</span> array with numeric values:</li>
-
-  <pre><code layout layout-align="center center">function checkForBombs(r, c) {
-    var neighbors = getNeighbors(r, c);
-    var v = valuesOnGrid[r][c];
-
-    if (v != 'b') {
-      var intV = parseInt(v);
-      for (var i=0; i< neighbors.length; i++) {
-        var n = neighbors[i];
-        var val = valuesOnGrid[n.row][n.col];
-        if (val == 'b') {
-          intV ++;
-        }
-      }
-      valuesOnGrid[r][c] = String(intV);
-    }
-  }
-
-valuesOnGrid.forEach(function(arr, index) {
-    var ind = index;
-    arr.forEach(function(v, index) {
-      checkForBombs(ind, index);
-    });
-  });
-</code></pre>
-
-  <li class="blogText">What happens if the player clicks a button? We check whether there is a bomb there; if so, they lose. If not, remove the button to reveal the number. (This is why we must pass <span class="codeBit">$event</span> into each button's <span class="codeBit">ng-click</span>. We can use <span class="codeBit">ev.target.getAttribute("class")</span> in the controller to access the clicked button's class, which contains information about its position. To find out what value lives at that position, we use <span class="codeBit">valuesOnGrid[row][col]</span>. We remove the button with <span class="codeBit">ev.currentTarget.remove()</span>.)</li>
-
-  <li class="blogText">The really tricky part is opening up islands &mdash; i.e. sometimes, when you click a button, multiple cells will open up. I believe the logic is:</li>
-  <ul>
-    <li class="blogText">Check the clicked cell's neighbors for 0s.</li>
-    <li class="blogText">For each 0 among the neighbors, open up that cell and all of <i>its</i> neighbors. (Since the value is 0, we are guaranteed to never reveal a bomb.)</li>
-    <li class="blogText">If any of the opened neighbors contains a 0, repeat the above.</li>
-  </ul>
-
-  <pre><code layout layout-align="center center">function checkForZeros(r, c) {
-      var neighbors = getNeighbors(r, c, 5);
-      neighbors.forEach(function(n) {
-        var pos = String(n.row) + String(n.col);
-        if (valuesOnGrid[n.row][n.col] === '0'
-          && !newNeighbors.includes(pos)) {
-            newNeighbors.push(pos);
-            checkForZeros(n.row, n.col);
-          }
-        });
-      }</code></pre>
-
-  <li class="blogText">Finally, we'll want to add in right-click functionality for flagging spaces suspected to contain bombs. When the user opens up every square that doesn't contain a bomb, they win!</li>
-</ol>
-
-<div class="blogText">
-  Here's a prototype of the game. It's not fully operational just yet:
-</div>
-
-<div layout layout-align="center center">
-  <table id="mineSweep">
-
-  </table>
-</div>
-
-
-
-
-
-
-
-
-<hr>
-
-
-<div layout="column" layout-align="center center" id="post9">
-  <div >
-    <h2 class="blogTitle">Creating a Customizable Chart</h2>
-  </div>
-  <div class="blogSubtitle">
-    Jan. 4, 2018
-  </div>
-</div>
-
-<div class="blogText">
-  Suppose we have a set of data that is grouped according to a few different categories and we want to build an app to visualize our data. For instance, say we are building an app that allows organizations to track and view their carbon footprint over time. Let's run through the steps needed to build a basic customizable chart using Chart.js, AngularJS and PostgreSQL.
-</div>
-
-<div class="blogText">
-  In our database we'll have a table for Monthly Reports, and three other tables that reference this table: Living, Shipping and Travel. The Shipping table has columns to keep track of air-, sea-, truck- and train-based shipping costs (in terms of kg-tonne of shipped materials) for the month.
-</div>
-
-<div class="blogText">
-  Monthly reports are each attached to a project (e.g. Save the Infants), i.e. each row in the Monthly Reports table is foreign keyed to a row in the Projects table. Projects can have multiple Types (e.g. Education, Health), and are associated with a specific Country. By now we have eight tables &mdash; our original four, plus tables for Projects, Countries, Types, and Project-Types (we need this last table because each project can be associated with multiple types).
-</div>
-
-<div class="blogText">
-  We can start by adding (in our HTML) a pair of <span class='codeBit'>select</span> tags to allow a user to choose a particular project, month, type or country. First, the user can choose which category they are interested in:
-</div>
-
-<code layout layout-align="center center">&lt;!--Choose a View:-->
-  <br><br>{{bc.html11}}
-  <br>&emsp;{{bc.html12}}
-  <br>&emsp;{{bc.html13}}
-  <br>&emsp;{{bc.html14}}
-  <br>&emsp;{{bc.html15}}
-  <br>{{bc.html16}}
-
-</code>
-
-<div class="blogText">
-  The <span class="codeBit">ng-change</span> ensures that whenever the user alters their selection, we trigger (in the controller) a <span class="codeBit">GET</span> call for all of the particulars in the requested category. (We keep track of the requested category in the controller with the property <span class="codeBit">vm.chartView</span>, where we have previously declared <span class='codeBit'>var vm = this</span>, but we could just as easily pass it along as an argument in our <span class="codeBit">changeChartView</span> function.) We use the results of this call to populate a second drop-down with <span class="codeBit">ng-repeat</span> (by somewhat clumsily writing each selector tag to the DOM and only <span class="codeBit">ng-show</span>ing the relevant one):
-</div>
-
-<div id="html2" layout layout-align="center center">
-  <code>&lt;!--Choose a particular:-->
-    <br><br>{{bc.html2a}}
-    <br>&emsp;{{bc.html2b}}
-    <br>&emsp;&emsp;{{bc.html2c}}
-    <br>&emsp;&emsp;&emsp;{{bc.html2d}}
-    <br>{{bc.html2e}}
-    <br>. . .
-  </code>
-</div>
-
-
-<div class="blogText">
-  Finally, we can populate a third dropdown with each of the categories <i>not</i> selected as a View. For example, if the user chooses to view a particular Month, they will have the choice to subdivide that month's carbon footprint by project, type or country. (The code for this is very similar to the above.) Now we have all the data we need to construct our SQL query, which we run on clicking "Submit":
-</div>
-
-<div id="html3" layout layout-align="center center">
-  <code>
-    {{bc.html31}}<br>{{bc.html32}}
-  </code>
-</div>
-
-<div class="blogText">
-  We send along this information to the server in our <span class="codeBit">req.body</span>:
-</div>
-
-<pre><code layout layout-align="center center">req.body = {
-  view: 'Period',
-  particular: '04/16',
-  slice: 'Project'
-}</code></pre>
-
-<div class="blogText">
-  Then, we can pass along the information to our database query:
-</div>
-
-<pre><code layout layout-align="center center">queryText = 'SELECT "period", "projects"."name",
-"countries"."id" as country_id,
- . . .,
-SUM("hotel") OVER (PARTITION BY ' + slice + ') as hotel,
-SUM("fuel") OVER (PARTITION BY ' + slice + ') as fuel,
- . . .
-FROM "countries"
-JOIN "projects" ON "countries"."id" =
-"projects"."country_id"
-JOIN "project_type" ON "projects"."id" =
-"project_type"."project_id"
- . . .
-WHERE "users"."id" = $1 AND ' + view + '."name" = $2;';
-</code></pre>
-
-<div class="blogText">
-  This is a variable query. We pass <span class="codeBit">slice = req.body.slice</span> and <span class="codeBit">view = req.body.view</span> directly into the query string (don't forget to concatenate the strings around the variables!). Additionally, we pass an array of variables specifying the user (<span class="codeBit">$1</span>) and the particular (<span class="codeBit">$2</span>) to our <span class="codeBit">db.query()</span>: <span class="codeBit">[req.user.id, req.body.particular]</span>.
-</div>
-
-<div class="blogText">
-  Let's break down our query:
-<!-- </div> -->
-  <ul>
-    <li class="blogText">We first include among the columns we <span class="codeBit">SELECT</span> a <span class="codeBit">SUM</span> of the values in all rows, for each of our columns;</li>
-    <li class="blogText">We <span class="codeBit">PARTITION</span> this sum by the chosen <span class="codeBit">slice</span>;</li>
-    <li class="blogText">We have each query grab from the entire database, since the inputs are variable;</li>
-    <li class="blogText">And finally we tell the database which user and which particular <span class="codeBit">view</span> we are interested in.</li>
-  </ul>
-</div>
-
-<div class="blogText">
-  The final thing to note about our query is that each of view-tables (Projects, Periods, Types, Countries, Categories) must have a column titled "name". The chart you output might be a line chart when the user slices by Period:
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="chartdemo" width="500" height="500"></canvas>
-
-</div>
-
-<div class="blogText">
-  Or a donut chart when the user slices by another variable (in this case, by Category):
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="chartdemo2" width="500" height="500"></canvas>
-
-</div>
-
-<div class="blogText">
-  Don't forget to <span class="codeBit">npm install chart.js</span>. Once installed, the possibilities abound!
-</div>
-
-
-<hr>
-
-
-
-
-<div layout="column" layout-align="center center" id="post8">
-  <div >
-    <h2 class="blogTitle">Binary Counting and the Towers of Hanoi</h2>
-  </div>
-  <div class="blogSubtitle">
-    Jan. 1, 2018
-  </div>
-</div>
-
-
-<div class="blogText">
-  A marvelous fact about the Towers of Hanoi puzzle is that you can solve it by counting in binary.
-</div>
-
-<div class="blogText">
-  The puzzle, as exhibited in a recent iteration of the <i>Planet of the Apes</i> franchise, is to move a tower of discs from one position to another without ever placing a larger disc atop a smaller one.
-</div>
-
-<div class="blogText">
-  Counting in binary means that we use 2 as a base, rather than 10. So 14 is represented as 1110 in binary, because
-
-  <div id="margAbove" layout="row" layout-align="center center">
-    8 + 4 + 2 + 0 = 14
-  </div>
-  <div layout="row" layout-align="center center">
-    <span>2<sup>3</sup> &ensp;2<sup>2</sup> &ensp;2<sup>1</sup> &ensp;2<sup>0</sup>&emsp;&emsp;</span>
-  </div>
-</div>
-
-<div class="blogText">
-  As we count up in binary (1, 10, 11, 100, ...), we can imagine each digit (e.g. the 2's place or the 8's place) representing a disc. The 1's place represents the smallest disc.
-</div>
-
-<div class="blogText">
-  The algorithm we want to follow is this: each time we increment our count, a certain digit changes from 0 to 1. Move the disc corresponding to that digit one peg to the right. If you cannot put it there, move it twice. If you are at the rightmost space, wrap around to the beginning.
-</div>
-
-<div layout="row" layout-align="center center" id="binNums">
-  <span><span id="binNumHolder"></span><span id="binNumHolder2"></span><span id="binNumHolder3"></span></span>
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="binaryCount" width="600" height="300"></canvas>
-</div>
-<div layout="row" layout-align="center center">
-  <div flex="10">
-    <button ng-click="bc.goBack()">back</button>
-
-  </div>
-  <div flex="10">
-    <button ng-click="bc.goForward()">forward</button>
-
-  </div>
-</div>
-
-<div class="blogText">
-  (<b>Note</b>: When moving forward, the red digit represents the disc just moved. When moving backward, it represents the disc about to be moved.)
-</div>
-<!-- <button ng-click="bc.goBack()">back</button>
-<button ng-click="bc.goForward()">forward</button> -->
-
-<div class="blogText">
-  Astonishly, no matter how many discs we add, this algorithm will generate the fastest path (least number of moves) from first tower to second! It always takes 2<sup>n</sup> - 1 steps, where n is the number of discs. (What happens if we increase the number of pegs...?)
-</div>
-
-
-<div class="blogText">
-  (<b>Note</b>: This post is heavily inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=2SUvWfNJSsM">video</a>.)
-</div>
-
-<hr>
-
-
-<div layout="column" layout-align="center center" id="post7">
-  <div >
-    <h2 class="blogTitle">Sizes of Infinite Sets</h2>
-  </div>
-  <div class="blogSubtitle">
-    Dec. 23, 2017
-  </div>
-</div>
-
-<div class="blogText">
-  How might we go about comparing the sizes of different infinite sets? Mathematicians have found it natural to say that two infinite sets have the same size (or <i>cardinality</i>) just in case their members can be put into a bijective relationship: a one-to-one correspondence from set A to set B that hits all the members of B. (<i>One-to-one</i> means that any element in B can be mapped to by at most one element of A. The latter condition guarantees that every element in B will be mapped to (or 'hit') by some element of A.)
-</div>
-
-<div class="blogText">
-  This definition might seem strange. For instance, according to it, the set of all integers and the set of all even integers are of the same size, even though in a way it seems as though there are exactly half as many even integers as there are integers.
-</div>
-
-  <div class="blogText">
-    What about sets that our definition judges to have different sizes? Consider the sets R = {all real numbers between 0 and 1} and Q = {all rational numbers between 0 and 1}. (A <i>rational</i> number is one that can be expressed as a ratio of integers.) Cantor developed a wonderful proof that the two sets cannot be put into a bijective relation; that is, they are not of the same size. The set R has far more members than the set Q, even though both have an infinite number of members.
-</div>
-
-<div class="blogText">
-  (Note: Really, what <a href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument">Cantor's proof</a> shows is that the set of real numbers, R, cannot be put into a bijective relation with the set of natural numbers (1, 2, 3, ...). The rational numbers, Q, <i>can</i> be put into a bijective relation with the natural numbers. Since bijectivity is transitive, it follows from Cantor's proof that there is no bijection between Q and R.)
-</div>
-
-<div class="blogText">
-  One rather breathtaking consequence of this definition is that the interval from 0 to 1 contains exactly as many real numbers as the interval from 0 to positive infinity! We know this because we can produce a bijective correspondence between points in the two intervals.
-</div>
-
-<div class="blogText">
-  We can illustrate this fact by drawing a quarter-circle, and using each point that lies upon it to connect the interval [0, 1] to the interval [0, &infin;).
-</div>
-
-
-<div layout layout-align="center center">
-  <canvas id='infinity' height=500 width =500></canvas>
-  &emsp; <md-slider ng-model="bc.inf" ng-change="bc.infinitize(bc.inf)" min="1" max="200" aria-label="infin"></md-slider>
-</div>
-<!-- NOTE: max should really be a magic number -->
-
-
-
-
-<hr>
-
-
-<div layout="column" layout-align="center center" id="post6">
-  <div >
-    <h2 class="blogTitle">From JavaScript to Python: Basic Syntax</h2>
-    <!-- <a name="chapter1"></a> -->
-  </div>
-  <div class="blogSubtitle">
-    Dec. 21, 2017
-  </div>
-</div>
-
-<div class="blogText">
-  Python is sometimes touted as one of the easiest programming languages to learn. I think this is especially true when approaching Python from a background in JavaScript.
-</div>
-
-<div class="blogText">
-  The first thing to know is that whereas JavaScript uses parentheses and braces to signify different code blocks, Python relies on white space and colons:
-</div>
-
-<div layout="row" layout-align="center center">
-  <div layout="col">
-    <pre><code layout layout-align="top center">//JavaScript:
-    function sayHello() {
-      console.log("Hello world!");
-    }
-    sayHello()</code></pre>
-  </div>
-  <div layout="col">
-    <pre><code layout layout-align="top center">#Python:
-    def sayHello():
-      print "Hello world!"
-    sayHello()</code></pre>
-  </div>
-</div>
-
-<div class="blogText">
-  Working with strings is similar in Python: instead of <span class="codeBit">str.length</span>, you use <span class="codeBit">len(str)</span>; instead of <span class="codeBit">str.charAt(0)</span>, you use <span class="codeBit">str[0]</span>. Python offers a nice feature, <i>string substitution</i>, which lets you put variables inside of strings (note that Python also allows us to dispense with semicolons and declaration keywords such as <span class="codeBit">var</span> or <span class="codeBit">let</span>):
-</div>
-
-
-<div layout="row" layout-align="center center">
-  <div layout="col">
-    <pre><code layout layout-align="top center">//JavaScript:
-      var x = 'phoenix';
-      console.log('This bird is a ', x);</code></pre>
-  </div>
-  <div layout="col">
-    <pre><code layout layout-align="top center">#Python:
-      x = 'phoenix'
-      print 'This bird is a %s' % (x)</code></pre>
-  </div>
-</div>
-
-<div class="blogText">
-  Another nice aspect of Python is the strong parallelism between strings, lists (which are Python's version of arrays) and dictionaries (which are Python's version of objects). This parallelism shines through in the way Python treats <span class="codeBit">for</span> loops (this syntax might remind AngularJS users of <span class="codeBit">ng-repeat</span>):
-</div>
-
-
-<div layout="row" layout-align="center center">
-  <div layout="col">
-    <pre><code layout layout-align="top center">//JavaScript:
-      var myArray = [1, 'apple'];
-      for (var i=0; i < myArray.length;
-        i++) {
-          console.log(myArray[i]);
-        }</code></pre>
-  </div>
-  <div layout="col">
-    <pre><code layout layout-align="top center">#Python:
-    myString = 'capybara'
-    myList = [1, 'apple', 7.2]
-    myDictionary = {
-      'shirt_color': 'black',
-      'socks': ['blueSock', 'redSock'],
-      'shoes_count': 2
-    }
-    for c in myString:
-      print c
-    for x in myList:
-      print x
-    for key in myDictionary:
-      print key + ' ' + myDictionary[key]</code></pre>
-  </div>
-</div>
-
-<div class="blogText">
-  In order to replicate the JavaScript way of writing <span class='codeBit'>for</span> loops in Python, we could awkwardly write
-</div>
-
-<pre><code  layout layout-align="center center">for i in range(len(myList)):
-  print myList[i]
-</code></pre>
-
-<div class="blogText">
-  Alternatively, we could write <span class="codeBit">enumerate(myList)</span> if we wanted to attach an index to each item in our list (we could even pass it a second argument to tell it which index to start counting at!).
-</div>
-
-<div class="blogText">
-  Python also makes it easy to spin up tailor-made lists with a feature called <i>list comprehension</i>. To get a list of all multiples of 3 between 20 and 80, we could write
-</div>
-
-<pre><code layout layout-align="center center">myArray = [i for i in range(20, 80) if i % 3 == 0]
-print myArray
-</code></pre>
-
-<div class="blogText">
-  One of my favorite things about Python is its readability. Instead of having to know, for example, that JavaScript arrays have a method called <span class="codeBit">.includes()</span> that checks whether an array contains a certain element, we can just write
-</div>
-
-
-<pre><code layout layout-align="center center">if user_guess not in correct_guesses:
-    print "Guess again!"
-</code></pre>
-
-<div class="blogText">
-  Suppose we wanted to filter an array, purging it of all elements that fail to meet a certain condition. We can pass an anonymous function (written on the fly) to the array's <span>filter</span> method. Python lets us abbreviate this process with a <i>lambda</i> operator; similarly, ES6 offers arrow functions. Let's filter out all trees that don't begin with 'c':
-</div>
-
-<div layout="row" layout-align="center center">
-  <div layout="col">
-    <pre><code layout layout-align="top center">//JavaScript:
-      var trees = ['conifer', 'birch',
-        'cedar'];
-      var c_trees = trees.filter(
-        function(tree, trees) {
-          return tree.charAt(0) == 'c';
-        });
-//Or, with an arrow function:
-      var c_trees = trees.filter(() =>
-        {return tree.charAt(0) == 'c'});</code></pre>
-  </div>
-  <div layout="col">
-    <pre><code layout layout-align="top center">#Python:
-    trees = ['conifer', 'birch', 'cedar']
-    c_trees = filter(
-      lambda tree: tree[0] == 'c', trees)</code></pre>
-  </div>
-</div>
-
-<div class="blogText">
-  Class inheritance, too, works similarly across our two languages. We can declare a new class with a constructor (or <i>initialization</i>) function, add methods to our class, and then create an instance:
-</div>
-
-<div layout="row" layout-align="center center">
-  <div layout="col">
-    <pre><code layout layout-align="top center">//JavaScript:
-      class Dog {
-        constructor(breed, color) {
-          this.breed = breed;
-          this.color = color;
-        }
-        bark() {
-          console.log("Woof!");
-        }
-      }
-      var tiny = new Dog("pug", "tan");
-      tiny.bark();</code></pre>
-  </div>
-  <div layout="col">
-    <pre><code layout layout-align="top center">#Python:
-    class Dog(object):
-      def __init__(self, breed, color):
-        self.breed = breed
-        self.color = color
-      def bark(self):
-        print "Woof!"
-    tiny = Dog("pug", "tan")</code></pre>
-  </div>
-</div>
-
-<div class="blogText">
-  If we want one class (a subclass) to inherit all of the methods and properties associated with another object &mdash; say we want to create Pug and Greyhound and Mastiff subclasses &mdash; we can write
-</div>
-
-<div layout="row" layout-align="center center">
-  <div layout="col">
-    <pre><code layout layout-align="top center">//JavaScript:
-      class Pug extends Dog {
-        ...
-      }</code></pre>
-  </div>
-  <div layout="col">
-    <pre><code layout layout-align="top center">#Python:
-      class Pug(Dog):
-        ...</code></pre>
-  </div>
-</div>
-
-<div class="blogText">
-  There is plenty more to explore in Python &mdash; especially the plethora of libraries that are available for you to <span class="codeBit">import</span> into your project &mdash; but hopefully this has been enough to convince you that the transition from JavaScript into Python can be a smooth one.
-</div>
-
-<hr>
-
-<div layout="column" layout-align="center center" id="post5">
-  <div >
-    <h2 class="blogTitle">Exploring the Golden Ratio</h2>
-    <!-- <a name="chapter1"></a> -->
-  </div>
-  <div class="blogSubtitle">
-    Dec. 17, 2017
-  </div>
-</div>
-
-<div class="blogText">
-  The golden ratio, commonly denoted by &Phi;, shows up throughout nature and the human arts. It is one of the most breathtaking pieces of math I've encountered.
-</div>
-
-<div class="blogText">
-  If you begin with a line segment and then cut it at some point, you will have two shorter line segments. The lengths of those segments are in the golden ratio when the shorter line segment (of length <i>b</i>) stands to the longer line segment (of length <i>a</i>) as the longer line segment stands to the whole (<i>a + b</i>). That is, <i>a</i> and <i>b</i> exemplify the golden ratio (i.e. <i>a</i>/<i>b</i> = &Phi;) if
-</div>
-
-<!-- Lot of work just for an equation: -->
-<div class="blogText">
-  <div layout="row" layout-align="center center">
-    <div layout="column">
-      <div layout="row" layout-align="center center">
-        <i>a</i> &ensp;+&ensp; <i>b</i>
+  <div layout="row" layout-align="center center" class="blogText">
+    <div layout="column" id="datesList" >
+      <!-- <div layout="row" class="brags">1/13/18</div>
+      <div layout="row" class="brags">1/12/18</div>
+      <div layout="row" class="brags">1/10/18</div> -->
+      <div layout="row" class="brags">1/8/18</div>
+      <div layout="row" class="brags">1/6/18</div>
+      <div layout="row" class="brags">1/4/18</div>
+      <div layout="row" class="brags">1/1/18</div>
+      <div layout="row" class="brags">12/23/17</div>
+      <div layout="row" class="brags">12/21/17</div>
+      <div layout="row" class="brags">12/17/17</div>
+      <div layout="row" class="brags">12/15/17</div>
+      <div layout="row" class="brags">12/12/17</div>
+      <div layout="row" class="brags">12/10/17</div>
+      <div layout="row" class="brags">12/8/17</div>
+
+    </div>
+    <div layout="column" layout-align="center center" >
+      <!-- <div layout="row" class="brags2" ng-click="bc.goPost(14)">
+        The Sierpinski Triangle
       </div>
-      <div layout="row" layout-align="center center" class="lowCeiling">
-        &mdash;&mdash;
+      <div layout="row" class="brags2" ng-click="bc.goPost(13)">
+        Building Snake
       </div>
-      <div layout="row" layout-align="center center">
-        <i>a</i>
+      <div layout="row" class="brags2" ng-click="bc.goPost(12)">
+        Greek Tragedy: On Becoming Oneself
+      </div> -->
+      <div layout="row" class="brags2" ng-click="bc.goPost(11)">
+        Self-Conception as Carapace
       </div>
-    </div>
-    <div layout="column">
-      &emsp;=&emsp;
-    </div>
-    <div layout="column">
-      <div layout="row" layout-align="center center">
-        <i>a</i>
+      <div layout="row" class="brags2" ng-click="bc.goPost(10)">
+        Building Minesweeper
       </div>
-      <div layout="row" layout-align="center center" class="lowCeiling">
-        &mdash;
+      <div layout="row" class="brags2" ng-click="bc.goPost(9)">
+        Creating a Customizable Chart
       </div>
-      <div layout="row" layout-align="center center">
-        <i>b</i>
+      <div layout="row" class="brags2" ng-click="bc.goPost(8)">
+        Binary Counting and the Towers of Hanoi
       </div>
-    </div>
-  </div>
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="line" width="400" height="40"></canvas>
-</div>
-
-<div class="blogText">
-  If we let the smaller length, <i>b</i>, be equal to 1, a bit of algebra reveals that &Phi;<sup>2</sup> = &Phi; + 1. Solving this, we get an approximation for &Phi;: 1.618.
-</div>
-
-<div class="blogText">
-  If we imagine this divided line bending around to form a circle, we get what is sometimes called the golden angle, 2&Pi;/&Phi; radians. Many plants have leaves that grow in this pattern, probably in order to maximize sun-exposed surface area. We might draw the first two petals or leaves like this:
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="twoLeaves" width="500" height="500"></canvas>
-</div>
-
-<div class="blogText">
-  Each leaf is composed of two circular arcs; we draw one leaf, and then <span class="codeBit">ctx.rotate(2*Math.PI/1.618)</span>, and draw another slightly shorter leaf.
-</div>
-
-<div class="blogText">
-  (<b>Note</b>: for information on <span class='codeBit'>ctx</span>, see my earlier posts.)
-</div>
-
-<pre><code layout layout-align="center center">function drawLeaf(L) {
-  var r = L * 1.5;
-  var theta = Math.asin(L/r);
-
-  ctx.beginPath();
-  ctx.arc(Math.pow((r*r - L*L), 0.5), -L, r,
-      Math.PI - theta, Math.PI + theta);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(-Math.pow((r*r - L*L), 0.5), -L, r,
-      -theta, theta);
-  ctx.stroke();
-}
-</code></pre>
-
-<div class="blogText">
-  To fill out our plant, we just need a <span class="codeBit">for</span> loop:
-</div>
-
-<pre><code layout layout-align="center center">for (var i=0; i<20; i++) {
-    drawLeaf(startLength);
-    ctx.rotate(2*Math.PI/phi);
-    startLength *= 0.88;
-  }
-</code></pre>
-
-<div layout layout-align="center center">
-  <canvas id="golden" width="500" height="500"></canvas>
-
-</div>
-
-<div class="blogText">
-  Bromiliads provide an especially vivid illustration of this principle at work:
-</div>
-
-<div layout="row" layout-align="center center">
-  <img class="bromiliad" src="styles/bromiliad2.jpg" alt="">&emsp;
-  <img class="bromiliad" src="styles/bromiliad.jpg" alt="">
-</div>
-
-<hr>
-
-<div layout="column" layout-align="center center" id="post4">
-  <div >
-    <h2 class="blogTitle">Writing SQL Queries</h2>
-    <!-- <a name="chapter1"></a> -->
-  </div>
-  <div class="blogSubtitle">
-    Dec. 15, 2017
-  </div>
-</div>
-
-<div class="blogText">
-  Writing queries to your SQL database is a lot of fun, and pretty intuitive once you get used to the syntax. (We'll use PostgreSQL syntax here.)
-</div>
-
-<div class="blogText">
-  To my mind, the bread and butter of a relational database query is the <span class="codeBit">JOIN</span> keyword. Suppose we have one table to keep track of humanitarian projects and another table, keyed to the first table, to keep track of each project's monthly carbon footprint. (Incidentally, this is the group project I'm working on at Prime.) To get all of the footprints associated with a single project, we could write
-</div>
-
-<pre><code layout layout-align="center center">SELECT * FROM "projects" JOIN "footprints"
-  ON "projects"."id" = "footprints"."project_id"
-  WHERE "projects"."id" = 1;
-</code></pre>
-
-<div class="blogText">
-  The <span class="codeBit">ON</span> clause ensures that we grab all of the footprints that have a project_id value equal to the id of the project we are interested in. A potential problem with this is that we might have identically-named columns in different tables (e.g. "id"). To remedy this, we can replace <span class="codeBit">*</span> in our <span class="codeBit">SELECT</span> clause with <span class="codeBit">"footprints"."id" as footprint_id, "projects"."id" as project_id, "living_total", "shipping_total", "travel_total"</span>.
-</div>
-
-<div class="blogText">
-  Our footprints table might have many rows; suppose we want to sum up the values in each column across all rows. We could write
-</div>
-
-<pre><code layout layout-align="center center">SELECT SUM("living_total") as living_total,
-  SUM("travel_total") as travel_total,
-  SUM("shipping_total") as shipping_total
-  FROM "footprints";
-</code></pre>
-
-<div class="blogText">
-  If we want to sum the values across columns, we can write <span class="codeBit">SUM("travel_total" + "shipping_total" + "living_total") as "total_footprint"</span>.
-</div>
-
-<div class="blogText">
-  Suppose that instead of summing all the rows, we wanted to group them into clusters, for instance by footprint Type. We can pair the <span class="codeBit">SUM</span> keyword with <span class="codeBit">PARTITION BY</span> to accomplish that: <span class="codeBit">SELECT SUM("living_total") OVER (PARTITION BY "type")</span>.
-</div>
-
-<div class="blogText">
-  Suppose we have three other tables, Shipping, Living and Travel, each keyed to our Footprints table. In order to post a new footprint to the database, we need to update each table. In our query from the server, we would first post to the Footprints table, adding <span class="codeBit">RETURNING "id"</span> to our <span class="codeBit">INSERT INTO</span> query. Then we can pass the returned id along to the next query, which posts to our three subtables with the proper foreign key.
-</div>
-
-<div class="blogText">
-  Finally, suppose we want to get, for each project, an array of all the footprint totals associated with it. The query would look something like this:
-</div>
-
-<pre><code layout layout-align="center center">SELECT "projects"."name" as name,
-  array_agg("footprint_total") as total
-  FROM "projects" JOIN "footprints"
-  ON "projects"."id" = "footprints"."project_id"
-  GROUP BY "projects"."name";
-</code></pre>
-
-
-<hr>
-
-<div layout="column" layout-align="center center" id="post3">
-  <div >
-    <h2 class="blogTitle">Getting Started with Matter.js</h2>
-    <a name="chapter1"></a>
-  </div>
-  <div class="blogSubtitle">
-    Dec. 12, 2017
-  </div>
-</div>
-
-<div class="blogText">
-  Matter.js is a super fun physics library with excellent documentation (<a href="http://brm.io/matter-js/docs/">Matter.js</a>) that can be easily added into a project. Simply <span class="codeBit">npm install matter-js</span> and source matter.min.js into your index.
-</div>
-
-<div class="blogText">
-  I've found it easier to get Matter.js up and running when I use it in conjunction with <a href="http://p5js.org">p5.js</a> to draw bodies on the canvas. Matter.js can be broken into two functional components: an engine for calculating all the physics, and a renderer for drawing bodies on the canvas. Instead of using Matter's built-in renderer, we can use p5. (Just run another <span class="codeBit">npm install</span> and source it in).
-</div>
-
-<div class="blogText">
-  The following code will add a falling square and a static circle to the canvas. To start off, we can add a few abbreviations to save some time later on:
-</div>
-
-<pre><code layout layout-align="center center">var Engine = Matter.Engine;
-var World = Matter.World;
-var Bodies = Matter.Bodies;
-</code></pre>
-
-<div class="blogText">
- Then we can add a few bodies ...
-</div>
-
-<pre><code layout layout-align="center center">var box1 = Bodies.rectangle(200, 100, 20, 20);
-var omega = Bodies.circle(500, 500, 100, {isStatic: true});
-</code></pre>
-
-<div class="blogText">
-  The last (optional) argument passed to the shape constructor is an <span class="codeBit">options</span> object. Setting <span class="codeBit">isStatic</span> to 'true' makes the body immobile; if we set <span class="codeBit">isSensor</span> to 'true', the body won't participate in any collisions.
-</div>
-<div class="blogText">
-  But we mustn't forget to <span class="codeBit">add</span> the bodies to our <span class="codeBit">world</span>! p5.js asks for two things: a <span class="codeBit">setup</span> function to tell it how to render the initial page, and a <span class="codeBit">draw</span> function to tell it how to update the canvas as time goes on:
-</div>
-
-<pre><code layout layout-align="center center">function setup() {
-  var canvas = createCanvas(1000,1000);
-  var engine = Engine.create();
-  var world = engine.world;
-  World.add(world, [box1, omega]);
-  Engine.run(engine);
-}
-</code></pre>
-
-<div class="blogText">
-  After we create our engine and our world, and start our engine, we're ready to draw:
-
-</div>
-
-<pre><code layout layout-align="center center">function draw() {
-  background(251);
-  rect(box1.position.x, box1.position.y, 20, 20);
-  ellipse(omega.position.x, omega.position.y, 200);
-}
-</code></pre>
-
-<div class="blogText">
-  We reset the background with every iteration of the <span class="codeBit">draw</span> function in order to clear the previous renderings &mdash; otherwise we end up with space-time worms roaming through our canvas.
-</div>
-
-<div class="blogText">
-  An important thing to note when using p5.js in conjunction with Matter.js is that they keep track of bodies differently. For instance, p5's <span class="codeBit">ellipse</span> function asks for the body's diameter, whereas Matter's <span class="codeBit">circle</span> function asks for the body's radius. Another example of this misalignment is that Matter tracks the position of rectangles by their centers, while p5 (as well as vanilla canvas) tracks them by their upper-left corners.
-</div>
-
-<div class="blogText">
-  At this point, the possibilities proliferate. With <span class="codeBit">Matter.Mouse</span> and <span class="codeBit">Matter.MouseConstraint</span>, you can allow the user to interact with your world's bodies. With <span class="codeBit">Matter.Events</span> you can listen for collisions. With <span class="codeBit">Matter.Constraint</span> you can attach bodies to each other. Matter even lets you alter the world's gravity (with <span class="codeBit">world.gravity.y</span>)!
-</div>
-
-<div class="blogText">
-  And p5 is no slouch. It offers <span class="codeBit">mouseClicked</span> and <span class="codeBit">mouseDragged</span> functions that make it easy to interact with the canvas. If you add an array to your global scope...</div>
-  <pre><code layout layout-align="center center">var balls = [];</code></pre>
-
-
-  <div class="blogText">...and then add a loop into your <span class="codeBit">draw</span> function...:
-</div>
-<pre><code layout layout-align="center center" id="hardCode">{{bc.hardText}}
-</code></pre>
-
-  <div class="blogText">...then finally, you can add a <span class="codeBit">mouseDragged</span> function like so:
-  </div>
-  <pre><code layout layout-align="center center">function mouseDragged() {
-    var randomNum = Math.random()*50;
-    var ball = Bodies.circle(mouseX, mouseY, randomNum);
-    ball.circleRadius = randomNum/2;
-    World.add(world, ball);
-    balls.push(ball);
-}</code></pre>
-  <div class="blogText">
-    The possibilities sprawl before us!
-</div>
-
-<hr>
-
-<div layout="column" layout-align="center center" id="post2">
-  <div >
-    <h2 class="blogTitle">More HTML Canvas: Fun with Conic Sections</h2>
-
-  </div>
-  <div class="blogSubtitle">
-    Dec. 10, 2017
-  </div>
-</div>
-
-    <!-- parabola defn  -->
-<div class="blogText">
-  Now that we're familiar with the basic tools of the canvas, we can illustrate some cool facts about conic sections. For instance, we can spin up a nice visualization of the parabola's defining property. Every parabola has a focus and a directrix, and obeys the rule that every point on the parabola is equidistant from the parabola's focus and its directrix (pictured as a dotted line).
-</div>
-
-<div layout layout-align="center center">
-  <canvas id='ball' height=800 width =800></canvas>
-  &emsp; <md-slider ng-model="bc.x" ng-change="bc.drawBall(bc.x)" min="250" max="750" aria-label="parabDefn"></md-slider>
-</div>
-
-
-    <!-- ellipse defn  -->
-
-<div class="blogText">
-        Similarly, we can dynamically illustrate the defining property of an ellipse: each point on an elliptical path obeys the rule that the sum of its distances from the foci is constant.
-        <!-- One can imagine a string stretched from one focus to the ball to the other focus, retaining its length throughout the ball's path. -->
-</div>
-
-<div class="blogText">
-  We use the parametric equations for an ellipse,
-  <div layout layout-align="center center" class="math">
-    <i>x(t) = acos(t)<br>y(t) = bsin(t)</i>
-  </div>to draw the ball that follows our elliptical path:
-
-<pre><code layout layout-align="center center">ctx.beginPath();
-  var x = 250*a*Math.cos((theta/100));
-  var y = 250*b*Math.sin(theta/100);
-  ctx.arc(x, y, 10, 0, 2*Math.PI);
-  ctx.stroke();
-  ctx.fillStyle = 'yellow';
-  ctx.fill();
-</code></pre>
-
-</div>
-
-<div class="blogText">
-  If we also draw in the ellipse's tangent at each point, we have an illustration of the fact that an ellipse's focal lines (lines from each focus to a point on the ellipse) make equal angles with the ellipse's tangent.
-</div>
-
-
-
-<div layout="row">
-  <div flex="70" layout layout-align="center center">
-    <canvas id="ellipse" width="700" height="700"></canvas>
-  </div>
-  <div layout="column" flex="30">
-    <br><br>
-    <div>
-        Horizontal Stretch:<md-slider min="25" max="200" ng-model="bc.a" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseA"></md-slider>
-    </div>
-    <div>
-        Vertical Stretch: <md-slider min="25" max="200" ng-model="bc.b" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseB"></md-slider>
-    </div>
-    <div>
-        Ball's Position: <md-slider min="0" max="628" ng-model="bc.theta" ng-change="bc.drawEllipse(bc.a/100, bc.b/100, bc.theta)" aria-label="ellipseTheta"></md-slider>
-    </div>
-    <div>
-      <button ng-click="bc.toggleTangent()">Show tangent</button>
-
-    </div>
-  </div>
-</div>
-
-<div class="blogText">
-  Another way of saying it is: were you to send a ball toward an elliptical wall from one of its foci, the ball would bounce off of the wall and end up at the other focus. In the same way, sound waves bounce off the walls of elliptical rooms called "<a href="https://en.wikipedia.org/wiki/Whispering_gallery">whispering rooms</a>", allowing people standing at one focus to hear what is whispered by someone standing at the other focus!
-</div>
-
-    <div class="blogText">
-          Similarly, balls shot out of a parabola's focus will bounce off its wall and shoot straight down, in a path perpendicular to the directrix. Said another way, all light rays passing into a parabolic shape will reflect off the wall and pass through its focus.
-    </div>
-
-
-
-    <div layout layout-align="center center">
-      <canvas id="parabReflection" width="800" height="800"></canvas>
-      &emsp; <md-slider min="250" max="750" ng-model="bc.x4" ng-change="bc.drawBall4(bc.x4)" aria-label="parabReflection"></md-slider>
-    </div>
-
-
-
-
-    <!-- parabola orthogonal -->
-
-<div class="blogText">
-   Finally, we can illustrate the fact that a parabola's orthogonal tangents intersect on the directrix. Moreover, the line connecting two points on the parabola that have orthogonal tangents will always contain the focus! So there are an infinite number of right triangles living between a parabola and its directrix.
-</div>
-
-<div layout layout-align="center center">
-  <canvas id="parabOrth" width="800" height="800"></canvas>
-    &emsp;<md-slider min="250" max="493" ng-model="bc.x3" ng-change="bc.drawBall3(bc.x3)" aria-label="parabolaOrth"></md-slider>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<hr>
-
-
-<div layout="column" layout-align="center center" id="post1">
-  <h2 class="blogTitle">Getting Started with HTML Canvas Animations</h2>
-  <div class="blogSubtitle">Dec. 8, 2017</div>
-</div>
-
-
-
-    <div class="blogText">
-      Being something of a math/physics nerd, I was delighted to discover that with just the HTML canvas element, vanilla JavaScript, and a bit of math, one can easily render pleasing visual illustrations of key mathematical relationships.
-    </div>
-
-    <!-- ball throw -->
-
-    <div class="blogText">
-      For instance, one can illustrate a ball following a parabolic path. To describe the shape of a parabola, you just need a quadratic equation:
-      <div layout layout-align="center center" class="math">
-        <i>f(x) = ax<sup>2</sup> + bx + c</i>
+      <div layout="row" class="brags2" ng-click="bc.goPost(7)">
+        Sizes of Infinite Sets
       </div>
-      As a bonus, since one natural way of writing the code ensures that the x-value changes linearly (at a constant rate), the ball will behave as if it is under the influence of gravity! The variable <span class="codeBit">ctx</span> is what allows us to interact with the canvas:
-    </div>
-
-    <pre><code layout layout-align="center center">    var canvas = document.getElementById('ballCanvas');
-    var ctx = canvas.getContext("2d");
-    vm.x = 0;
-    function ball() {
-        ctx.clearRect(0,0,400,400);
-        var xStandard = (vm.x - 200)/100;
-        var yPix = Math.pow(xStandard, 2)*100;
-        ctx.translate(200, 0);
-        ctx.beginPath();
-        ctx.arc(xStandard*100, yPix, 5, 0, 2*Math.PI);
-        ctx.stroke();
-        ctx.fillStyle = 'purple';
-        ctx.fill();
-        ctx.translate(-200, 0);
-        vm.x += 5;
-      }</code></pre>
-
-      <div class="blogText">
-        This function keeps track of the ball's position. We can call it many times per second, each time clearing the canvas and re-drawing the ball at a slightly different position.
+      <div layout="row" class="brags2" ng-click="bc.goPost(6)">
+        From JavaScript to Python: Basic Syntax
       </div>
-
-      <div class="blogText">
-        Canvas's coordinate system starts at the upper lefthand corner; the value of <i>y</i> increases as you move further down the screen, and <i>x</i>'s value increases as you move right.
+      <div layout="row" class="brags2" ng-click="bc.goPost(5)">
+        Exploring the Golden Ratio
       </div>
-
-      <div class="blogText"> We translate to a new origin to simplify our calculation, moving to the middle of the top of our 400x400 canvas, to (200, 0). <i>(Don't forget to translate back out before re-drawing the ball!)</i>. Then we divide by 100 to standardize our units before squaring the value of the ball's x-coordinate, which gives us the ball's y-coordinate.</div>
-
-      <div class="blogText">
-        Now that we know the ball's position, it's straightforward to draw it: we begin a new path, call canvas's <span class="codeBit">arc()</span> method, draw the ball's outline with <span class="codeBit">stroke()</span>, and color it in with <span class="codeBit">fill()</span>. Finally, we ensure our function is called every 50 milliseconds:
+      <div layout="row" class="brags2" ng-click="bc.goPost(4)">
+        Writing SQL Queries
       </div>
-
-      <pre><code layout layout-align="center center">vm.throwBall = function() {
-        setInterval(ball, 50);
-      };</code></pre>
-
-    <div layout layout-align="center center">
-      <canvas id="parabolaBall" width="400" height="400"></canvas>
-      &emsp;<button ng-click="bc.throwBall()">Throw</button>
-
-    </div>
-
-
-    <!-- parabola  -->
-    <div class="blogText">
-      To draw a parabolic curve onto the canvas requires a bit more thought. Canvas has built-in functions to draw circular and elliptical arcs, but if you want to draw a specific curve, you need to break things down into small intervals (borrowing an idea from calculus) and connect the dots with straight lines. When the intervals are small enough, the concatentation of straight lines will appear curve-like.
-
-    </div>
-
-    <pre><code layout layout-align="center center">function parabola(x, L, a, dir) {
-        for (var i = 0; i < x; i++) {
-          ctx.moveTo(i*L + dir*200, a*Math.pow(i*L/100, 2)*100 + i*L + 100);
-          ctx.lineTo((i+1)*L + dir*200, a*Math.pow((i+1)*L/100, 2)*100 + (i+1)*L + 100);
-          ctx.stroke();
-        }
-      }</code></pre>
-
-      <div class="blogText">
-        In this function, <i>x</i> controls the number of iterations, and <i>L</i> controls the length of the line segment that is drawn during each iteration. We're hard-coding in the values of <i>b</i> and <i>c</i>. The idea is to begin the line (with <span class="codeBit">moveTo()</span>) at one point on the parabola, and end it at a nearby point on the parabola with <span class="codeBit">lineTo()</span>. Remember to draw the line with <span class="codeBit">stroke()</span>!
-
+      <div layout="row" class="brags2" ng-click="bc.goPost(3)">
+        Getting Started with Matter.js
       </div>
-
-        <div class="blogText">We use canvas's built-in linear transformation function to reflect the first half of the parabola over the y-axis:
-
+      <div layout="row" class="brags2" ng-click="bc.goPost(2)">
+        More HTML Canvas: Fun with Conic Sections
       </div>
-
-      <pre><code layout layout-align="center center">ctx.transform(-1, 0, 0, 1, 0, 0);</code></pre>
-
-      <div class="blogText">
-        Don't forget to transform again when you're done drawing the second half &mdash; otherwise all your future commands will assume your canvas is still flipped over. (You can use the same function, since the transformation is symmetric.)
+      <div layout="row" class="brags2" ng-click="bc.goPost(1)">
+        Getting Started with HTML Canvas Animations
       </div>
-
-    <div layout layout-align="center center">
-      <canvas id="parabola" width="400" height="400"></canvas>
-      &emsp;&emsp;<md-slider ng-model="bc.params.p" min="5" max="500" ng-change="bc.parabola2(200,1,1/(bc.params.p*4/100),0,0,1)" aria-label="parab"></md-slider>
-    </div>
-
-    <!-- polygon -->
-    <div layout layout-align="center center" class="blogText">
-      We can apply the same principle to write a function that draws a circle or an ellipse (as well as any regular polygon!). As we increase the number of sides (represented in this function by the argument x), the shape appears more curve-like.
-    </div>
-
-    <pre><code layout layout-align="center center">function circle(a, b, x, r) {
-        ctx.beginPath();
-        for (var i = 0; i < x; i++) {
-          ctx.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
-          ctx.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
-          ctx.stroke();
-        }
-      }</code></pre>
+    <!-- </div> -->
+    <!-- <li>Building Minesweeper</li>
+    <li>Creating a Customizable Chart</li>
+    <li>Binary Counting and the Towers of Hanoi</li>
+    <li>Sizes of Infinite Sets</li>
+    <li>From JavaScript to Python: Basic Syntax</li>
+    <li>Exploring the Golden Ratio</li>
+    <li>Writing SQL Queries</li>
+    <li>Getting Started with Matter.js</li>
+    <li>More HTML Canvas: Fun with Conic Sections</li>
+    <li>Getting Started with HTML Canvas Animations</li> -->
+  <!-- </ul> -->
+</div>
 
 
-    <div layout layout-align="center center">
-      <canvas id="polygon" width="400" height="400"></canvas>
-          &emsp;&emsp;<md-slider ng-model="bc.n" min="2" max="18" ng-change="bc.drawPolygon(bc.n)" aria-label="polygon"></md-slider>
-    </div>
-
-    <div class="blogText">
-      One key thing to note here is the <span class="codeBit">beginPath</span> function. Often you will want to clear your canvas (with a <span class="codeBit">clearRect()</span> method call), and in order to draw on your freshly cleared canvas you will need to begin a new path.
-    </div>
 
 
 
@@ -1137,7 +145,7 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
 
   <div class="prevPosts" layout="column" flex="12">
     <div class="allposts" layout layout-align="center center">All Posts:</div>
-    <ul class="postlist">
+    <!-- <ul class="postlist">
       <li ng-click="bc.goToPost(10)">Building Minesweeper</li>
       <li ng-click="bc.goToPost(9)">Creating a Customizable Chart</li>
       <li ng-click="bc.goToPost(8)">Binary Counting and the Towers of Hanoi</li>
@@ -1148,6 +156,6 @@ var omega = Bodies.circle(500, 500, 100, {isStatic: true});
       <li ng-click="bc.goToPost(3)">Getting Started with Matter.js</li>
       <li ng-click="bc.goToPost(2)">More HTML Canvas: Fun with Conic Sections</li>
       <li ng-click="bc.goToPost(1)">Getting Started with HTML Canvas Animations</li>
-    </ul>
+    </ul> -->
   </div>
 </div>

@@ -19,6 +19,21 @@ app.config(function($routeProvider, $locationProvider) {
     controller: 'PortfolioController as pc'
 
   })
+  .when('/code', {
+    templateUrl: 'views/templates/code.html',
+    controller: 'CodeController as cc'
+
+  })
+  .when('/math', {
+    templateUrl: 'views/templates/math.html',
+    controller: 'MathController as mc'
+
+  })
+  .when('/other', {
+    templateUrl: 'views/templates/other.html',
+    controller: 'OtherController as oc'
+
+  })
   .otherwise({
     redirectTo: 'home'
   });

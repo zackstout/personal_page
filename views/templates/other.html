@@ -1,0 +1,124 @@
+<div layout="row" class="wholeEnchilada">
+  <div layout="column" flex="15" ng-controller="NavController as nc">
+
+
+    <div class="sideNavHolder">
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+      </div>
+
+      <div layout="row" >
+
+<!-- oh how odd, it does need to have "alive" ... -->
+        <div class="sideNav" layout="column">
+          <div class="clickMe alive" ng-click="nc.hit = !nc.hit">Blog</div>
+        </div>
+
+        <div  ng-show="nc.hit" layout="column">
+          <div class="subBlog" ng-click="nc.goCode()" layout="row" flex="33">
+            <span class="subSubBlog">Coding</span>
+          </div>
+          <div class="subBlog" ng-click="nc.goMath()" layout="row" flex="33">
+            <span class="subSubBlog1">Math</span>
+          </div>
+          <div class="subBlog" ng-click="nc.goOther()" layout="row" flex="33">
+            <span class="subSubBlog2">Other</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div  class="sideNav">
+        <div class="clickMe" ng-click="nc.goPort()">Portfolio</div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="blogContent" layout="column" flex="60">
+
+
+
+<!--
+        <hr>
+
+            <div layout="column" layout-align="center center" id="post22">
+              <div >
+                <h2 class="blogTitle">Greek Tragedy: On Becoming Oneself</h2>
+              </div>
+              <div class="blogSubtitle">
+                Jan. 10, 2018
+              </div>
+            </div>
+
+        <div class="blogText">
+          Greek tragedy is like pop culture: both are living documents, both are always relevant. The difference is that 'pop culture' is alive and relevant because it's indexed to time &mdash; we feel entitled to ask, "The 'pop' of <i>when</i>?". Greek tragedy, on the other hand, breathes because of its depth of concern, its intensity of feeling. We feel unsure how to classify a Greek tragedy because its web is so far-reaching.
+        </div>
+
+        <div class="blogText">
+          Each tragedy has many themes, employs various characters, develops its own plot. But I see two main barriers to accessing the meaning of a tragedy. The first is the temptation to zoom too far out &mdash; e.g. trying to understand all of an author's works under a single umbrella. The other danger is zooming in too close, severing a tragedy from its context.
+        </div>
+
+        <div class="blogText">
+          It's probably better to get into an example. A few of my favorite tragedies are the <i>Bacchae</i> and <i>Oedipus Rex</i>. I hope that without brkaceting these guys, or while bracketing these guys, i'll be able to draw connections betwen them  All this being said, I think it's reasonable to seek some kind of meaning &mdash; even if we don't expect it to be objective, stable, certain &mdash; in that middle area between super-particularity and over-abstraction.
+        </div>
+
+        <div class="blogText">
+          It's probably better to just dive into an example of what I mean. Two of my favorite tragedies are Euripides' <i>Bacchae</i> and Sophocles' <i>Oedipus Rex</i>.
+        </div> -->
+
+
+<hr>
+
+    <div layout="column" layout-align="center center" id="post21">
+      <div >
+        <h2 class="blogTitle">Self-Conception as Carapace</h2>
+      </div>
+      <div class="blogSubtitle">
+        Jan. 8, 2018
+      </div>
+    </div>
+
+    <div class="blogText">
+      The distinction we sometimes naturally draw between behavior and identity &mdash; what one does and who one is &mdash; has always struck me as at best porous,  and at worst fraught.
+    </div>
+
+    <div class="blogText">
+      Of course the distinction can be useful. For example, say John is accused of a sexist action. It's easier to accept this, psychologically, than to try to defend oneself against the charge of being a sexist.
+    </div>
+
+    <div class="blogText">
+      But I'm more interested in the ways in which this distinction can become dangerous, and perhaps be dissolved. It's easy to fall into thinking of an identity &mdash; a conception of onself (as e.g. artist, programmer, friend), or an affiliation with a group (family, nation, religion) &mdash; as a program for generating appropriate behavior. "I am a violinist, so I should play the violin; indeed, I must play in order to maintain my identity."
+    </div>
+
+    <div class="blogText">
+      In the film <i>Brink</i>, the main character is counseled by his father: "Skating isn't who you are; skating is what you do." This is all well and good, and it likely planted the seeds for my thoughts early in life. But for the majority of my life, being a student wasn't something I did: it was who I was.
+    </div>
+
+    <div class="blogText">
+      So I can attest to the ways in which an identity, a certain self-conception, can become like a carapace. Like an insect's exoskeletal shell, an identity ("I am a student") can provide structure and guidance to one's behavior. It can also provide protection against possible assailants of one's motivation.
+    </div>
+
+    <div class="blogText">
+      But it can also become brittle, inhibiting one's growth and generating unhealthy expectations. Focusing on only one aspect of your identity can delude you; suddenly your worth seems to depend on that aspect alone. Suddenly only behaviors associated with that conception of yourself come naturally to you. Suddenly you are not sure who you are beyond being someone who plays that role.
+    </div>
+
+    <div class="blogText">
+      I grant this may seem melodramatic. Still, I think the core idea stands. Be yourself, and even be "yourself" &mdash; you as you conceive yourself to be &mdash; but don't be a prisoner to "yourself." Be yourself.
+    </div>
+
+  </div>
+
+  <div class="prevPosts" layout="column" flex="12">
+    <div class="allposts" layout layout-align="center center">All Posts:</div>
+    <ul class="postlist">
+
+      <!-- <li ng-click="oc.goToPost(22)">Descartes' Demon</li> -->
+      <!-- <li ng-click="oc.goToPost(22)">Greek Tragedy: On Becoming Oneself</li> -->
+      <li ng-click="oc.goToPost(21)">Self-Conception as Carapace</li>
+
+    </ul>
+  </div>
+</div>
