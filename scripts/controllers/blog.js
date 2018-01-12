@@ -2,26 +2,47 @@
 
 app.controller('BlogController', function($location, $scope, $anchorScroll, $compile) {
   console.log('BlogController created');
+
 //
   vm = this;
 //   vm.params = { p: 0.25 };
 //
 //   vm.m = 4;
 
-vm.n = 0;
+// vm.n = 0;
 //
-  vm.goPost = function(n) {
-    // console.log('hithere');
-    vm.n = n;
-    $location.path('/code');
-    setTimeout(scroll, 1000);
 
+vm.hit = true;
+  vm.goPost = function(n) {
+    console.log('hithere');
+    // vm.n = n;
+    // $location.path('/code');
+    // setTimeout(scroll, 1000);
+    // BlogService.origin = n;
   };
 
   function scroll(n) {
     console.log('scrollin');
     $anchorScroll('post' + n);
   }
+
+
+  vm.goCode = function() {
+    $location.path('/code');
+    vm.hit = false;
+  };
+
+  vm.goMath = function() {
+    $location.path('/math');
+    vm.hit = false;
+  };
+
+  vm.goOther = function() {
+    $location.path('/other');
+    vm.hit = false;
+  };
+
+
 //
 //
   //

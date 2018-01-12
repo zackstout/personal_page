@@ -15,17 +15,19 @@
           <div class="clickMe alive" ng-click="nc.showSub()">Blog</div>
         </div>
 
-        <div  ng-show="nc.hit" layout="column">
-          <div class="subBlog" ng-click="nc.goCode()" layout="row" flex="33">
+      <!-- <div ng-controller="BlogController as bc"> -->
+        <div ng-controller="BlogController as bc" ng-show="bc.hit" layout="column">
+          <div class="subBlog" ng-click="bc.goCode()" layout="row" flex="33">
             <span class="subSubBlog">Coding</span>
           </div>
-          <div class="subBlog" ng-click="nc.goMath()" layout="row" flex="33">
+          <div class="subBlog" ng-click="bc.goMath()" layout="row" flex="33">
             <span class="subSubBlog1">Math</span>
           </div>
-          <div class="subBlog" ng-click="nc.goOther()" layout="row" flex="33">
+          <div class="subBlog" ng-click="bc.goOther()" layout="row" flex="33">
             <span class="subSubBlog2">Other</span>
           </div>
         </div>
+      <!-- </div> -->
 
       </div>
 
