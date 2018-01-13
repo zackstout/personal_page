@@ -61,7 +61,7 @@
     </div>
 
     <div class="blogText">
-      Let's build Snake in JavaScript! (I know, I should have written it in Python...)
+      Let's build Snake using JavaScript! (I know, I should have written it in Python...)
     </div>
 
     <div class="blogText">
@@ -69,7 +69,7 @@
     </div>
 
     <div class="blogText">
-      Next we'll need a snake. We can start by drawing a 4-length snake emerging from of the top of the playing field:
+      Next we'll need a snake. We can start by drawing a 4-length snake emerging from the top of the playing field:
     </div>
 
 
@@ -87,21 +87,23 @@
       });</code></pre>
 
     <div class="blogText">
-      How do we move our snake? The key insight is that to move forward one step, you cut off the snake's current tail and move it to the position of the new head (which depends on which direction the snake is moving). So in a function called <span class="codeBit">changeSnake()</span>, we change the tail back to blue, remove it from the <span class="codeBit">snake</span> array, and then <span class="codeBit">push</span> the new head onto it:
+      How do we move our snake? The key insight is that to move forward one step, you cut off the snake's current tail and move it to the position of the new head (which depends on which direction the snake is moving). So in a function called <span class="codeBit">changeSnake()</span>, we change the tail back to blue, remove it from the <span class="codeBit">snake</span> array, and then <span class="codeBit">push</span> the new head onto that array:
     </div>
 
     <pre><code layout layout-align="center center">        var name1 = 'col' + tail.c + 'row' + tail.r;
         document.getElementById(name1).className = 'snakeCell';
+
         tail = snake.shift();
+        head = snake[snake.length - 1];
         snake.push(newHead);</code></pre>
 
     <div class="blogText">
-      If for example the snake is moving downward, we would set the <span class="codeBit">newHead</span> with</div>
+      For example, if the snake were moving downward we would set the <span class="codeBit">newHead</span> with</div>
 
       <pre><code layout layout-align="center center">newHead = {
-      r: head.r + 1,
-      c: head.c
-          };</code></pre>
+    r: head.r + 1,
+    c: head.c
+        };</code></pre>
 
             <div class="blogText">
       To keep track of the user's input for the snake's direction, we use a <span class="codeBit">switch</span> statement to check whether the user has most recently pressed the <i>a</i>, <i>s</i>, <i>d</i> or <i>w</i> key:
@@ -114,8 +116,6 @@
             break;
             . . .
         })</code></pre>
-
-
 
     <div class="blogText">
       Finally, we add apples and lengthen our snake when it's fed. The code for this is fairly simple if you've followed along so far.
@@ -132,7 +132,7 @@
 
 
     <div class="blogText">
-      Woohoo! We've got Snake! (Remember, use the <i>a</i>, <i>s</i>, <i>w</i> and <i>d</i> keys to navigate.) There are a few bugs &mdash; the snake can cross itself, and apples can spawn inside of it &mdash; but our game works mostly as intended. (In fact, it would be a fun challenge to calculate the expected number of apples we could eat before spawning one inside the snake.)
+      Woohoo! We've got Snake! There are a few bugs &mdash; the snake can cross itself, and apples can spawn inside of it &mdash; but our game works mostly as intended. In fact, it would be a fun challenge to calculate the expected number of apples we could eat before spawning one inside the snake. (Remember, use the <i>a</i>, <i>s</i>, <i>w</i> and <i>d</i> keys to navigate.) 
     </div>
 
     <br>
