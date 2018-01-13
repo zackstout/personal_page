@@ -320,7 +320,8 @@ app.controller('CodeController', function($location, $scope, $anchorScroll, $com
 
 
 
-  vm.html11 = '<select ng-model="uc.chartView" ng-change="uc.changeChartView()">';
+  vm.html111 = '<select ng-model="uc.chartView"';
+  vm.html112 = 'ng-change="uc.changeChartView()">';
   vm.html12 = '<option value="projects">Project</option>';
   vm.html13 = '<option value="months">Month</option>';
   vm.html14 = '<option value="types">Type</option>';

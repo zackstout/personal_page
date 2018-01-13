@@ -132,7 +132,7 @@
 
 
     <div class="blogText">
-      Woohoo! We've got Snake! There are a few bugs &mdash; the snake can cross itself, and apples can spawn inside of it &mdash; but our game works mostly as intended. In fact, it would be a fun challenge to calculate the expected number of apples we could eat before spawning one inside the snake. (Remember, use the <i>a</i>, <i>s</i>, <i>w</i> and <i>d</i> keys to navigate.) 
+      Woohoo! We've got Snake! There are a few bugs &mdash; the snake can cross itself, and apples can spawn inside of it &mdash; but our game works mostly as intended. In fact, it would be a fun challenge to calculate the expected number of apples we could eat before spawning one inside the snake. (Remember, use the <i>a</i>, <i>s</i>, <i>w</i> and <i>d</i> keys to navigate.)
     </div>
 
     <br>
@@ -162,15 +162,16 @@
     <ol class="blogText">
       <li class="blogText">To build our grid (of size n x n), we can use an HTML <span class="codeBit">table</span>. Using a loop within a loop, we can add data cells (containing buttons) to each row, and then <span class="codeBit">append</span> the row to our table.</li>
 
-      <pre><code layout layout-align="center center">function drawGridMines(n) {
+      <pre><code layout layout-align="center center">     function drawGridMines(n) {
         var table = angular.element(
           document.getElementById('mineSweep'));
         var mineRow = [];
         var mineRowVals = [];
         for (var k=0; k < n; k++) {
           for (var i=0; i < n; i++) {
-            mineRow.push('&lt;td&gt;&lt;button class="mineButton row' +
-              k + 'col' + i + '"ng-click="cc.checkBoxMine($event)">
+            mineRow.push('&lt;td&gt;&lt;button class=
+            "mineButton row' + k + 'col' + i +
+            '"ng-click="cc.checkBoxMine($event)">
               &lt;/button>&lt;/td>');
             mineRowVals.push('0');
           }
@@ -180,7 +181,7 @@
 
         valuesOnGrid.push(mineRowVals);
         mineRowVals = [];
-      }</code></pre>
+    }</code></pre>
 
       <div class="blogText">We give each button an <span class="codeBit">id</span>, e.g. <span class="codeBit">row1col3</span>, so that it knows its row/column position. Note that we must wrap our element with <span class="codeBit">angular.element()</span> in order to <span class="codeBit">append</span> to it. Further, we need to <span class="codeBit">$compile</span> our HTML before appending it.</div>
 
@@ -188,16 +189,16 @@
 
       <li class="blogText">Next we need to generate our bombs &mdash; the trick here is to ensure that we put each bomb in a unique cell. Then we update our <span class="codeBit">valuesOnGrid</span> array to reflect the positions of the bombs:</li>
 
-      <pre><code layout layout-align="center center">for (var j=0; j < mines.length; j++) {
+      <pre><code layout layout-align="center center">       for (var j=0; j < mines.length; j++) {
             var mine = mines[j];
             valuesOnGrid[mine.row][mine.col] = 'b';
-          }</code></pre>
+        }</code></pre>
 
       <li class="blogText">We need to get the count of adjacent bombs for each cell. We can write a function, <span class="codeBit">getNeighbors(r, c)</span>, to find all of a cell's neighbors (taking into account that it may lie on the table's edge). I will spare you my rather clumsy code.</li>
 
       <li class="blogText">Then we can feed the array of neighbors into a <span class="codeBit">checkForBombs</span> function that updates our <span class="codeBit">valuesOnGrid</span> array with numeric values:</li>
 
-      <pre><code layout layout-align="center center">function checkForBombs(r, c) {
+      <pre><code layout layout-align="center center">     function checkForBombs(r, c) {
         var neighbors = getNeighbors(r, c);
         var v = valuesOnGrid[r][c];
 
@@ -231,7 +232,7 @@
         <li class="blogText">If any of the opened neighbors contains a 0, repeat the above.</li>
       </ul>
 
-      <pre><code layout layout-align="center center">function checkForZeros(r, c) {
+      <pre><code layout layout-align="center center">       function checkForZeros(r, c) {
           var neighbors = getNeighbors(r, c, 5);
           neighbors.forEach(function(n) {
             var pos = String(n.row) + String(n.col);
@@ -241,7 +242,7 @@
                 checkForZeros(n.row, n.col);
               }
             });
-          }</code></pre>
+        }</code></pre>
 
       <li class="blogText">Finally, we'll want to add in right-click functionality for flagging spaces suspected to contain bombs. When the user opens up every square that doesn't contain a bomb, they win!</li>
     </ol>
@@ -287,11 +288,12 @@
     </div>
 
     <code layout layout-align="center center">&lt;!--Choose a View:-->
-      <br><br>{{cc.html11}}
-      <br>&emsp;{{cc.html12}}
-      <br>&emsp;{{cc.html13}}
-      <br>&emsp;{{cc.html14}}
-      <br>&emsp;{{cc.html15}}
+      <br><br>{{cc.html111}}
+      <br>&emsp;&emsp;&emsp;&emsp;&emsp;{{cc.html112}}
+      <br>&emsp;&emsp;&emsp;{{cc.html12}}
+      <br>&emsp;&emsp;&emsp;{{cc.html13}}
+      <br>&emsp;&emsp;&emsp;{{cc.html14}}
+      <br>&emsp;&emsp;&emsp;{{cc.html15}}
       <br>{{cc.html16}}
 
     </code>
@@ -414,14 +416,14 @@
 
     <div layout="row" layout-align="center center">
       <div layout="col">
-        <pre><code layout layout-align="top center">//JavaScript:
+        <pre><code layout layout-align="top center">      //JavaScript:
         function sayHello() {
           console.log("Hello world!");
         }
         sayHello()</code></pre>
       </div>
       <div layout="col">
-        <pre><code layout layout-align="top center">#Python:
+        <pre><code layout layout-align="top center">      #Python:
         def sayHello():
           print "Hello world!"
         sayHello()</code></pre>
@@ -435,12 +437,12 @@
 
     <div layout="row" layout-align="center center">
       <div layout="col">
-        <pre><code layout layout-align="top center">//JavaScript:
+        <pre><code layout layout-align="top center">        //JavaScript:
           var x = 'phoenix';
           console.log('This bird is a ', x);</code></pre>
       </div>
       <div layout="col">
-        <pre><code layout layout-align="top center">#Python:
+        <pre><code layout layout-align="top center">        #Python:
           x = 'phoenix'
           print 'This bird is a %s' % (x)</code></pre>
       </div>
@@ -453,7 +455,7 @@
 
     <div layout="row" layout-align="center center">
       <div layout="col">
-        <pre><code layout layout-align="top center">//JavaScript:
+        <pre><code layout layout-align="top center">        //JavaScript:
           var myArray = [1, 'apple'];
           for (var i=0; i < myArray.length;
             i++) {
@@ -461,7 +463,7 @@
             }</code></pre>
       </div>
       <div layout="col">
-        <pre><code layout layout-align="top center">#Python:
+        <pre><code layout layout-align="top center">      #Python:
         myString = 'capybara'
         myList = [1, 'apple', 7.2]
         myDictionary = {
@@ -483,8 +485,7 @@
     </div>
 
     <pre><code  layout layout-align="center center">for i in range(len(myList)):
-      print myList[i]
-    </code></pre>
+      print myList[i]</code></pre>
 
     <div class="blogText">
       Alternatively, we could write <span class="codeBit">enumerate(myList)</span> if we wanted to attach an index to each item in our list (we could even pass it a second argument to tell it which index to start counting at!).
@@ -495,17 +496,15 @@
     </div>
 
     <pre><code layout layout-align="center center">myArray = [i for i in range(20, 80) if i % 3 == 0]
-    print myArray
-    </code></pre>
+    print myArray</code></pre>
 
     <div class="blogText">
       One of my favorite things about Python is its readability. Instead of having to know, for example, that JavaScript arrays have a method called <span class="codeBit">.includes()</span> that checks whether an array contains a certain element, we can just write
     </div>
 
 
-    <pre><code layout layout-align="center center">if user_guess not in correct_guesses:
-        print "Guess again!"
-    </code></pre>
+    <pre><code layout layout-align="center center">     if user_guess not in correct_guesses:
+        print "Guess again!"</code></pre>
 
     <div class="blogText">
       Suppose we wanted to filter an array, purging it of all elements that fail to meet a certain condition. We can pass an anonymous function (written on the fly) to the array's <span>filter</span> method. Python lets us abbreviate this process with a <i>lambda</i> operator; similarly, ES6 offers arrow functions. Let's filter out all trees that don't begin with 'c':
@@ -513,19 +512,19 @@
 
     <div layout="row" layout-align="center center">
       <div layout="col">
-        <pre><code layout layout-align="top center">//JavaScript:
+        <pre><code layout layout-align="top center">      //JavaScript:
           var trees = ['conifer', 'birch',
             'cedar'];
           var c_trees = trees.filter(
             function(tree, trees) {
               return tree.charAt(0) == 'c';
             });
-    //Or, with an arrow function:
+      //Or, with an arrow function:
           var c_trees = trees.filter(() =>
             {return tree.charAt(0) == 'c'});</code></pre>
       </div>
       <div layout="col">
-        <pre><code layout layout-align="top center">#Python:
+        <pre><code layout layout-align="top center">      #Python:
         trees = ['conifer', 'birch', 'cedar']
         c_trees = filter(
           lambda tree: tree[0] == 'c', trees)</code></pre>
@@ -538,7 +537,7 @@
 
     <div layout="row" layout-align="center center">
       <div layout="col">
-        <pre><code layout layout-align="top center">//JavaScript:
+        <pre><code layout layout-align="top center">        //JavaScript:
           class Dog {
             constructor(breed, color) {
               this.breed = breed;
@@ -552,14 +551,15 @@
           tiny.bark();</code></pre>
       </div>
       <div layout="col">
-        <pre><code layout layout-align="top center">#Python:
+        <pre><code layout layout-align="top center">      #Python:
         class Dog(object):
           def __init__(self, breed, color):
             self.breed = breed
             self.color = color
           def bark(self):
             print "Woof!"
-        tiny = Dog("pug", "tan")</code></pre>
+        tiny = Dog("pug", "tan")
+        tiny.bark()</code></pre>
       </div>
     </div>
 
@@ -569,13 +569,13 @@
 
     <div layout="row" layout-align="center center">
       <div layout="col">
-        <pre><code layout layout-align="top center">//JavaScript:
+        <pre><code layout layout-align="top center">        //JavaScript:
           class Pug extends Dog {
             ...
           }</code></pre>
       </div>
       <div layout="col">
-        <pre><code layout layout-align="top center">#Python:
+        <pre><code layout layout-align="top center">        #Python:
           class Pug(Dog):
             ...</code></pre>
       </div>
