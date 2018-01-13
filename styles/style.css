@@ -285,6 +285,11 @@ hr {
   margin-right: 30px;
 }
 
+.poem {
+  font-family: Baskerville;
+  font-size: 18px;
+}
+
 .brags, .brags2 {
   margin-top: 10px;
   border: none;

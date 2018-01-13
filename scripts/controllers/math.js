@@ -15,63 +15,90 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
 
         var phi = 1.61803;
 
-        // var canvas0 = document.getElementById('sierptriangle');
-        // var ctx0 = canvas0.getContext('2d');
+
+
+
+        var canvas0 = document.getElementById('sierptriangle');
+        var ctx0 = canvas0.getContext('2d');
 
         var vertices = [];
 
         function drawSierpTriangle(s) {
-          // ctx0.beginPath();
-          // ctx0.arc(250, 50, 10, 0, 2*Math.PI);
-          // ctx0.stroke();
-          // vertices.push({x: 250, y:50});
-          //
-          // ctx0.beginPath();
-          // ctx0.arc(250 + s, 50 + s*Math.pow(3, 0.5), 10, 0, 2*Math.PI);
-          // ctx0.stroke();
-          // vertices.push({x: 250 + s, y:50 + s*Math.pow(3, 0.5)});
-          //
-          // ctx0.beginPath();
-          // ctx0.arc(250 - s, 50 + s*Math.pow(3, 0.5), 10, 0, 2*Math.PI);
-          // ctx0.stroke();
-          // vertices.push({x: 250 - s, y:50 + s*Math.pow(3, 0.5)});
+          //triangle:
+          ctx0.beginPath();
+          ctx0.arc(250, 50, 10, 0, 2*Math.PI);
+          ctx0.stroke();
+          vertices.push({x: 250, y:50});
+
+          ctx0.beginPath();
+          ctx0.arc(250 + s, 50 + s*Math.pow(3, 0.5), 10, 0, 2*Math.PI);
+          ctx0.stroke();
+          vertices.push({x: 250 + s, y:50 + s*Math.pow(3, 0.5)});
+
+          ctx0.beginPath();
+          ctx0.arc(250 - s, 50 + s*Math.pow(3, 0.5), 10, 0, 2*Math.PI);
+          ctx0.stroke();
+          vertices.push({x: 250 - s, y:50 + s*Math.pow(3, 0.5)});
 
 
 
           // Pentagon:
-          ctx0.beginPath();
-          ctx0.arc(50, 200, 10, 0, 2*Math.PI);
-          ctx0.stroke();
-          vertices.push({x: 50, y:200});
-
-          ctx0.beginPath();
-          ctx0.arc(450, 200, 10, 0, 2*Math.PI);
-          ctx0.stroke();
-          vertices.push({x: 450, y:200});
-
-          ctx0.beginPath();
-          ctx0.arc(100, 420, 10, 0, 2*Math.PI);
-          ctx0.stroke();
-          vertices.push({x: 100, y:420});
-
-          ctx0.beginPath();
-          ctx0.arc(400, 420, 10, 0, 2*Math.PI);
-          ctx0.stroke();
-          vertices.push({x: 400, y:420});
+          // ctx0.beginPath();
+          // ctx0.arc(50, 200, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 50, y:200});
+          //
+          // ctx0.beginPath();
+          // ctx0.arc(450, 200, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 450, y:200});
+          //
+          // ctx0.beginPath();
+          // ctx0.arc(100, 420, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 100, y:420});
+          //
+          // ctx0.beginPath();
+          // ctx0.arc(400, 420, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 400, y:420});
 
           // ctx0.beginPath();
           // ctx0.arc(250, 50, 10, 0, 2*Math.PI);
           // ctx0.stroke();
           // vertices.push({x: 250, y:50});
+
+
+
+          //irregular quad:
+          // ctx0.beginPath();
+          // ctx0.arc(50, 100, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 50, y:100});
+          //
+          // ctx0.beginPath();
+          // ctx0.arc(450, 200, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 450, y:200});
+          //
+          // ctx0.beginPath();
+          // ctx0.arc(100, 420, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 100, y:420});
+          //
+          // ctx0.beginPath();
+          // ctx0.arc(400, 420, 10, 0, 2*Math.PI);
+          // ctx0.stroke();
+          // vertices.push({x: 400, y:420});
         }
 
-        // drawSierpTriangle(200);
+        drawSierpTriangle(200);
 
-        // ctx0.beginPath();
-        // ctx0.arc(325, 270, 0.25, 0, 2*Math.PI);
-        // // ctx0.stroke();
-        // ctx0.fillStyle = 'black';
-        // ctx0.fill();
+        ctx0.beginPath();
+        ctx0.arc(325, 270, 0.15, 0, 2*Math.PI);
+        // ctx0.stroke();
+        ctx0.fillStyle = 'black';
+        ctx0.fill();
         var start = {x: 325, y: 270};
 
         function drawRandomPoint2() {
@@ -83,7 +110,7 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
 
           var newPoint = {x: minX + (maxX - minX)/2, y: minY + (maxY - minY)/2};
           ctx0.beginPath();
-          ctx0.arc(newPoint.x, newPoint.y, 0.25, 0, 2*Math.PI);
+          ctx0.arc(newPoint.x, newPoint.y, 0.15, 0, 2*Math.PI);
           // ctx0.stroke();
           if (maxX === start.x && maxY === start.y) {
             ctx0.fillStyle = 'green';
@@ -104,8 +131,12 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
           start.y = newPoint.y;
         }
 
+        var fractalInt;
         vm.startSierp = function() {
-          setInterval(drawRandomPoint2, 0.01);
+          fractalInt = setInterval(drawRandomPoint2, 0.01);
+        };
+        vm.stopSierp = function() {
+          clearInterval(fractalInt);
         };
 
 
@@ -166,6 +197,7 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
                               // tail = {r: 1, c: 1};
                               // direction = 'd';
                               // return;
+
 
 
 
@@ -296,17 +328,16 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
             };
 
             // snakeGrid(15);
-
-
+            //
             // var apple = {r: 10, c: 1};
             // var appleCell = 'col' + apple.c + 'row' + apple.r;
             // document.getElementById(appleCell).className = 'apple';
-
+            //
             // changeSnake();
 
             var snakeInt;
             vm.startSnake = function() {
-              snakeInt = setInterval(changeSnake, 260);
+              snakeInt = setInterval(changeSnake, 200);
             };
 
 
