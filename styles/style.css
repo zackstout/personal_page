@@ -290,6 +290,15 @@ hr {
   font-size: 18px;
 }
 
+.linkage {
+  text-decoration: underline;
+  color: purple;
+}
+
+.linkage:hover {
+  cursor: pointer;
+}
+
 .brags, .brags2 {
   margin-top: 10px;
   border: none;
