@@ -200,7 +200,7 @@ app.controller('CodeController', function($location, $scope, $anchorScroll, $com
 
   vm.n = 3;
 
-  vm.hardText = 'for (var i=0; i<balls.length; i++){\n var ball = balls[i]; \n ellipse(ball.position.x, ball.position.y, ball.circleRadius);\n}';
+  vm.hardText = 'for (var i=0; i<balls.length; i++){\n var ball = balls[i]; \n ellipse(ball.position.x, ball.position.y,\n\t ball.circleRadius);\n}';
 
 
 
