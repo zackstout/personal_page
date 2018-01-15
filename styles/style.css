@@ -53,6 +53,7 @@
 
 .tag:hover {
   background-color: gold;
+  cursor: pointer;
 }
 
 .tagM {
