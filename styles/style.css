@@ -43,6 +43,32 @@
   padding-bottom: 120px;
 }
 
+
+.tag {
+  border-radius: 6px;
+  font-family: Impact;
+  font-size: 17px;
+  padding: 0px 6px 0px 6px;
+}
+
+.tag:hover {
+  background-color: gold;
+}
+
+.tagM {
+  background-color: red;
+}
+
+.tagC {
+  background-color: blue;
+}
+
+.tagO {
+  background-color: green;
+}
+
+
+
 #pendulum {
   margin-top: 40px;
   margin-left: 15px;
