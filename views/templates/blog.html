@@ -59,15 +59,15 @@
 
 
 <!-- haha yeah, we really should have done it with rows first, columns second.... (to style rows together, i.e. put both in same anchor tag); -->
-  <div layout="row" layout-align="center center" class="blogText">
+  <div class="PortHeader">
     BLOG POSTS:
   </div>
-  <div layout="row" layout-align="center center" class="blogText">
+  <div layout="row" class="blogText dates">
     <div layout="column" id="datesList" >
       <!-- <div layout="row" class="brags">1/17/18</div>
       <div layout="row" class="brags">1/16/18</div>
-      <div layout="row" class="brags">1/15/18</div>
        -->
+       <div layout="row" class="brags">1/15/18</div>
        <div layout="row" class="brags">1/14/18</div>
       <div layout="row" class="brags">1/13/18</div>
       <div layout="row" class="brags">1/12/18</div>
@@ -85,16 +85,16 @@
 
     </div>
     <div layout="column" layout-align="center center" >
-      <!-- <div layout="row" class="brags2" ng-click="bc.goPost(14)">
-        Rilke's <i>Archaic Torso of Apollo</i>
-      </div>
+      <!--
       <div layout="row" class="brags2" ng-click="bc.goPost(14)">
         What Does Cartesian Skepticism Really Mean?
       </div>
 
 
     -->
-
+    <div layout="row" class="brags2" ng-click="bc.goPost(15)">
+      Rilke's&ensp;<i>Archaic Torso of Apollo</i>
+    </div>
     <div layout="row" class="brags2" ng-click="bc.goPost(12)">
       Greek Tragedy: On Becoming Oneself
     </div>
@@ -160,7 +160,7 @@
   </div>
 
   <div class="prevPosts" layout="column" flex="12">
-    <div class="allposts" layout layout-align="center center">All Posts:</div>
+    <div class="allposts" layout layout-align="center center">Other Posts:</div>
     <!-- <ul class="postlist">
       <li ng-click="bc.goToPost(10)">Building Minesweeper</li>
       <li ng-click="bc.goToPost(9)">Creating a Customizable Chart</li>

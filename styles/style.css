@@ -35,8 +35,12 @@
   line-height: 130%;
 }
 
+.dates {
+  padding-left: 12.5%;
+}
+
 #aboutContainer {
-  padding-bottom: 300px;
+  padding-bottom: 120px;
 }
 
 #pendulum {
@@ -338,6 +342,7 @@ outline: none;
 
 .blogContent {
   margin: 40px;
+  max-width: 60%;
 }
 
 
@@ -420,16 +425,31 @@ canvas {
   margin-bottom: 20px;
 }
 
+.skills {
+  width: 25%;
+  font-family: Baskerville;
+  font-size: 18px;
+}
+
+.skills li {
+  margin-bottom: 18px;
+
+}
+
+.skillTitle {
+  text-decoration: underline;
+}
+
 code {
   font-size: 16px;
   margin-left: 40px;
   background-color: lightGray;
   line-height: 135%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 10px;
 }
 
 .blogText {
