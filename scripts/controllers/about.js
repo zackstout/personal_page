@@ -1,10 +1,19 @@
 
-app.controller('AboutController', function($location) {
+app.controller('AboutController', function($location, $http) {
   console.log('AboutController created');
 
   var canvas = document.getElementById('pendulum');
   console.log(canvas);
   var ctx = canvas.getContext('2d');
+
+
+  // https://api.nasa.gov/planetary/apod?api_key=jL5f4l8TRYT0OiXWW1Rl3Tu0vNueaXtTWgwKxEsZ
+
+
+
+
+
+
 
   ctx.moveTo(100, 0);
   ctx.lineTo(100, 150);

@@ -6,7 +6,7 @@
 
 .wholeEnchilada {
   /*background-color: #f0f8ff;*/
-  background-color: lightblue;
+  background-color:#e6f7ff;
 }
 
 .sideNav {
@@ -32,7 +32,7 @@
   margin-left: 50px;
   font-family: Baskerville;
   font-size: 19px;
-  line-height: 130%;
+  /*line-height: 380%;*/
 }
 
 .dates {
@@ -47,8 +47,9 @@
 .tag {
   border-radius: 6px;
   font-family: Impact;
-  font-size: 17px;
-  padding: 0px 6px 0px 6px;
+  font-size: 15.5px;
+  padding: 0px 9px 0px 9px;
+  opacity: 0.73;
 }
 
 .tag:hover {
@@ -319,6 +320,7 @@ hr {
 .poem {
   font-family: Baskerville;
   font-size: 18px;
+  /*line-height: 130%;*/
 }
 
 .linkage {
