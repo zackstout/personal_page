@@ -26,11 +26,13 @@
 
 .skillTxt {
   margin-top: 15px;
+  padding: 6px;
   /*margin-bottom: 25px;*/
   font-family: Impact;
   color: gold;
-  font-size: 16.5px;
+  font-size: 15.5px;
   background-color: darkblue;
+  border-radius: 8px;
 }
 
 .skillIcon {
@@ -46,12 +48,15 @@
   height: 100px;
   width: 100px;
   border-radius: 6px;
-  margin-bottom: 10px;
-  margin-top: 15px;
+  margin-bottom: 20px;
+  margin-top: 23px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
+
 .skillIconCont:hover {
-  background-color: lightblue;
+  /*background-color: lightblue;*/
 
 }
 
@@ -181,8 +186,8 @@ hr {
 
 .myPic {
   height: auto;
-  width: 250px;
-  border-radius: 120px;
+  width: 420px;
+  border-radius: 150px;
   float: right;
 }
 
@@ -503,7 +508,11 @@ canvas {
 }
 
 .skillTitle {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
+  font-family: Impact;
+  font-size: 21px;
+  color: darkblue;
+  text-transform: uppercase;
 }
 
 code {
