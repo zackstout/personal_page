@@ -13,8 +13,61 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
 
 
 
-        var canvasMan = document.getElementById('mandelbrot');
-        var ctxMan = canvasMan.getContext('2d');
+
+
+
+        //CARDIOID ANIMATION:
+
+          var cardCan = document.getElementById('cardioid');
+          var cardCtx = cardCan.getContext('2d');
+
+          //x is how far you iterate, r is radius, f controls number of flower petals or nodes:
+          function circleCard(a, b, x, r, f) {
+            cardCtx.beginPath();
+            for (var i = 0; i < x; i++) {
+              cardCtx.translate(300, 300);
+              var start = {xCoord: r*a*Math.cos(i*2*Math.PI/x), yCoord: r*b*Math.sin(i*2*Math.PI/x)};
+              var doubleStart = (f * i) % x;
+              var end = {xCoord: r*a*Math.cos(doubleStart*2*Math.PI/x), yCoord: r*b*Math.sin(doubleStart*2*Math.PI/x)};
+              cardCtx.moveTo(start.xCoord, start.yCoord);
+              cardCtx.lineTo(end.xCoord, end.yCoord);
+              cardCtx.strokeStyle = 'darkblue';
+              cardCtx.stroke();
+              cardCtx.translate(-300, -300);
+            }
+          }
+
+
+          // circleCard(1, 1, 200, 200, 2);
+
+          var cardioidPosition = 1;
+
+          function drawCardioid() {
+            cardCtx.clearRect(0,0,600, 600);
+            circleCard(1, 1, 200, 250, cardioidPosition);
+            cardioidPosition += 0.03;
+          }
+
+          var card;
+
+          vm.startCard = function() {
+            card = setInterval(drawCardioid, 70);
+          };
+
+          vm.stopCard = function() {
+            clearInterval(card);
+          };
+
+
+
+
+
+
+
+
+
+        // var canvasMan = document.getElementById('mandelbrot');
+        // var ctxMan = canvasMan.getContext('2d');
 
         function drawMandelbrot() {
           var mag = 260;
@@ -69,7 +122,7 @@ app.controller('MathController', function($location, $scope, $anchorScroll, $com
           // return false;
         }
 
-        drawMandelbrot();
+        // drawMandelbrot();
 
         function drawJulia(r, i) {
           var mag = 45;
