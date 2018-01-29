@@ -60,11 +60,11 @@
     </div>
 
     <div class="blogText">
-      It so happens that the cardioid appears in the Mandelbrot set because of the <i>2</i> that shows up in the iterated function: <span class="codeBit">f(z) = z<sup>2</sup> + c</span>. If we were to crank it up to <span class="codeBit">f(z) = z<sup>3</sup> + c</span>, we would see a nephroid: a kind of double-petaled cardioid. As we increase the power, <i>n</i>, to which <i>z</i> is taken, we increase the number of petals (to <i>n - 1</i>).
+      It so happens that the cardioid appears in the Mandelbrot set because of the <i>2</i> that shows up in the iterated function: <span class="codeBit">f(z) = z<sup>2</sup> + c</span>. If we were to crank it up to <span class="codeBit">f(z) = z<sup>3</sup> + c</span>, we would see a nephroid &mdash; a kind of double-petaled cardioid. As we increase the power, <i>n</i>, to which <i>z</i> is taken, we increase the number of petals (to <i>n - 1</i>).
     </div>
 
     <div class="blogText">
-      A rather fantastic way of illustrating this fact is by considering the multiplication table for <i>n</i>. We wrap the table around in a circle, and apply the <span class="codeBit">modulus</span> function to keep things going.
+      A rather fantastic way of illustrating this fact is by considering the multiplication table for <i>n</i>. We wrap the table around in a circle, and apply the <span class="codeBit">modulus</span> function to cycle.
     </div>
 
     <div class="blogText">
@@ -72,8 +72,9 @@
     </div>
 
     <div class="blogText">
-      Suppose <i>n</i> is 3, so that we're considering the 3-times table. We walk through our 'circle', at each point multiplying by three and drawing a line to that new dot. So if we're standing at dot number 6, we'll draw a line to dot number 18 (modulo whatever our <i>x</i> is). Stepping forward from <i>n = 1</i> looks like this:
+      Suppose <i>n</i> is 3, so that we're considering the 3-times table. We walk through our 'circle', at each point multiplying by three and drawing a line to that new dot. So if we're standing at dot number 6, we'll draw a line to dot number 18 (modulo whatever our <i>x</i> is). Stepping forward from <span class="codeBit">n = 1</span> looks like this:
     </div>
+    <br>
 
 
     <div layout layout-align="center center">
@@ -86,18 +87,9 @@
     </div>
 
 
-
-
-
-
-
-
     <div class="blogText">
-      You can find my full source code <a href="https://github.com/zackstout/Animations/blob/master/scripts/cardioid.js">here</a>.
+      You can find my full source code <a href="https://github.com/zackstout/Cardioid-animation">here</a>.
     </div>
-
-
-
 
 
 
@@ -159,26 +151,32 @@
       For a wonderful visual effect, we can choose what color to use for that pixel based on how long it takes our algorithm to determine whether the point belongs to the Mandelbrot set. Unsurprisingly, the brightest points &mdash; the ones for which it takes longest to determine membership &mdash; lie close to the set's border.
     </div>
 
+    <br><br>
     <div layout layout-align="center center">
       <img src="styles/mandel/mandlebrot.png" alt="">
     </div>
 
+    <br><br>
     <div class="blogText">
       If we zoom in on a piece of our set, we can see that it repeats its structure all the way down:
     </div>
 
+    <br><br>
     <div layout layout-align="center center">
       <img src="styles/mandel/zoom.png" alt="">
     </div>
 
+    <br><br>
     <div class="blogText">
       By playing around with the numbers, one can find some intriguing patterns:
     </div>
 
+    <br><br>
     <div layout layout-align="center center">
       <img src="styles/mandel/julia.png" alt="">
     </div>
 
+    <br><br>
     <div class="blogText">
       You can find my full source code <a href="https://github.com/zackstout/Animations/blob/master/scripts/mandelbrot.js">here</a>.
     </div>
