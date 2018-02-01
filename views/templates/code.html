@@ -78,6 +78,48 @@
     Let's walk through the steps for setting up a Django project. If you don't have Python3, you should <a href="https://www.ics.uci.edu/~pattis/common/handouts/pythoneclipsejava/python.html">install</a> it. It should come with <span class="codeBit">pip3</span>, which will allow you to install packages for your projects (much like <span class="codeBit">npm</span>).
   </div> -->
 
+  <!-- Note: credit sentdex as well as that other guy's excellent vid.
+
+  Zacks-MacBook-Air:more-django zackstout$ python3 -m venv env
+Zacks-MacBook-Air:more-django zackstout$ source env/bin/activate
+(env) Zacks-MacBook-Air:more-django zackstout$ pip3 install django
+(env) Zacks-MacBook-Air:more-django zackstout$ django-admin startproject gogo
+^ creates the directory for you
+
+(env) Zacks-MacBook-Air:more-django zackstout$ cd gogo
+(env) Zacks-MacBook-Air:gogo zackstout$ python3 manage.py runserver
+CTRL + C.
+(env) Zacks-MacBook-Air:gogo zackstout$ python3 manage.py startapp goapp
+
+Settings:
+INSTALLED_APPS = [
+    'goapp',
+
+Urls:
+    from django.conf.urls import include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('goapp/', include('goapp.urls'),
+    ]
+
+In goapp.views:
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("<h1> HI </h1>")
+
+Create urls.py in goapp:
+from django.conf.urls import url
+from . import views
+urlpatterns = [url(r'^$', views.index, name='index')]
+
+Now visit localhost:8000/goapp.
+
+Add url(r'^$', include('goapp.urls')), to base URLS file to make home go here.
+
+WOW there's a lot here. This is the set up. Can do a second post on the features you get for going through this convoluted process. -->
+
 
 
 
