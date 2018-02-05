@@ -241,6 +241,11 @@ hr {
   height: auto;
 }
 
+.preview2 {
+  width: 320px;
+  height: auto;
+}
+
 .emailCont {
   margin-top: 2px;
 }
@@ -256,6 +261,11 @@ hr {
 }
 
 .containerContainer li {
+  margin-bottom: 22px;
+  font-size: 21px;
+}
+
+.containerContainer2 li {
   margin-bottom: 22px;
   font-size: 21px;
 }
@@ -406,8 +416,11 @@ outline: none;
 }
 
 
-
 .containerContainer {
+  margin-left: 50px;
+}
+
+.containerContainer2 {
   margin-left: 50px;
 }
 
