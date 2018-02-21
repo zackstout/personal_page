@@ -47,9 +47,116 @@
 
   <div class="blogContent" layout="column" flex="60">
 
-  <!-- <div layout layout-align="center center">
-    <canvas id="cardioid" width="500" height="500"></canvas>
-  </div> -->
+
+<!--
+    <hr>
+
+    <div layout="column" layout-align="center center" id="post11">
+      <div >
+        <h2 class="blogTitle">3D Rendering with three-js and Browserify</h2>
+      </div>
+      <div class="blogSubtitle">
+        Feb. 21, 2018
+      </div>
+    </div>
+
+    <div class="blogText">
+      Using <a href="https://socket.io/">Socket.io</a> is fun and pretty simple once you get the hang of it.
+    </div>
+
+     -->
+
+  <hr>
+
+  <div layout="column" layout-align="center center" id="post11">
+    <div >
+      <h2 class="blogTitle">Getting Started with Socket.io</h2>
+    </div>
+    <div class="blogSubtitle">
+      Feb. 21, 2018
+    </div>
+  </div>
+
+  <div class="blogText">
+    Phew, it's been a while since my last post! It's been an exciting challenge to balance the tasks of learning, building, searching for a job, and writing.
+  </div>
+
+  <div class="blogText">
+    Anyways, using <a href="https://socket.io/">Socket.io</a> is fun and pretty intuitive once you get the hang of it.
+  </div>
+
+  <div class="blogText">
+    As I understand it, a web socket is an immediate and continuous connection between a server and the various clients that are pinging it. This means that we can update each user's client based on information in the server &emdash; without the user needing to refresh their browser.
+  </div>
+
+  <div class="blogText">
+    I learned Socket.io by building a simple 1-v-1 game, Tic-Tac-Toe. Users can see a list of other users online, can send and accept invitations to play games, and claim victory against their opponents.
+  </div>
+
+  <div class="blogText">
+    To start, <span class="codeBit">npm install express socket.io --save</span>. Then spin up your app with some boilerplate code:
+  </div>
+
+  <pre><div class="code" layout layout-align="center center">var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+  </div></pre>
+
+  <div class="blogText">
+    Then we can declare a global function, <span class="codeBit">io.on('connection', function(socket){ });</span>, inside of which we can place our socket controllers, like so:
+  </div>
+
+  <pre><div class="code" layout layout-align="center center">socket.on('logon', function() {
+    userIds.push(socket.id);
+    io.emit('ids', userIds);
+  });</div></pre>
+
+  <div class="blogText">
+    These functions may take in parameters (data from the client-side event that triggers the server-side socket event-handler), but they needn't. In this case, we're grabbing the ID assigned to this particular client-server socket connection and storing it in a global array. Finally, we <span class="codeBit">emit</span> back to each client a response: in this case, the array of all online users.
+  </div>
+
+  <div class="blogText">
+    Note that we call the event 'ids' here so that we can pick it up on the client-side by using the same name. Similarly, we call the triggering event 'logon', so that we can specify its trigger on the client-side.
+  </div>
+
+  <div class="blogText">
+    Our client-side code looks something like this (I'm using jQuery to enable user interaction with the page):
+  </div>
+
+  <pre><div class="code" layout layout-align="center center">      &lt;script src="/socket.io/socket.io.js"><&lt;/script>
+      &lt;script src="https://code.jquery.com/jquery-1.11.1.js">&lt;/script>
+      &lt;script>
+        $(function () {
+          var socket = io();
+          socket.emit('logon');
+        });
+      &lt;/script></div></pre>
+
+  <div class="blogText">
+    Whenever a user visits the site, pinging the server, a socket-connection is initiated, and the client <span class="codeBit">emits</span> to the server, triggering the 'logon' event-handler. As we saw above, this initiates a process on the server that <span class="codeBit">emits</span> back out to each client an updated list of online users.
+  </div>
+
+  <div class="blogText">
+    We'll want to update this list when a user disconnects as well ('disconnect' is a keyword in Socket.io: we don't have to define this event on the client-side):
+  </div>
+
+  <pre><div class="code" layout layout-align="center center">socket.on('disconnect', function(){
+    userIds.splice(userIds.indexOf(socket.id), 1);
+    io.emit('ids', userIds);
+  });</div></pre>
+
+  <div class="blogText">
+    
+  </div>
 
 
 
