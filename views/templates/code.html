@@ -51,6 +51,90 @@
 
 
 
+
+      <hr>
+
+      <div layout="column" layout-align="center center" id="post12">
+        <div >
+          <h2 class="blogTitle">Fun with Three.js and Browserify</h2>
+        </div>
+        <div class="blogSubtitle">
+          Feb. 20, 2018
+        </div>
+      </div>
+
+      <div class="blogText">
+        Lately I've been having a lot of fun developing some cool 3d structures with Three.js: a <a href="https://github.com/zackstout/Menger-Sponge-3d">Menger sponge fractal</a>, and a <a href="https://github.com/zackstout/Game-of-life-3d-final"><img id="rightImage" src="styles/2d-image.png" alt="">representation of Conway's Game of Life</a> (with time on the y-axis, marching upwards, each generation of live cells rendered as a horizontal time-slice).
+      </div>
+
+      <div class="blogText">
+        <img id="leftImage" src="styles/3d-image.png" alt="">
+        <a href="https://threejs.org/">Three.js</a> isn't tough to get started with, and it's a blast to play around with. It feels great seeing your idea come to life on the screen. I find the interface (i.e. writing in JavaScript) more familiar than Unity's, though I suspect Unity offers more power and flexibility.
+      </div>
+
+      <div class="blogText">
+        That being said, there's plenty you can do with Three.js. The boilerplate code to spin up a three-dimensional scene involves creating a scene, a camera, and a renderer, and attaching the renderer to the DOM. (The following is pretty much straight from Three.js's excellent <a href="https://threejs.org/docs/index.html#manual/introduction/Creating-a-scene">example</a> for getting started.)
+      </div>
+
+      <pre><code layout layout-align="center center">  var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera( 75,
+        window.innerWidth/window.innerHeight, 0.1, 1000 );
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      document.body.appendChild( renderer.domElement );</code></pre>
+
+
+      <div class="blogText">
+        Then, we add something to our scene (in this case a solitary cube) by generating a <span class="codeBit">geometry</span> and a <span class="codeBit">material</span> and composing them into a <span class="codeBit">mesh</span>, and kick off the animation of our rotating cube.
+      </div>
+
+      <pre><code layout layout-align="center center">  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+      var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+      var cube = new THREE.Mesh( geometry, material );
+      scene.add( cube );
+
+      var animate = function() {
+        requestAnimationFrame( animate );
+        cube.rotation.x += 0.01;
+        renderer.render(scene, camera);
+      }
+
+      animate();</code></pre>
+
+      <div class="blogText">
+        With that, we're off and running. We can add different kinds of bodies with varying skins and shapes to our scene, change their positions as time moves forward, dictate whether time advances continuously or in discrete steps &mdash; all sorts of fun stuff.
+      </div>
+
+      <div class="blogText">
+        The thing that gave me the most trouble when learning to use this library was realizing that, in order to easily access a number of great Three.js plugins, it helps to use a dependency manager such as Browserify.
+      </div>
+
+      <div class="blogText">
+        This enables you to exploit the power of <span class="codeBit">npm</span> on the client side. Set up your <span class="codeBit">package.json</span> file with <span class="codeBit">npm init --yes</span>, and then <span class="codeBit">npm install three --save</span>. Now, we can easily import a package to enable the user to control the camera by click-dragging and scrolling: <span class="codeBit">npm install three-orbit-controls --save</span>. Now in our client code, we just need to add
+      </div>
+
+      <pre><code layout layout-align="center center">  var THREE = require('three');
+      var OrbitControls = require('three-orbit-controls')(THREE);</code></pre>
+
+      <div class="blogText">
+        The only catch is, we need to add an empty <span class="codeBit">bundle.js</span> file to our project's directory, living next to our <span class="codeBit">draw.js</span> file. Before running your code in the browser, or refreshing the page after updating your code, you'll need to run <span class="codeBit">browserify draw.js -o bundle.js</span> in order to generate an executable file with all of the necessary dependencies bundled in. Oh &mdash; and you'll need to globally install Browserify:
+      </div>
+
+      <pre><code layout layout-align="center center">npm install browserify</code></pre>
+
+      <div class="blogText">
+        It's an enjoyable library to explore; I encourage you to check it out! Here's the <a href="https://en.wikipedia.org/wiki/Menger_sponge">Menger sponge</a> viewed from inside:
+      </div>
+
+      <div layout layout-align="center center">
+        <img height="450px" src="styles/menger-inside.png" alt="">
+      </div>
+
+
+
+
+
+
   <hr>
 
   <div layout="column" layout-align="center center" id="post13">
@@ -157,83 +241,6 @@ http.listen(3000, function(){
 
 
 
-  <hr>
-
-  <div layout="column" layout-align="center center" id="post12">
-    <div >
-      <h2 class="blogTitle">Fun with Three.js and Browserify</h2>
-    </div>
-    <div class="blogSubtitle">
-      Feb. 20, 2018
-    </div>
-  </div>
-
-  <div class="blogText">
-    Lately I've been having a lot of fun developing some cool 3d structures with Three.js: a <a href="https://github.com/zackstout/Menger-Sponge-3d">Menger sponge fractal</a>, and a <a href="https://github.com/zackstout/Game-of-life-3d-final"><img id="rightImage" src="styles/2d-image.png" alt="">representation of Conway's Game of Life</a> (with time on the y-axis, marching upwards, each generation of live cells rendered as a horizontal time-slice).
-  </div>
-
-  <div class="blogText">
-    <img id="leftImage" src="styles/3d-image.png" alt="">
-    <a href="https://threejs.org/">Three.js</a> isn't tough to get started with, and it's a blast to play around with. It feels great seeing your idea come to life on the screen. I find the interface (i.e. writing in JavaScript) more familiar than Unity's, though I suspect Unity offers more power and flexibility.
-  </div>
-
-  <div class="blogText">
-    That being said, there's plenty you can do with Three.js. The boilerplate code to spin up a three-dimensional scene involves creating a scene, a camera, and a renderer, and attaching the renderer to the DOM. (The following is pretty much straight from Three.js's excellent <a href="https://threejs.org/docs/index.html#manual/introduction/Creating-a-scene">example</a> for getting started.)
-  </div>
-
-  <pre><code layout layout-align="center center">  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera( 75,
-    window.innerWidth/window.innerHeight, 0.1, 1000 );
-  var renderer = new THREE.WebGLRenderer();
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  document.body.appendChild( renderer.domElement );</code></pre>
-
-
-  <div class="blogText">
-    Then, we add something to our scene (in this case a solitary cube) by generating a <span class="codeBit">geometry</span> and a <span class="codeBit">material</span> and composing them into a <span class="codeBit">mesh</span>, and kick off the animation of our rotating cube.
-  </div>
-
-  <pre><code layout layout-align="center center">  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-  var cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
-
-  var animate = function() {
-    requestAnimationFrame( animate );
-    cube.rotation.x += 0.01;
-    renderer.render(scene, camera);
-  }
-
-  animate();</code></pre>
-
-  <div class="blogText">
-    With that, we're off and running. We can add different kinds of bodies with varying skins and shapes to our scene, change their positions as time moves forward, dictate whether time advances continuously or in discrete steps &mdash; all sorts of fun stuff.
-  </div>
-
-  <div class="blogText">
-    The thing that gave me the most trouble when learning to use this library was realizing that, in order to easily access a number of great Three.js plugins, it helps to use a dependency manager such as Browserify.
-  </div>
-
-  <div class="blogText">
-    This enables you to exploit the power of <span class="codeBit">npm</span> on the client side. Set up your <span class="codeBit">package.json</span> file with <span class="codeBit">npm init --yes</span>, and then <span class="codeBit">npm install three --save</span>. Now, we can easily import a package to enable the user to control the camera by click-dragging and scrolling: <span class="codeBit">npm install three-orbit-controls --save</span>. Now in our client code, we just need to add
-  </div>
-
-  <pre><code layout layout-align="center center">  var THREE = require('three');
-  var OrbitControls = require('three-orbit-controls')(THREE);</code></pre>
-
-  <div class="blogText">
-    The only catch is, we need to add an empty <span class="codeBit">bundle.js</span> file to our project's directory, living next to our <span class="codeBit">draw.js</span> file. Before running your code in the browser, or refreshing the page after updating your code, you'll need to run <span class="codeBit">browserify draw.js -o bundle.js</span> in order to generate an executable file with all of the necessary dependencies bundled in. Oh &mdash; and you'll need to globally install Browserify:
-  </div>
-
-  <pre><code layout layout-align="center center">npm install browserify</code></pre>
-
-  <div class="blogText">
-    It's an enjoyable library to explore; I encourage you to check it out! Here's the <a href="https://en.wikipedia.org/wiki/Menger_sponge">Menger sponge</a> viewed from inside:
-  </div>
-
-  <div layout layout-align="center center">
-    <img height="450px" src="styles/menger-inside.png" alt="">
-  </div>
 
 
   <!-- <hr>
@@ -1139,10 +1146,8 @@ WOW there's a lot here. This is the set up. Can do a second post on the features
   <div class="prevPosts" layout="column" flex="12">
     <div class="allposts" layout layout-align="center center">Code Posts:</div>
     <ul class="postlist">
-      <li ng-click="cc.goToPost(13)">Getting Started with Socket.io</li>
-
       <li ng-click="cc.goToPost(12)">Fun with Three.js and Browserify</li>
-
+      <li ng-click="cc.goToPost(13)">Getting Started with Socket.io</li>
       <li ng-click="cc.goToPost(11)">Building Snake</li>
       <li ng-click="cc.goToPost(10)">Building Minesweeper</li>
       <li ng-click="cc.goToPost(9)">Creating a Customizable Chart</li>
