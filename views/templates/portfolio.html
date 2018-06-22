@@ -1,318 +1,331 @@
 
 
 <div layout="row" class="wholeEnchilada">
-        <div layout="column" flex="15" ng-controller="NavController as nc">
+  <div layout="column" flex="15" ng-controller="NavController as nc">
 
-          <div class="sideNavHolder">
-            <div class="sideNav">
-              <div class="clickMe" ng-click="nc.goHome()">About Me</div>
-            </div>
-            <div class="sideNav">
-              <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
-            </div>
-            <div class="sideNav">
-              <div class="clickMe alive" ng-click="nc.goPort()">Portfolio</div>
-            </div>
+    <div class="sideNavHolder">
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goHome()">About Me</div>
+      </div>
+      <div class="sideNav">
+        <div class="clickMe" ng-click="nc.goBlog()">Blog</div>
+      </div>
+      <div class="sideNav">
+        <div class="clickMe alive" ng-click="nc.goPort()">Portfolio</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div layout="column" flex="80">
+    <!-- <h1 class="portfolioHead">Portfolio</h1> -->
+    <br>
+    <div class="cycloidCont" layout layout-align="center center">
+      <canvas id="cycloid" width="600" height="150"></canvas>
+
+    </div>
+
+
+    <span class="PortHeader">Recent Projects</span>
+
+    <div layout="column" class="recProj">
+
+
+      <p>Check out my recent projects <span class="projs" ng-click="pc.goRecent()">here</span>!</p>
+    </div>
+
+
+
+
+
+    <span class="PortHeader">Animations</span>
+
+    <div layout="column">
+
+
+
+
+      <div class="projContainer" layout="row">
+        <div class="imageContainer2">
+          <a class="linkText" href="https://github.com/zackstout/Animations">
+
+            <img class="preview2" src="styles/julia_set.png" alt="">
+          </a>
+        </div>
+        <div class="projectInfoContainer">
+
+          <div class="containerContainer2">
+            <!-- <p class="projName">
+            Things I've Built:
+          </p> -->
+
+          <ul>
+            <li><a href="views/animations/cardioid.html">Cardioid (Multiplication Tables)</a></li>
+            <li><a href="views/animations/phi.html">Golden Ratio: Phyllotaxis</a></li>
+            <li><a href="views/animations/cellular.html">Cellular Automata</a></li>
+            <li><a href="views/animations/mandelbrot.html">Mandelbrot Set</a></li>
+            <li><a href="views/animations/sierpinski.html">Sierpinski Triangle</a></li>
+            <li><a href="views/animations/pong.html">Pong</a></li>
+
+          </ul>
+
+          <div  class="iconContainer">
+            <p>
+              <a class="linkText" href="https://github.com/zackstout/Animations">
+                <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+              </p>
+              <!-- <p>
+              <a class="linkText" href="https://polar-spire-15237.herokuapp.com/">
+              <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
+            </p> -->
           </div>
 
+
         </div>
 
-        <div layout="column" flex="80">
-<!-- <h1 class="portfolioHead">Portfolio</h1> -->
-<br>
-<div class="cycloidCont" layout layout-align="center center">
-  <canvas id="cycloid" width="600" height="150"></canvas>
 
-</div>
 
-
-
-<span class="PortHeader">Animations</span>
-
-<div layout="column">
-
-
-<div class="projContainer" layout="row">
-  <div class="imageContainer2">
-    <a class="linkText" href="https://github.com/zackstout/Animations">
-
-    <img class="preview2" src="styles/julia_set.png" alt="">
-  </a>
-  </div>
-  <div class="projectInfoContainer">
-
-  <div class="containerContainer2">
-    <!-- <p class="projName">
-      Things I've Built:
-    </p> -->
-
-    <ul>
-      <li><a href="views/animations/cardioid.html">Cardioid (Multiplication Tables)</a></li>
-      <li><a href="views/animations/phi.html">Golden Ratio: Phyllotaxis</a></li>
-      <li><a href="views/animations/cellular.html">Cellular Automata</a></li>
-      <li><a href="views/animations/mandelbrot.html">Mandelbrot Set</a></li>
-      <li><a href="views/animations/sierpinski.html">Sierpinski Triangle</a></li>
-      <li><a href="views/animations/pong.html">Pong</a></li>
-
-    </ul>
-
-    <div  class="iconContainer">
-      <p>
-        <a class="linkText" href="https://github.com/zackstout/Animations">
-          <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-        </p>
-        <!-- <p>
-          <a class="linkText" href="https://polar-spire-15237.herokuapp.com/">
-          <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
-        </p> -->
-    </div>
-
-
-  </div>
-
-
-
-  </div>
-</div>
-</div>
-
-
-
-
-<span class="PortHeader">Group Project</span>
-
-<div layout="column">
-
-
-<div class="projContainer" layout="row">
-  <div class="imageContainer">
-    <a class="linkText" href="https://github.com/footprint-project/Footprint">
-
-    <img class="preview" src="styles/fpFront.png" alt="">
-  </a>
-  </div>
-  <div class="projectInfoContainer">
-
-  <div class="containerContainer">
-    <p class="projName">
-      Footprint
-    </p>
-
-
-    <ul>
-      <li>Upload monthly reports (as CSV-spreadsheets) reflecting your humanitarian organization's carbon footprint.</li>
-      <li>Create, edit and delete projects as well as monthly reports for those projects. </li>
-      <li>Visualize your data across all your projects over time, or in customizable ways &mdash; choosing your category and then your dividing variable.</li>
-    </ul>
-
-    <div  class="iconContainer">
-      <p>
-        <a class="linkText" href="https://github.com/footprint-project/Footprint">
-          <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-        </p>
-        <p>
-          <a class="linkText" href="https://polar-spire-15237.herokuapp.com/">
-          <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
-        </p>
-    </div>
-
-
-  </div>
-
-
-
-  </div>
-</div>
-</div>
-
-
-
-<span class="PortHeader">Solo Project</span>
-
-<div layout="column">
-
-
-<div class="projContainer" layout="row">
-  <div class="imageContainer">
-    <a class="linkText" href="https://github.com/zackstout/Solo_Project">
-
-    <img class="preview" src="styles/solo_preview.png" alt="">
-  </a>
-  </div>
-  <div class="projectInfoContainer">
-
-  <div class="containerContainer">
-    <p class="projName">
-      World Weaver
-    </p>
-
-
-    <ul>
-      <li>Design worlds (composed of a rotatable cannon, a target, obstacles, and a set of portals) for other users to play through and solve.</li>
-      <li>Save your worlds mid-edit, update the sizes and positions of your obstacles, and keep track of your favorite worlds as well as the worlds you've created.</li>
-      <li>See the fastest three times for completions of every world, and in the favorites list, see your best completion time for each world.</li>
-    </ul>
-
-    <div  class="iconContainer">
-      <p>
-        <a class="linkText" href="https://github.com/zackstout/Solo_Project">
-          <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-        </p>
-        <p>
-          <a class="linkText" href="https://hidden-fortress-46439.herokuapp.com">
-          <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
-        </p>
-    </div>
-
-
-  </div>
-
-
-
-  </div>
-</div>
-</div>
-
-<span class="PortHeader">Weekend Projects</span>
-
-<div layout="column">
-  <div class="projContainer" layout="row">
-    <div class="imageContainer"><a class="linkText" href="https://github.com/zackstout/real-estate-listings">
-      <img class="preview" src="styles/wkd5_preview.png" alt="">
-    </a></div>
-    <div class="projectInfoContainer">
-      <div class="containerContainer">
-
-      <p class="projName">
-      Golden Ratio Real Estate
-      </p>
-
-        <ul>
-          <li>Upload new real estate postings either for rent or for lease, along with their size, cost and location.&emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;</li>
-          <li>Sort rentals/listings by size or by cost, and search for rentals in particular cities.</li>
-          <li>View the best deals in terms of square feet per dollar.</li>
-        </ul>
-
-        <div  class="iconContainer">
-
-        <p>
-          <a class="linkText" href="https://github.com/zackstout/real-estate-listings">
-            <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-          </p>
-          <p>
-            <a class="linkText" href="https://tranquil-shore-40044.herokuapp.com/#!/listings">
-            <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
-          </p>
-        </div>
-
-    </div>
-  </div>
-  </div>
-
-
-  <div class="projContainer" layout="row">
-    <div class="imageContainer"><a class="linkText" href="https://github.com/zackstout/weekend4_assignment">
-      <img class="preview" src="styles/wkd4_preview.png" alt="">
-    </a>
-    </div>
-    <div class="projectInfoContainer">
-      <div class="containerContainer">
-
-      <p class="projName">
-        Fakebook
-      </p>
-
-        <ul>
-          <li>Add pictures with accompanying descriptions onto your page.</li>
-          <li>Other users can view your descriptions by clicking on your pictures, and can "like" and comment on your pictures. </li>
-        </ul>
-
-        <div  class="iconContainer">
-
-        <p>
-          <a class="linkText" href="https://github.com/zackstout/weekend4_assignment">
-            <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-          </p>
-          <p>
-            <a class="linkText" href="https://fierce-everglades-35141.herokuapp.com/">
-            <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
-          </p>
-        </div>
-    </div>
-  </div>
-  </div>
-
-
-  <div class="projContainer" layout="row">
-    <div class="imageContainer">
-      <a class="linkText" href="https://github.com/zackstout/wkd3_assignment">
-
-      <img class="preview" src="styles/wkd3_preview.png" alt="">
-</a>
-    </div>
-    <div class="projectInfoContainer">
-      <div class="containerContainer">
-
-      <p class="projName">
-        My Weekly Schedule
-      </p>
-
-        <ul>
-          <li>Enter new events with a category and due date. Events will display with a background-color signalling their category.</li>
-          <li>Update the names of your categories.</li>
-          <li>See an at-a-glance view of your upcoming week.</li>
-          <li>Mark your tasks as complete, or delete them.</li>
-        </ul>
-      <div  class="iconContainer">
-        <p>
-          <a class="linkText" href="https://github.com/zackstout/wkd3_assignment">
-            <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-          </p>
-          <p>
-            <!-- <a class="linkText" href="https://tranquil-shore-40044.herokuapp.com/#!/listings">
-            <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a> -->
-          </p>
-        </div>
-    </div>
-  </div>
-  </div>
-
-
-  <div class="projContainer" layout="row">
-    <div class="imageContainer">
-      <a class="linkText" href="https://github.com/zackstout/wkd2_assignment">
-
-      <img class="preview" src="styles/wkd2_preview.png" alt="">
-    </a>
-    </div>
-    <div class="projectInfoContainer">
-      <div class="containerContainer">
-
-      <p class="projName">
-        Calculator
-      </p>
-
-        <ul>
-          <li>Input a calculation-string and get the value of the computation, and then enter new calculation-strings using that value.</li>
-          <li>Previous calculations will display underneath the calculator.</li>
-          <li>Input demical numbers and swap each number's sign.</li>
-        </ul>
-
-        <div  class="iconContainer">
-
-        <p>
-          <a class="linkText" href="https://github.com/zackstout/wkd2_assignment">
-            <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
-          </p>
-          <p>
-            <a class="linkText" href="https://stark-everglades-66672.herokuapp.com/">
-            <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
-          </p>
-        </div>
       </div>
     </div>
   </div>
-</div>
 
-</div>
-</div>
+
+
+
+  <span class="PortHeader">Group Project</span>
+
+  <div layout="column">
+
+
+    <div class="projContainer" layout="row">
+      <div class="imageContainer">
+        <a class="linkText" href="https://github.com/footprint-project/Footprint">
+
+          <img class="preview" src="styles/fpFront.png" alt="">
+        </a>
+      </div>
+      <div class="projectInfoContainer">
+
+        <div class="containerContainer">
+          <p class="projName">
+            Footprint
+          </p>
+
+
+          <ul>
+            <li>Upload monthly reports (as CSV-spreadsheets) reflecting your humanitarian organization's carbon footprint.</li>
+            <li>Create, edit and delete projects as well as monthly reports for those projects. </li>
+            <li>Visualize your data across all your projects over time, or in customizable ways &mdash; choosing your category and then your dividing variable.</li>
+          </ul>
+
+          <div  class="iconContainer">
+            <p>
+              <a class="linkText" href="https://github.com/footprint-project/Footprint">
+                <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+              </p>
+              <p>
+                <a class="linkText" href="https://polar-spire-15237.herokuapp.com/">
+                  <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
+                </p>
+              </div>
+
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <span class="PortHeader">Solo Project</span>
+
+      <div layout="column">
+
+
+        <div class="projContainer" layout="row">
+          <div class="imageContainer">
+            <a class="linkText" href="https://github.com/zackstout/Solo_Project">
+
+              <img class="preview" src="styles/solo_preview.png" alt="">
+            </a>
+          </div>
+          <div class="projectInfoContainer">
+
+            <div class="containerContainer">
+              <p class="projName">
+                World Weaver
+              </p>
+
+
+              <ul>
+                <li>Design worlds (composed of a rotatable cannon, a target, obstacles, and a set of portals) for other users to play through and solve.</li>
+                <li>Save your worlds mid-edit, update the sizes and positions of your obstacles, and keep track of your favorite worlds as well as the worlds you've created.</li>
+                <li>See the fastest three times for completions of every world, and in the favorites list, see your best completion time for each world.</li>
+              </ul>
+
+              <div  class="iconContainer">
+                <p>
+                  <a class="linkText" href="https://github.com/zackstout/Solo_Project">
+                    <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+                  </p>
+                  <p>
+                    <a class="linkText" href="https://hidden-fortress-46439.herokuapp.com">
+                      <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
+                    </p>
+                  </div>
+
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <span class="PortHeader">Weekend Projects</span>
+
+          <div layout="column">
+            <div class="projContainer" layout="row">
+              <div class="imageContainer"><a class="linkText" href="https://github.com/zackstout/real-estate-listings">
+                <img class="preview" src="styles/wkd5_preview.png" alt="">
+              </a></div>
+              <div class="projectInfoContainer">
+                <div class="containerContainer">
+
+                  <p class="projName">
+                    Golden Ratio Real Estate
+                  </p>
+
+                  <ul>
+                    <li>Upload new real estate postings either for rent or for lease, along with their size, cost and location.&emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;</li>
+                    <li>Sort rentals/listings by size or by cost, and search for rentals in particular cities.</li>
+                    <li>View the best deals in terms of square feet per dollar.</li>
+                  </ul>
+
+                  <div  class="iconContainer">
+
+                    <p>
+                      <a class="linkText" href="https://github.com/zackstout/real-estate-listings">
+                        <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+                      </p>
+                      <p>
+                        <a class="linkText" href="https://tranquil-shore-40044.herokuapp.com/#!/listings">
+                          <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="projContainer" layout="row">
+                  <div class="imageContainer"><a class="linkText" href="https://github.com/zackstout/weekend4_assignment">
+                    <img class="preview" src="styles/wkd4_preview.png" alt="">
+                  </a>
+                </div>
+                <div class="projectInfoContainer">
+                  <div class="containerContainer">
+
+                    <p class="projName">
+                      Fakebook
+                    </p>
+
+                    <ul>
+                      <li>Add pictures with accompanying descriptions onto your page.</li>
+                      <li>Other users can view your descriptions by clicking on your pictures, and can "like" and comment on your pictures. </li>
+                    </ul>
+
+                    <div  class="iconContainer">
+
+                      <p>
+                        <a class="linkText" href="https://github.com/zackstout/weekend4_assignment">
+                          <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+                        </p>
+                        <p>
+                          <a class="linkText" href="https://fierce-everglades-35141.herokuapp.com/">
+                            <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="projContainer" layout="row">
+                    <div class="imageContainer">
+                      <a class="linkText" href="https://github.com/zackstout/wkd3_assignment">
+
+                        <img class="preview" src="styles/wkd3_preview.png" alt="">
+                      </a>
+                    </div>
+                    <div class="projectInfoContainer">
+                      <div class="containerContainer">
+
+                        <p class="projName">
+                          My Weekly Schedule
+                        </p>
+
+                        <ul>
+                          <li>Enter new events with a category and due date. Events will display with a background-color signalling their category.</li>
+                          <li>Update the names of your categories.</li>
+                          <li>See an at-a-glance view of your upcoming week.</li>
+                          <li>Mark your tasks as complete, or delete them.</li>
+                        </ul>
+                        <div  class="iconContainer">
+                          <p>
+                            <a class="linkText" href="https://github.com/zackstout/wkd3_assignment">
+                              <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+                            </p>
+                            <p>
+                              <!-- <a class="linkText" href="https://tranquil-shore-40044.herokuapp.com/#!/listings">
+                              <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a> -->
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="projContainer" layout="row">
+                      <div class="imageContainer">
+                        <a class="linkText" href="https://github.com/zackstout/wkd2_assignment">
+
+                          <img class="preview" src="styles/wkd2_preview.png" alt="">
+                        </a>
+                      </div>
+                      <div class="projectInfoContainer">
+                        <div class="containerContainer">
+
+                          <p class="projName">
+                            Calculator
+                          </p>
+
+                          <ul>
+                            <li>Input a calculation-string and get the value of the computation, and then enter new calculation-strings using that value.</li>
+                            <li>Previous calculations will display underneath the calculator.</li>
+                            <li>Input demical numbers and swap each number's sign.</li>
+                          </ul>
+
+                          <div  class="iconContainer">
+
+                            <p>
+                              <a class="linkText" href="https://github.com/zackstout/wkd2_assignment">
+                                <img class="icon2" src="styles/github_icon.svg">GitHub Repository</a>
+                              </p>
+                              <p>
+                                <a class="linkText" href="https://stark-everglades-66672.herokuapp.com/">
+                                  <img class="icon2" src="styles/heroku_icon.png" alt="">Live Demo</a>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>

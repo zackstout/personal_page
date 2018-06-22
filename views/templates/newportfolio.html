@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>portfolio</title>
+
+  <style media="screen">
+  body {
+    margin: 10px;
+    padding: 10px 40px;
+  }
+
+  li {
+    font-size: 17px;
+    padding: 4.5px 0px;
+  }
+
+  img {
+    /*align-content: center;*/
+    width: 500px;
+    padding: 20px;
+  }
+
+  hr {
+    margin: 35px 10px;
+    height: 2.65px;
+    background-color: lightgray;
+    border: 0;
+    /*display: block;*/
+  }
+
+  .fill-space {
+    flex: 1 1 auto;
+  }
+  </style>
+</head>
+
+<body>
+  <h2>Zack Stout</h2>
+  <div layout="row">
+    <div layout="col">
+      <p>Here are some of the projects I've been working on in the past few months. Thanks for stopping by!</p>
+
+    </div>
+    <span class="fill-space"></span>
+    <div layout="col">
+      <button type="button" class="btn btn-primary" ng-click="npc.goBack()" name="button">Go Back</button>
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+
+
+    <!-- Tab panes -->
+    <uib-tabset active="active">
+
+      <!-- ========= MATH ========= -->
+      <uib-tab index="0" heading="Math">
+
+        <h3>Spirograph</h3>
+        <ul>
+          <li>The initial idea was to simulate the way that celestial bodies orbit one another. But after messing around with the parameters, it became clear that this app is more useful and fun as a spirograph, for generating strange patterns.</li>
+          <li>Here's the (admittedly unwieldy) <a href="https://github.com/zackstout/Spirograph">code</a>.</li><img src="https://media.giphy.com/media/5z22AlewByFeYjAMOU/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Recaman Sequence</h3>
+        <ul>
+          <li>I learned about <a href="https://mathlesstraveled.com/2016/06/12/the-recaman-sequence/">this sequence</a> and wanted to code a visualization, inspired by this <a href="https://www.youtube.com/watch?v=FGC5TdIiT9U&t=519s">video</a>.</li>
+          <li>Here's the <a href="https://github.com/zackstout/recaman-sequence-visualization">code</a>.</li>
+          <img src="https://media.giphy.com/media/2skXrGZ4114kcXOmrN/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Cardioid</h3>
+        <ul>
+          <li>I saw this <a href="https://www.youtube.com/watch?v=qhbuKbxJsk8">animation</a> and wanted to recreate it.</li>
+          <li>The code can be found <a href="https://github.com/zackstout/Cardioid-animation">here</a>.</li>
+          <img src="https://media.giphy.com/media/55kuf6j3AzeV51NOih/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+
+        <h3>Leaf-growth</h3>
+        <ul>
+          <li>Animating a spiral that demonstrates why irrational angles (such as the <a href="https://en.wikipedia.org/wiki/Golden_angle">golden angle</a>) are ideal for phyllotaxis.</li>
+          <li>Built with p5.js.</li>
+          <li>If you want to watch it spin eternally, go <a href="https://zackstout.github.io/irrational-angles/">here</a>.</li>
+          <li>Find the code <a href="https://github.com/zackstout/irrational-angles">here</a>. Here's a <a href="http://zstout.com/views/animations/phi.html">related animation</a> I made of a flower generating petals according to the golden ratio.</li>
+          <img src="https://media.giphy.com/media/4H6XQKORxinNOLrc2B/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Vector Fields</h3>
+        <ul>
+          <li>Using Perlin noise to generate random vector fields, and then animating balls that follow the dictated paths.</li>
+          <li>Built with p5.js.</li>
+          <li>Code can be found <a href="https://github.com/zackstout/vector-fields">here</a>.</li>
+          <img src="https://media.giphy.com/media/27bJJnnAUiCrNpsuoC/giphy.gif" alt="">
+        </ul>
+      </uib-tab>
+
+
+
+
+
+
+      <!-- ========= PHYSICS ========= -->
+      <uib-tab index="1" heading="Physics">
+        <h3>Sonic Boom</h3>
+        <ul>
+          <li>An interactive visualization of the sound waves of moving bodies. </li>
+          <li>Built with p5.js and basic object-oriented programming principles.</li>
+          <li>Here's the <a href="https://github.com/zackstout/sonic-boom-animation">code repo</a>, and here's a live <a href="https://zackstout.github.io/sonic-boom-animation/">demo</a>.</li>
+          <img src="https://media.giphy.com/media/1sxrwapH6traeMLu51/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Charged Particles</h3>
+        <ul>
+          <li>An interactive animation of Coulomb's law, which describes how oppositely-charged particles interact.</li>
+          <li>Built with p5.js.</li>
+          <li>Here's the <a href="https://github.com/zackstout/physics-of-attraction">code repo</a>, and here's a live <a href="https://zackstout.github.io/physics-of-attraction/">demo</a>.</li>
+          <img src="https://media.giphy.com/media/5C2aIbHNU1HJB9cDHE/giphy.gif" alt="">
+        </ul>
+      </uib-tab>
+
+
+
+
+
+      <!-- ========= DATA VIS ========= -->
+      <uib-tab index="2" heading="Data Vis.">
+        <h3>Shakespeare Text</h3>
+        <ul>
+          <li>The main idea is to create innovative ways to interact with Shakespeare's text, which I scraped from <a href="http://shakespeare.mit.edu/">here</a>.</li>
+          <li>One idea is to map the total sentiment (cumulative sum of sentiments of individual words) over time; below, we see this for <i>King Lear</i>.</li>
+          <li>Built with NLTK and PostgreSQL; here's the main bit of <a href="https://github.com/zackstout/shakespeare-to-database">code</a>.</li>
+          <img src="styles/images/lear.png" alt="">
+          <!-- <li><a href="https://github.com/zackstout/shakespeare-to-database">Github</a></li>
+          <li><a href="https://github.com/zackstout/Shakespeare-scraping">Github</a></li>
+          <li><a href="https://github.com/zackstout/flask-nltk-shakespeare">Github</a></li> -->
+        </ul>
+
+
+        <hr>
+
+        <h3>Roman Emperors</h3>
+        <ul>
+          <li>User can choose a category (e.g. way of rising to power), a particular (e.g. seizing power), and then a slice (e.g. by dynasty or birth province).</li>
+          <li>Results display on a bar chart against a background of *all* emperors sliced in the same way.</li>
+          <li>Built with Flask, Pandas and Chart.js; here lies the <a href="https://github.com/zackstout/flask-roman-emperors">repository</a>.</li>
+          <img src="styles/images/emps.png" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Tarantino Films</h3>
+        <ul>
+          <li>It was a fun challenge to map out the number of deaths and curses per minute in each of Tarantino’s films.</li>
+          <li>Built with Pandas and Matplotlib; here's the <a href="https://github.com/zackstout/d3-intro">code</a>.</li>
+          <!-- <li><a href="https://github.com/zackstout/d3-intro">Github</a></li> -->
+          <img src="styles/images/tarantino_films.png" alt="">
+          <!-- <li><a href="https://github.com/zackstout/data-science-sandbox">Github</a></li> -->
+        </ul>
+
+        <hr>
+
+        <h3>Gun Violence</h3>
+        <ul>
+          <li>Built with Flask and Pandas.</li>
+          <li><a href="https://github.com/zackstout/gun-violence">Github</a></li>
+        </ul>
+      </uib-tab>
+
+
+
+
+
+      <!-- ========= ALGORITHMOS ========= -->
+
+      <uib-tab index="3" heading="Algorithms">
+        <h3>Mazes</h3>
+        <ul>
+          <li>An algorithm to generate random mazes (with recursive-backtracking).</li>
+          <li>Built with p5.js.</li>
+          <li>Here's the <a href="https://github.com/zackstout/maze-generator">repo</a>, and here's the <a href="https://zackstout.github.io/maze-generator/">demo</a>, if you'd care to see many randomly-generated mazes!</li>
+          <img src="https://media.giphy.com/media/6Gay6xtiKFu9hcgKcs/giphy.gif" alt="">
+          <!-- <iframe src="https://giphy.com/embed/6Gay6xtiKFu9hcgKcs" width="480" height="478" frameBorder="0"  ></iframe><p><a href="https://giphy.com/gifs/6Gay6xtiKFu9hcgKcs"></a></p> -->
+        </ul>
+
+        <hr>
+
+        <h3>Sorting</h3>
+        <ul>
+          <li>I coded a number of sorting algorithms, tested their performance, and animated one of them (bubble sort).</li>
+          <li>Here's the <a href="https://github.com/zackstout/sorting-algorithms">code repo</a>, as well as a table of the results.</li>
+          <img src="https://media.giphy.com/media/cCalx8nIGgjzw1bM2r/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Game of Life</h3>
+        <ul>
+          <li>A 3-dimensional version of the Game of Life, with time represented on the vertical axis. Seen below is the glider, making a kind of staircase.</li>
+          <li>Built with Three.js and Browserify; find the code <a href="https://github.com/zackstout/Game-of-life-3d-final">here</a>.</li>
+          <img src="https://media.giphy.com/media/2kQC1p40oijIImaNSD/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Genetic Algorithm</h3>
+        <ul>
+          <li>My first serious foray into machine learning. Instead of starting with neural nets, I decided to start with an algorithm all of whose pieces I understood.</li>
+          <li>The goal is to determine which angle is "best" for plants to spawn their leaves at: which angle maximizes surface area of leaves exposed to sunlight?</li>
+          <li>Here's the <a href="https://github.com/zackstout/phyllotaxis-machine-learning">code</a>, in which I try to follow the principles of object-oriented programming.</li>
+        </ul>
+
+        <hr>
+
+        <h3>Cellular Automata</h3>
+        <ul>
+          <li>An interface for users to explore the strange patterns that emerge from cellular automata (the 1-dimensional progenitors of the Game of Life).</li>
+          <li>The most fun part of working on this app was trying to find the most elegant way to represent the transformation rules (ultimately, as binary numbers).</li>
+          <li>Built with p5.js and jQuery.</li>
+          <li>Here's the <a href="https://github.com/zackstout/cellular-automata">Github repo</a>.</li>
+          <img src="styles/images/cells.png" alt="">
+        </ul>
+      </uib-tab>
+
+
+
+
+
+
+      <!-- ========= GAMEZ ========= -->
+
+      <uib-tab index="4" heading="Games">
+        <h3>Snake</h3>
+        <ul>
+          <li>The classic game. This was a fun exercise in game design.</li>
+          <li>Use the WSAD keys to navigate. As a fun "bug", the snake can eat its own tail!</li>
+          <li>Find the code repo <a href="https://github.com/zackstout/Snake">here</a>.</li>
+          <!-- <img src="styles/images/snek.png" alt=""> -->
+          <img src="https://media.giphy.com/media/lYibPVKN7bSUa3ix2Z/giphy.gif" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Tic Tac Toe</h3>
+        <ul>
+          <li>A 1-v-1 game that allows players to duel in realtime. This was a great way to start learning web sockets!</li>
+          <li>Built with Socket.io and jQuery.</li>
+          <li>Here's the <a href="https://github.com/zackstout/Tic-Tac-Toe-socket-io">code</a>.</li>
+          <img src="https://media.giphy.com/media/30pyLgpUgzEiVaPuwj/giphy.gif" alt="">
+        </ul>
+      </uib-tab>
+
+
+
+      <!-- ========= APIs ========= -->
+
+
+      <uib-tab index="5" heading="APIs">
+        <h3>Starmap</h3>
+        <ul>
+          <li>A work-in-progress API for delivering data about stars.</li>
+          <li>The most fun (and frustrating) part of working on this app was building out the user interface, a clickable star-map with either rectangular or polar coordinates.</li>
+          <li>I used Python for the web-scraping and JavaScript for displaying the map.</li>
+          <li>Seekers of the <a href="https://github.com/zackstout/starmap">code</a>, look no further.</li>
+          <img src="styles/images/starmap.png" alt="">
+        </ul>
+
+        <hr>
+
+        <h3>Chemical Elements</h3>
+        <ul>
+          <li>Reproducing the periodic table of the elements with some user interaction (click on an element to see facts about it).</li>
+          <li>I used Node to scrape Wikipedia for the data and p5.js to build the chart.</li>
+          <li>Find the code <a href="https://github.com/zackstout/chemical-elements-api">here</a>.</li>
+          <img src="styles/images/elements.png" alt="">
+        </ul>
+      </uib-tab>
+
+
+    </uib-tabset>
+    <!-- </div> -->
+
+  </div>
+
+</body>
+</html>

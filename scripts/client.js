@@ -1,7 +1,7 @@
 
 console.log('we in');
 
-var app = angular.module('app', ['ngRoute', 'ngMaterial']);
+var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
@@ -19,6 +19,16 @@ app.config(function($routeProvider, $locationProvider) {
     controller: 'PortfolioController as pc'
 
   })
+  .when('/newportfolio', {
+    templateUrl: 'views/templates/newportfolio.html',
+    controller: 'NewPortfolioController as npc'
+
+  })
+  // .when('/test', {
+  //   templateUrl: 'views/templates/test.html',
+  //   controller: 'testController as tc'
+  //
+  // })
   .when('/code', {
     templateUrl: 'views/templates/code.html',
     controller: 'CodeController as cc'

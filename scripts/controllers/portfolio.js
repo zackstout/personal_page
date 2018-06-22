@@ -7,6 +7,16 @@ app.controller('PortfolioController', function($location) {
 
   var t=0;
 
+
+
+  var vm = this;
+  vm.goRecent = function() {
+    $location.path('/newportfolio');
+
+  };
+
+
+
   ctx.translate(300, 0);
   // ctx.beginPath();
   // ctx.arc(0, 75, 75, 0, 2*Math.PI);

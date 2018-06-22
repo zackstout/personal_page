@@ -1,0 +1,23 @@
+{
+  "name": "personal_page",
+  "version": "1.0.0",
+  "description": "A static landing page containing links to my GitHub and LinkedIn accounts, a portfolio of my work, and my blog!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zackstout/personal_page.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zackstout/personal_page/issues"
+  },
+  "homepage": "https://github.com/zackstout/personal_page#readme",
+  "dependencies": {
+    "angular-ui-bootstrap": "^2.5.6"
+  }
+}
